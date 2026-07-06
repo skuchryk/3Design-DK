@@ -70,6 +70,24 @@
     if (decline) decline.addEventListener("click", function () { setConsent("denied"); });
   }
 
+  // Track clicks on the "Get HotspotUV" (Gumroad) buttons in GA4.
+  // Fires a custom `purchase_click` event; GA respects Consent Mode, so it is
+  // only sent for visitors who accepted analytics. gtag uses sendBeacon, so the
+  // event survives the navigation to Gumroad.
+  document.querySelectorAll('a[href*="gumroad.com"]').forEach(function (link) {
+    link.addEventListener("click", function () {
+      if (typeof window.gtag !== "function") return;
+      var section = link.closest("section, header");
+      var location = (section && section.id) || "unknown";
+      window.gtag("event", "purchase_click", {
+        link_location: location,
+        item_id: "hotspotuv",
+        currency: "USD",
+        value: 15
+      });
+    });
+  });
+
   // Current year in footer
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

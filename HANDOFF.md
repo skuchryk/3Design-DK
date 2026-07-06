@@ -36,7 +36,7 @@ Do not commit tokens.
 
 ## Done so far
 - Full single-page marketing site (hero with animated plugin mock, features,
-  workflow, videos, pricing, requirements, FAQ, footer).
+  workflow, videos, pricing, requirements, FAQ, changelog, footer).
 - Price **$15 USD**; all "Get HotspotUV" buttons link to the Gumroad page.
 - License copy: **lifetime license · 1 year of updates included**.
 - **Monochrome white-on-navy** theme (reworked from the original teal).
@@ -44,43 +44,42 @@ Do not commit tokens.
   horizontal, favicon/ico/apple-touch); nav emblem sits in a ringed circle.
 - **Google Analytics 4** (`G-P0LGVQESN5`) via gtag.js with **Consent Mode v2** +
   a GDPR cookie banner (Accept/Decline, choice stored in localStorage).
+  **Confirmed live** — the tag is served on the production site.
+- **`purchase_click` GA event** on every "Get HotspotUV" (Gumroad) button
+  (`js/main.js`), with `link_location` so you can see which button converts.
+- **Changelog / release notes** section (`#changelog`) — collapsible timeline,
+  hand-mirrored from the plugin's `release/CHANGELOG.txt`. Linked in nav + footer.
 - **GitHub Actions deploy workflow** (`.github/workflows/deploy.yml`) using
   `actions/deploy-pages`. Pages **Source is set to "GitHub Actions"**.
 
-Commit history (all pushed): workflow `845d75d` · GA `6f38e4b` · monochrome+logo
-`28710cc` · logo set `12d34d2` · README `94c6b6e` · license `17c5009`.
+---
+
+## ✅ RESOLVED — GA deployment is live
+
+The earlier GitHub Pages deploy failures were transient (GitHub-side). The site has
+since republished and now serves the latest commits. Verified on 2026-07-06:
+
+```bash
+curl -s https://skuchryk.github.io/3Design-DK/ | grep G-P0LGVQESN5   # prints the ID
+```
+
+Consent banner, Consent Mode v2 and the $15 pricing are all live. In GA, open the
+site, click **Accept**, then GA → **Reports → Realtime** should show you.
 
 ---
 
-## ⚠️ OPEN ITEM — finish the GA deployment
+## Analytics — to finish on the dashboards (no code)
 
-The GA/monochrome code is committed and pushed, but the **live site has not
-picked up the latest commits yet** because GitHub Pages deployment was failing.
+Purchase-click tracking is in the code, but two dashboard steps make purchases
+show up end-to-end (details in README → *Analytics & purchase tracking*):
 
-**Diagnosis (confirmed via API):** it is NOT our config and NOT a lock. Every
-deployment to the `github-pages` environment was going `queued → in_progress →
-failure` with GitHub's generic "Deployment failed, try again later" — a transient
-GitHub Pages backend problem (their 500 "unicorn" page showed up too). Deploys
-succeeded ~1h earlier, so the setup is correct; it's intermittent on GitHub's side.
-
-There is a leftover legacy **"pages build and deployment" run stuck in _Queued_**.
-It is **harmless** (its own deployment already failed) and **cannot be cancelled**
-("Failed to cancel workflow"). Ignore it — GitHub will clear it eventually.
-
-### To finish (once GitHub Pages is healthy again)
-1. Go to **Actions → "Deploy site to GitHub Pages" → "Run workflow" → main → Run**
-   (do a *fresh* run — do NOT use "Re-run", which triggers a
-   "Multiple artifacts named github-pages" error).
-2. Wait for the `deploy` job to go green.
-3. Verify the tag is live:
-   `curl -s https://skuchryk.github.io/3Design-DK/ | grep G-P0LGVQESN5`
-   (should print the ID).
-4. In Google Analytics, the install check should now detect the tag; open the
-   site, click **Accept** on the cookie banner, then GA → **Reports → Realtime**
-   should show you.
-
-If a run still fails with "Deployment failed, try again later", it's still
-GitHub-side — just wait and re-run later.
+1. **Gumroad → Settings → Advanced → Third-party analytics → Google Analytics**:
+   paste `G-P0LGVQESN5`.
+2. **GA4 → Admin → Data streams → Configure tag settings → Configure your domains**:
+   add `skuchryk.github.io` **and** `gumroad.com` (match type *Contains*) so the
+   click-through to Gumroad counts as one session. Do **not** add Gumroad as a
+   separate data stream.
+3. (Optional) In **GA4 → Admin → Events**, mark `purchase_click` as a **Key event**.
 
 ---
 

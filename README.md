@@ -32,11 +32,16 @@ it just works.
 ├── css/
 │   └── style.css       # all styling + theme variables + responsive rules
 ├── js/
-│   └── main.js         # sticky nav, mobile menu, scroll-reveal, footer year
-├── assets/
+│   └── main.js         # sticky nav, mobile menu, scroll-reveal, cookie consent,
+│                       #   purchase-click tracking, footer year
+├── assets/             # logos (SVG + PNG sizes), favicons, apple-touch icon
 │   └── favicon.svg     # browser tab icon (trim-sheet motif)
+├── .github/
+│   └── workflows/
+│       └── deploy.yml  # GitHub Actions workflow that publishes to GitHub Pages
 ├── .claude/
 │   └── launch.json     # local dev-server config (for the preview tool)
+├── HANDOFF.md          # cross-machine handoff notes / open items
 └── README.md           # this file
 ```
 
@@ -49,8 +54,8 @@ the nav links (`#features`, `#pricing`, …) just scroll to sections on the same
 
 **`index.html`** — one HTML file, split into commented sections in this order:
 Nav → Hero → Stats strip → Why → Features → How it works → Video → Who it's for →
-Pricing → Requirements → FAQ → Final CTA → Footer. Each section is wrapped in a
-`<section>` with an `id` used by the nav for scrolling.
+Pricing → Requirements → FAQ → Changelog → Final CTA → Footer. Each section is
+wrapped in a `<section>` with an `id` used by the nav for scrolling.
 
 The hero "plugin window" (the mock UI with UV islands snapping into zones) is **pure
 SVG + CSS animation** — no images, no video. It's defined inline in `index.html`
@@ -62,9 +67,15 @@ in `style.css`.
 (`@media (max-width: 980px)` for tablet, `720px` for mobile). Animations respect
 `prefers-reduced-motion` (they're disabled for users who ask for reduced motion).
 
-**`js/main.js`** — small and dependency-free. It only does four things: adds a
-border to the nav on scroll, toggles the mobile hamburger menu, fades sections in
-as you scroll (IntersectionObserver), and fills the current year in the footer.
+**`js/main.js`** — small and dependency-free. It handles: a border on the nav when
+you scroll, the mobile hamburger menu, fading sections in as you scroll
+(IntersectionObserver), the GDPR cookie-consent banner (Google Analytics Consent
+Mode v2), sending a `purchase_click` event to GA when a "Get HotspotUV" button is
+clicked, and filling the current year in the footer.
+
+The **Changelog** section is a plain list of `<details class="release">` blocks
+(collapsible, like the FAQ) laid out as a vertical timeline. It's static HTML — no
+data file — so a new version is added by hand (see *Update the changelog* below).
 
 ---
 
@@ -111,6 +122,37 @@ https://www.youtube-nocookie.com/embed/L8o9stdKdqM
 https://www.youtube-nocookie.com/embed/dq66xB1WvG4
 ```
 
+### Update the changelog / release notes
+The `#changelog` section in `index.html` mirrors the plugin's own
+`H:\PROJECTS\HotSpotMaxV2\release\CHANGELOG.txt` (the source of truth). To add a
+new version, copy the newest `<details class="release …">` block and, at the top of
+the list:
+
+1. Give the **new** block the classes `release is-latest` and the `open` attribute,
+   and add the `<span class="release-badge">Latest</span>` chip inside its summary.
+2. Remove `is-latest`, `open` and the `Latest` badge from the **previous** version
+   so it collapses.
+3. Fill in the version, date (`d Mmm yyyy`) and the `New` / `Improved` /
+   `Performance` / `Fixed` groups. Each item is `<li><strong>Title</strong> — …</li>`.
+
+No JS or CSS changes are needed — the timeline and collapse behaviour are automatic.
+
+### Analytics & purchase tracking
+The site uses **Google Analytics 4** (`G-P0LGVQESN5`, in the `<head>` of
+`index.html`) with **Consent Mode v2** — nothing is measured until the visitor
+clicks **Accept** on the cookie banner (choice saved in `localStorage`).
+
+`js/main.js` fires a custom **`purchase_click`** event (params: `link_location`,
+`item_id`, `currency`, `value`) whenever any `gumroad.com` link is clicked, so you
+can see which "Get HotspotUV" button drives clicks. Mark it as a **Key event** in
+GA4 to count it as a conversion.
+
+The actual *purchase* happens on Gumroad (a different domain). To see purchases in
+the same GA4 property: paste `G-P0LGVQESN5` in **Gumroad → Settings → Advanced →
+Third-party analytics → Google Analytics**, and in **GA4 → Admin → Data streams →
+Configure tag settings → Configure your domains** add both `skuchryk.github.io` and
+`gumroad.com` (match type *Contains*) so the click-through counts as one session.
+
 ### Change the colors / theme
 Edit the CSS variables at the top of `css/style.css`. These were matched to the
 original reference site (hotspotuv.crevio.app):
@@ -139,7 +181,7 @@ Open `index.html` directly in a browser, **or** serve the folder (needed for the
 YouTube embeds to behave like production):
 
 ```bash
-cd "H:\PROJECTS\3Design DK"
+# from the repo root
 python -m http.server 8000
 # then open http://localhost:8000
 ```
@@ -148,20 +190,26 @@ python -m http.server 8000
 
 ## Deploying changes
 
-The site is hosted on **GitHub Pages** from the `main` branch, root folder.
-**Any push to `main` automatically rebuilds and republishes** the site within a
-minute or two.
+The site is hosted on **GitHub Pages** and published by a **GitHub Actions
+workflow** (`.github/workflows/deploy.yml`, using `actions/deploy-pages`).
+**Any push to `main` triggers the workflow**, which uploads the repo as a Pages
+artifact and deploys it — live within a minute or two.
 
 ```bash
-cd "H:\PROJECTS\3Design DK"
 git add -A
 git commit -m "Describe your change"
 git push origin main
 ```
 
 Config (already set, don't need to touch): GitHub repo **Settings → Pages →
-Source: Deploy from a branch → `main` / `(root)`**, Enforce HTTPS on.
-The repository is **public** (required for free GitHub Pages).
+Source: GitHub Actions**, Enforce HTTPS on. The repository is **public** (required
+for free GitHub Pages).
+
+If a push doesn't seem to deploy, open **Actions → "Deploy site to GitHub Pages"**.
+You can also start one manually via **Run workflow → main** (use a *fresh* run, not
+"Re-run", which can trip a "Multiple artifacts named github-pages" error). A run
+that fails with GitHub's generic "Deployment failed, try again later" is usually a
+transient GitHub-side issue — check https://www.githubstatus.com and re-run later.
 
 **Authentication for pushing:** the first push needs a GitHub credential. Either
 approve the "Authorize Git Credential Manager" popup, or use a **fine-grained
@@ -212,4 +260,14 @@ URL and a custom domain.
 - **License model:** lifetime license, one year of updates included in the price
   (plugin keeps working after that; updates renewable).
 - **Hosting:** GitHub Pages from a public repo. Repo was flipped from private to
-  public specifically to enable free Pages.
+  public specifically to enable free Pages. Deployment was later moved from the
+  built-in "Deploy from a branch" to a **GitHub Actions workflow** for more
+  reliable/repeatable publishes.
+- **Analytics:** Google Analytics 4 with Consent Mode v2 and a GDPR banner, added
+  so traffic can be measured without dropping cookies before consent. Purchase-
+  intent is tracked with a custom `purchase_click` event on the buy buttons; real
+  purchases are attributed via Gumroad's third-party GA integration + cross-domain
+  measurement (see *Analytics & purchase tracking*).
+- **Changelog:** a `#changelog` section was added to surface the plugin's release
+  notes on the site (active-development signal). It's a hand-maintained mirror of
+  the plugin repo's `CHANGELOG.txt`, styled as a collapsible timeline.
