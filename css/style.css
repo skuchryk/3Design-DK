@@ -534,6 +534,17 @@ code {
 .req-cols ul, .req-cols ol { padding-left: 20px; color: var(--muted); font-size: 0.94rem; }
 .req-cols li { margin-bottom: 8px; }
 .req-cols li::marker { color: var(--accent); }
+.req-lead { font-size: 0.94rem; margin-bottom: 10px; }
+.req-note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--muted-2);
+  overflow-wrap: anywhere;
+}
+.req-note code { font-size: 0.82em; }
 
 /* ---------- FAQ ---------- */
 .faq-list { display: flex; flex-direction: column; gap: 12px; }
