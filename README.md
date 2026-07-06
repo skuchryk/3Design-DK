@@ -115,16 +115,21 @@ https://www.youtube-nocookie.com/embed/dq66xB1WvG4
 Edit the CSS variables at the top of `css/style.css`. These were matched to the
 original reference site (hotspotuv.crevio.app):
 
+The site uses a **monochrome white-on-navy** theme (no coloured accent):
+
 | Variable      | Value       | Used for                        |
 |---------------|-------------|---------------------------------|
-| `--bg`        | `#040811`   | page background (dark navy)     |
-| `--bg-soft`   | `#0a1120`   | alternating section background  |
-| `--card`      | `#0d1524`   | cards / panels                  |
+| `--bg`        | `#070a24`   | page background (navy)          |
+| `--bg-soft`   | `#0a0e2e`   | alternating section background  |
+| `--card`      | `#0e1338`   | cards / panels                  |
 | `--text`      | `#f3f5f7`   | main text                       |
-| `--muted`     | `#8b98ab`   | secondary text                  |
-| `--accent`    | `#00d9d9`   | teal — buttons, highlights      |
+| `--muted`     | `#9aa6bd`   | secondary text                  |
+| `--accent`    | `#f3f5f7`   | white — buttons, highlights, icons |
 
 Change `--accent` alone and the whole site re-themes (buttons, icons, links, glows).
+On the white buttons the label colour is hard-set to navy (`#070a24`) in
+`.btn-primary` / `.panel-btn`, so if you switch `--accent` to a dark colour, flip
+that too.
 
 ---
 
@@ -194,8 +199,13 @@ URL and a custom domain.
 - **Why static, no framework?** The old reference site (hotspotuv.crevio.app) was
   a Next.js app on Crevio the owner didn't like. This rebuild is intentionally
   plain so it's trivial to host anywhere, has zero maintenance, and loads instantly.
-- **Colors** were extracted from the reference site's compiled CSS (the accent teal
-  `#00d9d9`, dark navy background) to keep brand continuity while redesigning layout.
+- **Colors:** the first build used a teal accent (`#00d9d9`) extracted from the
+  reference site. It was later reworked to a **monochrome white-on-navy** theme for
+  a more premium, timeless look, matching the white-on-navy logo.
+- **Logo:** custom spire emblem (`assets/logo_*`), white-on-navy, in circular badge,
+  mark-only and horizontal variants, plus favicon/ico/apple-touch. The nav shows the
+  emblem inside a ringed circle. Assets are regenerated from the scripts kept in the
+  scratchpad; colours follow the `#f3f5f7` mark / navy disc scheme.
 - **Selling platform** moved from Crevio to **Gumroad** (`/l/ueunpw`). Price is set
   in **USD ($15)** on Gumroad; the site shows `$15` and notes local-currency
   checkout, rather than a fixed PLN figure, because Gumroad auto-converts.
