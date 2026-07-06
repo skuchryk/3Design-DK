@@ -47,6 +47,29 @@
     });
   }
 
+  // Cookie consent (Google Analytics Consent Mode v2)
+  var banner = document.getElementById("cookie-banner");
+  if (banner) {
+    var stored = null;
+    try { stored = localStorage.getItem("cookie-consent"); } catch (e) {}
+    if (!stored) banner.hidden = false;
+
+    function setConsent(value) {
+      try { localStorage.setItem("cookie-consent", value); } catch (e) {}
+      if (typeof window.gtag === "function") {
+        window.gtag("consent", "update", {
+          analytics_storage: value === "granted" ? "granted" : "denied"
+        });
+      }
+      banner.hidden = true;
+    }
+
+    var accept = document.getElementById("cookie-accept");
+    var decline = document.getElementById("cookie-decline");
+    if (accept) accept.addEventListener("click", function () { setConsent("granted"); });
+    if (decline) decline.addEventListener("click", function () { setConsent("denied"); });
+  }
+
   // Current year in footer
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

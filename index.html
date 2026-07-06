@@ -3,6 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google tag (gtag.js) with Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0LGVQESN5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Default: everything denied until the visitor accepts (GDPR)
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-P0LGVQESN5');
+    // Re-apply a previously saved acceptance so returning visitors are counted
+    try {
+      if (localStorage.getItem('cookie-consent') === 'granted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch (e) {}
+  </script>
+
   <title>HotspotUV — Smart Hotspot &amp; Trim UV Mapping for 3ds Max | 3Design DK</title>
   <meta name="description" content="HotspotUV snaps your UV islands to the best-fitting trim zone automatically — by shape, size and orientation. One click, one undo, consistent texel density. Built for 3ds Max.">
   <meta property="og:title" content="HotspotUV — Smart Hotspot &amp; Trim UV Mapping for 3ds Max">
@@ -426,6 +449,15 @@
       <p>© <span id="year">2026</span> 3Design DK. All rights reserved. Autodesk and 3ds Max are trademarks of Autodesk, Inc.</p>
     </div>
   </footer>
+
+  <!-- ======= COOKIE CONSENT ======= -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <p class="cookie-text">We use cookies to measure traffic with Google Analytics and improve the site. You can accept or decline.</p>
+    <div class="cookie-actions">
+      <button class="btn btn-ghost btn-sm" id="cookie-decline">Decline</button>
+      <button class="btn btn-primary btn-sm" id="cookie-accept">Accept</button>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
