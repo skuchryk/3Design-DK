@@ -479,7 +479,9 @@ code {
 .price { display: flex; align-items: baseline; justify-content: center; gap: 8px; color: var(--text); }
 .price-amount { font-size: 4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
 .price-currency { font-size: 1.3rem; font-weight: 600; color: var(--muted); }
-.price-note { font-size: 0.88rem; margin: 12px 0 26px; }
+.price-currency { align-self: flex-start; margin-top: 8px; }
+.price-note { font-size: 0.88rem; margin: 12px 0 4px; }
+.price-sub { font-size: 0.78rem; color: var(--muted-2); margin-bottom: 24px; }
 .price-secure { font-size: 0.76rem; color: var(--muted-2); margin-top: 14px; }
 
 .pricing-list {
