@@ -109,7 +109,7 @@ code {
 }
 
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand-mark { width: 28px; height: 28px; color: var(--accent); }
+.brand-mark { width: auto; height: 30px; color: var(--accent); }
 .brand-name { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
 .brand-accent { color: var(--accent); }
 
