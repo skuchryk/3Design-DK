@@ -252,8 +252,221 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8L19 10h-7l1-8z"/></svg>
           </div>
           <h3>Flexible zone workflows</h3>
-          <p>Load <code>.json</code> / <code>.uvzl</code> trim layouts, generate zones from your existing UV islands or from a grid, with a searchable zone list.</p>
+          <p>Load <code>.json</code> trim layouts, generate zones from your existing UV islands or from a grid, with a searchable zone list.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTROL PANEL ======= -->
+  <section class="section" id="controls">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">The control panel</p>
+        <h2>Full control over every match</h2>
+        <p class="section-sub">Great defaults out of the box — but every part is yours to tune. Here's the whole workflow — panel, menus and toolbars — in plain English.</p>
+      </div>
+      <div class="controls-grid reveal">
+
+        <article class="card control-group">
+          <h3>Mapping</h3>
+          <p class="control-lead">How each island lands in its trim.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Mapping panel">
+            <img src="assets/panel_mapping.png" alt="HotspotUV panel — Mapping section with the Mode dropdown open" width="430" height="135" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Mode</dt>
+            <dd>Fit the island inside the trim (<em>Hotspot</em>), let it tile past the trim (<em>Seamless&nbsp;U/V</em>), or use each trim's own setting (<em>From trim settings</em>) to mix normal trims and seamless strips in one pass.</dd>
+            <dt>Random offset in trim</dt>
+            <dd>Seeded random placement instead of centering, so repeated islands don't line up.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Orientation</h3>
+          <p class="control-lead">Rotate the island before it's matched.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Orientation panel">
+            <img src="assets/panel_orientation.png" alt="HotspotUV panel — Orientation section with the Orient dropdown open" width="430" height="128" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Orient</dt>
+            <dd><em>As&nbsp;Is</em>, <em>Auto</em> (longest side horizontal), <em>Straighten</em> skew to the UV axis, or <em>Orient to World</em> — the surface's world-up (Z) points up in UV, so walls stay vertical and upside-down islands are fixed.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Matching</h3>
+          <p class="control-lead">Which trim an island wins.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Priority menu">
+            <img src="assets/panel_priority.png" alt="HotspotUV panel — Matching section with the Priority dropdown open" width="430" height="118" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <button class="control-shot" type="button" aria-label="Zoom the Matching panel">
+            <img src="assets/panel_matching.png" alt="HotspotUV panel — Matching section with the Area dropdown open" width="430" height="162" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Priority</dt>
+            <dd>Match by shape first, by size first, or by real-world area (texel density).</dd>
+            <dt>Area</dt>
+            <dd>Prefer the closest-sized zone, the largest, the smallest, or a manual scale factor.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Fine-tuning</h3>
+          <p class="control-lead">Nudge and filter the match.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the fine-tuning controls">
+            <img src="assets/panel_finetune.png" alt="HotspotUV panel — Aspect bias, Allow 90° rotation, Detect radial and Tag controls" width="430" height="148" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Manual scale</dt>
+            <dd>Zone-area multiplier when Area = <em>Manual</em> — above 1 picks bigger zones, below 1 smaller.</dd>
+            <dt>Aspect bias</dt>
+            <dd>Nudge matches toward wider (<em>+</em>) or narrower (<em>−</em>) zones.</dd>
+            <dt>Allow 90° rotation</dt>
+            <dd>Let an island turn 90° to fit a zone's orientation.</dd>
+            <dt>Detect radial</dt>
+            <dd>Round islands (caps, flanges) go only to trims tagged <em>Radial</em>; everything else avoids them.</dd>
+            <dt>Tag filter</dt>
+            <dd>Map only to trims carrying a chosen tag — e.g. send rivets to rivet strips.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Scale</h3>
+          <p class="control-lead">How big the island gets in the trim.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Scale panel">
+            <img src="assets/panel_scale.png" alt="HotspotUV panel — Scale section: Keep proportion, Max stretch, Texel density, Density margin, Inset mode and Padding" width="430" height="240" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Keep proportion</dt>
+            <dd>Lock proportions, or allow a controlled amount of stretch to fill the zone.</dd>
+            <dt>Max stretch %</dt>
+            <dd>How far an island may stretch to fill its zone (0 = none, 100 = full).</dd>
+            <dt>Texel density mode + Sample</dt>
+            <dd>Scale every island to one consistent texel density from its real 3D area. <em>Sample</em> reads the density off a selected island.</dd>
+            <dt>Density margin %</dt>
+            <dd>Snap to an exact trim fill when it costs only a little extra density — no sliver gaps.</dd>
+            <dt>Inset &amp; Padding</dt>
+            <dd>Global padding, per-zone inset, or both combined.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Variation</h3>
+          <p class="control-lead">Break up visible tiling — repeatably.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Variation panel">
+            <img src="assets/panel_variation.png" alt="HotspotUV panel — Variation section with seeded randomization options" width="430" height="128" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Randomize among equal matches</dt>
+            <dd>Pick randomly between zones that fit equally well.</dd>
+            <dt>Random 180° / mirror</dt>
+            <dd>Optional 180° rotation and U/V mirroring for variety.</dd>
+            <dt>Seed</dt>
+            <dd>Every random choice is seeded, so the same seed always gives the same result.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Place on click</h3>
+          <p class="control-lead">Hands-on placement, one zone at a time.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Place on click panel">
+            <img src="assets/panel_place.png" alt="HotspotUV panel — Place on click section with the Fit mode dropdown open" width="430" height="125" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Fit mode</dt>
+            <dd><em>Fill</em>, <em>Cover</em>, <em>Fit width</em> or <em>Fit height</em> — how the island fills the zone you click.</dd>
+            <dt>How it works</dt>
+            <dd>Turn Select and Edit off, then click a zone on the map — the selected UVs drop straight into it.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Per-trim settings</h3>
+          <p class="control-lead">Every zone can behave differently.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the Edit Trim dialog">
+            <img src="assets/dialog_edit_trim.png" alt="HotspotUV Edit Trim dialog — name, position, size, color, inset, world size, fit axis and tags" width="282" height="366" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Edit Trim</dt>
+            <dd>Double-click a trim in the list or on the map to open it.</dd>
+            <dt>Fit axis</dt>
+            <dd>Give any trim its own behaviour — fit, fill-to-cover or seamless U/V — used by the <em>From trim settings</em> mode.</dd>
+            <dt>Tags</dt>
+            <dd>Comma-separated categories for the matching filters.</dd>
+            <dt>World W/H &amp; Inset</dt>
+            <dd>Real-world size for texel density, plus per-zone padding.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Trimsheet &amp; files</h3>
+          <p class="control-lead">Load, save and reshape trim layouts.</p>
+          <button class="control-shot" type="button" aria-label="Zoom the File menu">
+            <img src="assets/menu_file.png" alt="HotspotUV File menu — New, Open, Save, Import and Edit Trimsheet" width="352" height="176" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>New / Open / Save</dt>
+            <dd>Start fresh, load a <code>.json</code> layout, or save your sheet.</dd>
+            <dt>Import Trimsheet</dt>
+            <dd>Merge zones from another file into the current sheet.</dd>
+            <dt>Edit Trimsheet</dt>
+            <dd>Resize the sheet — the zones scale with it.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Map toolbar</h3>
+          <p class="control-lead">Tools above the trim map.</p>
+          <button class="control-shot control-shot-wide" type="button" aria-label="Zoom the map toolbar">
+            <img src="assets/toolbar_map.png" alt="HotspotUV map toolbar — Zoom Extents, Background, Hotspot Select Mode, Edit" width="632" height="34" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>Zoom Extents</dt>
+            <dd>Fit the whole layout in view.</dd>
+            <dt>Background</dt>
+            <dd>Drop a texture under the zones — from a file or straight off the selected object's material.</dd>
+            <dt>Hotspot Select Mode</dt>
+            <dd>Click zones on the map to choose targets (Ctrl/Shift to add, drag to box-select).</dd>
+            <dt>Edit toggle</dt>
+            <dd>Drag zones around the map to reposition them.</dd>
+          </dl>
+        </article>
+
+        <article class="card control-group">
+          <h3>Trims toolbar</h3>
+          <p class="control-lead">Tools for the zone list.</p>
+          <button class="control-shot control-shot-wide" type="button" aria-label="Zoom the Trims toolbar">
+            <img src="assets/toolbar_trims.png" alt="HotspotUV Trims toolbar — New, Duplicate, Delete, Generate, Tags, Fit Axis, Map" width="348" height="34" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
+          <dl class="control-list">
+            <dt>New / Duplicate / Delete</dt>
+            <dd>Manage zones in the list.</dd>
+            <dt>Generate from UVs</dt>
+            <dd>Build zones straight from your selected UV islands — the main way to create a sheet.</dd>
+            <dt>Generate Grid</dt>
+            <dd>Build a regular grid of zones.</dd>
+            <dt>Set / Remove Tags</dt>
+            <dd>Tag zones into categories in bulk.</dd>
+            <dt>Set Fit Axis</dt>
+            <dd>Set the per-trim fit axis on many zones at once.</dd>
+            <dt>Map UVs to Trims</dt>
+            <dd>Randomly drop the selected UVs into the selected zones.</dd>
+          </dl>
+        </article>
+
       </div>
     </div>
   </section>
@@ -409,7 +622,7 @@
         </details>
         <details>
           <summary>What trim layout formats does it use?</summary>
-          <p>Layouts are saved as <code>.json</code> (with background image, per-zone inset and world-size data). Legacy <code>.uvzl</code> files can still be opened. You can also generate zones straight from your UV islands or from a grid.</p>
+          <p>Layouts are saved as <code>.json</code> (with background image, per-zone inset and world-size data). You can also generate zones straight from your UV islands or from a grid.</p>
         </details>
         <details>
           <summary>Is the matching random?</summary>
@@ -548,6 +761,12 @@
       <p>© <span id="year">2026</span> 3Design DK. All rights reserved. Autodesk and 3ds Max are trademarks of Autodesk, Inc.</p>
     </div>
   </footer>
+
+  <!-- ======= LIGHTBOX ======= -->
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
 
   <!-- ======= COOKIE CONSENT ======= -->
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>

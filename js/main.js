@@ -88,6 +88,37 @@
     });
   });
 
+  // Lightbox for the control-panel screenshots
+  var lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    var lbImg = document.getElementById("lightboxImg");
+    var lbClose = document.getElementById("lightboxClose");
+
+    function openLightbox(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || "";
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lbImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".control-shot").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var img = btn.querySelector("img");
+        if (img) openLightbox(img.src, img.alt);
+      });
+    });
+    lightbox.addEventListener("click", closeLightbox);
+    if (lbClose) lbClose.addEventListener("click", closeLightbox);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
+    });
+  }
+
   // Current year in footer
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
