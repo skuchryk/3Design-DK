@@ -119,6 +119,69 @@
     });
   }
 
+  // Masonry layout for the control-panel cards — packs each card into the
+  // shortest column so there are no ragged vertical gaps. Every screenshot
+  // carries width/height attributes, so card heights are known before the
+  // images finish loading and the layout doesn't jump.
+  var cgrid = document.querySelector(".controls-grid");
+  if (cgrid) {
+    var cgCards = Array.prototype.slice.call(cgrid.querySelectorAll(".control-group"));
+    var CG_GAP = 18;
+
+    function cgColumns() {
+      var w = window.innerWidth;
+      if (w <= 620) return 1;
+      if (w <= 980) return 2;
+      return 3;
+    }
+
+    function cgLayout() {
+      var cols = cgColumns();
+      if (cols === 1) {
+        // hand layout back to normal document flow on mobile
+        cgrid.style.position = "";
+        cgrid.style.height = "";
+        cgCards.forEach(function (c) {
+          c.style.position = "";
+          c.style.left = "";
+          c.style.top = "";
+          c.style.width = "";
+        });
+        return;
+      }
+      var colW = (cgrid.clientWidth - CG_GAP * (cols - 1)) / cols;
+      var heights = [];
+      for (var i = 0; i < cols; i++) heights[i] = 0;
+      cgrid.style.position = "relative";
+      cgCards.forEach(function (c) {
+        c.style.position = "absolute";
+        c.style.width = colW + "px";
+        var min = 0;
+        for (var j = 1; j < cols; j++) {
+          if (heights[j] < heights[min]) min = j;
+        }
+        c.style.left = min * (colW + CG_GAP) + "px";
+        c.style.top = heights[min] + "px";
+        heights[min] += c.offsetHeight + CG_GAP;
+      });
+      cgrid.style.height = Math.max.apply(null, heights) + "px";
+    }
+
+    var cgTimer;
+    function cgLayoutDebounced() {
+      clearTimeout(cgTimer);
+      cgTimer = setTimeout(cgLayout, 100);
+    }
+
+    cgLayout();
+    window.addEventListener("resize", cgLayoutDebounced);
+    window.addEventListener("load", cgLayout);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(cgLayout);
+    cgrid.querySelectorAll("img").forEach(function (img) {
+      if (!img.complete) img.addEventListener("load", cgLayout);
+    });
+  }
+
   // Current year in footer
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
