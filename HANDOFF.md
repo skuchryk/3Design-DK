@@ -4,7 +4,7 @@ Snapshot of where the HotspotUV website project stands, so work can continue
 from another computer via the repo. See [README.md](README.md) for the full
 technical guide (structure, editing, deploy, colours).
 
-_Last updated: 2026-07-06._
+_Last updated: 2026-07-07._
 
 ---
 
@@ -29,8 +29,11 @@ Do not commit tokens.
 
 ## What the site is
 
-- **Live:** https://skuchryk.github.io/3Design-DK/
+- **Live:** https://3designdk.com (via **Cloudflare** → GitHub Pages; the old
+  `skuchryk.github.io/3Design-DK/` redirects here). Cloudflare caches assets, so
+  hard-refresh (Ctrl+F5) after a deploy; it also obfuscates the contact email.
 - **Buy (Gumroad, $15 USD):** https://skuchryker.gumroad.com/l/ueunpw
+- **Contact:** contact@3designdk.com (mailbox on the domain; shown in the footer).
 - **Plugin source (separate repo):** `H:\PROJECTS\HotSpotMaxV2`
 - Static HTML/CSS/JS, no build step. Single page: `index.html`.
 
@@ -51,6 +54,12 @@ Do not commit tokens.
   hand-mirrored from the plugin's `release/CHANGELOG.txt`. Linked in nav + footer.
 - **GitHub Actions deploy workflow** (`.github/workflows/deploy.yml`) using
   `actions/deploy-pages`. Pages **Source is set to "GitHub Actions"**.
+- **Control panel section** (`#controls`) — cards documenting every part of the
+  plugin UI with real cropped screenshots (`assets/panel_*`, `menu_file`,
+  `toolbar_*`, `dialog_edit_trim`) + click-to-zoom lightbox. Packed with CSS
+  multi-column (no JS layout, so mobile-safe). See README → *How the page is built*.
+- **Custom domain** `3designdk.com` live via **Cloudflare**; footer shows a visible,
+  copyable `contact@3designdk.com` with a `?subject=HotspotUV` mailto prefill.
 
 ---
 

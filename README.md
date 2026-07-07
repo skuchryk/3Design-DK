@@ -3,7 +3,8 @@
 Marketing site for **HotspotUV**, a smart hotspot & trim UV mapping plugin for
 Autodesk 3ds Max, created by **3Design DK**.
 
-- **Live site:** https://skuchryk.github.io/3Design-DK/
+- **Live site:** https://3designdk.com (the old `https://skuchryk.github.io/3Design-DK/`
+  URL now 301-redirects here). The domain runs through **Cloudflare** — see *Custom domain*.
 - **Buy (Gumroad):** https://skuchryker.gumroad.com/l/ueunpw
 - **Plugin source (separate project):** `H:\PROJECTS\HotSpotMaxV2`
 
@@ -53,9 +54,9 @@ the nav links (`#features`, `#pricing`, …) just scroll to sections on the same
 ## How the page is built
 
 **`index.html`** — one HTML file, split into commented sections in this order:
-Nav → Hero → Stats strip → Why → Features → How it works → Video → Who it's for →
-Pricing → Requirements → FAQ → Changelog → Final CTA → Footer. Each section is
-wrapped in a `<section>` with an `id` used by the nav for scrolling.
+Nav → Hero → Stats strip → Why → Features → Control panel → How it works → Video →
+Who it's for → Pricing → Requirements → FAQ → Changelog → Final CTA → Footer. Each
+section is wrapped in a `<section>` with an `id` used by the nav for scrolling.
 
 The hero "plugin window" (the mock UI with UV islands snapping into zones) is **pure
 SVG + CSS animation** — no images, no video. It's defined inline in `index.html`
@@ -71,7 +72,16 @@ in `style.css`.
 you scroll, the mobile hamburger menu, fading sections in as you scroll
 (IntersectionObserver), the GDPR cookie-consent banner (Google Analytics Consent
 Mode v2), sending a `purchase_click` event to GA when a "Get HotspotUV" button is
-clicked, and filling the current year in the footer.
+clicked, the screenshot lightbox in the *Control panel* section, and filling the
+current year in the footer.
+
+The **Control panel** section (`#controls`) is a grid of cards, one per part of the
+plugin's UI, each pairing plain-English descriptions with a real cropped screenshot
+(`assets/panel_*.png`, `menu_file.png`, `toolbar_*.png`, `dialog_edit_trim.png`).
+Clicking a screenshot opens it in a lightbox (`#lightbox`, handled in `main.js`).
+The cards are packed with **CSS multi-column** (`.controls-grid { column-count }`,
+3 → 2 → 1 columns) — deliberately CSS-only, no JS layout, so it can't break on
+mobile. Add a card by copying an `<article class="card control-group">` block.
 
 The **Changelog** section is a plain list of `<details class="release">` blocks
 (collapsible, like the FAQ) laid out as a vertical timeline. It's static HTML — no
@@ -218,27 +228,43 @@ Fine-grained tokens → repository access = `skuchryk/3Design-DK`, Contents =
 Read/write). Don't commit tokens; don't reuse a token you've pasted into a chat —
 revoke and regenerate.
 
-**Verify a deploy:** `curl -s -o /dev/null -w "%{http_code}" https://skuchryk.github.io/3Design-DK/`
-should return `200`. If you ever see GitHub's pink "unicorn" error page, that's a
-temporary GitHub-side 5xx — check https://www.githubstatus.com and just refresh.
+**Verify a deploy:** `curl -sL -o /dev/null -w "%{http_code}" https://3designdk.com/`
+should return `200` (use `-L` — `github.io` 301-redirects to the custom domain). To
+check that a *specific* change is live, curl the file and grep for it, e.g.
+`curl -sL https://3designdk.com/js/main.js | grep purchase_click`. Because the
+domain sits behind Cloudflare's cache, a change can be committed and deployed but a
+browser still shows the old file — do a **hard refresh (Ctrl+F5)**, or purge in
+Cloudflare (see *Custom domain*). If you ever see GitHub's pink "unicorn" error
+page, that's a temporary GitHub-side 5xx — check https://www.githubstatus.com.
 
 ---
 
 ## Custom domain
 
-Not set up yet. To point your own domain (e.g. `hotspotuv.com`) at the site:
+**Live at `3designdk.com`**, served through **Cloudflare** (DNS + proxy/CDN) in
+front of GitHub Pages. The old `skuchryk.github.io/3Design-DK/` URL 301-redirects to
+it. The site uses relative asset paths, so it works unchanged on either URL.
 
-1. Buy a domain (Cloudflare, OVH, home.pl, Namecheap — note: Google Domains no
-   longer exists, it moved to Squarespace).
-2. At the registrar's DNS, add for the apex domain four **A** records to GitHub:
-   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`;
-   and a **CNAME** for `www` → `skuchryk.github.io`.
-3. GitHub **Settings → Pages → Custom domain** → enter the domain → Save. GitHub
-   writes a `CNAME` file to the repo and issues a free SSL cert.
-4. Tick **Enforce HTTPS** once the DNS check passes.
+Two Cloudflare behaviours to know about:
 
-The site uses relative asset paths, so it works unchanged on both the `github.io`
-URL and a custom domain.
+- **Caching.** Cloudflare caches CSS/JS/images at its edge. After a deploy the origin
+  is updated immediately, but a visitor's browser (and sometimes Cloudflare) can hold
+  the old file. Fix: **hard refresh (Ctrl+F5)**; if it persists, Cloudflare dashboard
+  → **Caching → Configuration → Purge Everything**.
+- **Email obfuscation.** Cloudflare's *Scrape Shield → Email Address Obfuscation*
+  automatically rewrites `contact@3designdk.com` in the HTML to `[email protected]`
+  plus a decoder script, so it renders correctly in real browsers while hiding the
+  address from scrapers. This is why `curl`-ing the page won't show the raw address.
+  Leave it on (spam protection) or turn it off under Scrape Shield.
+
+The email address itself (`contact@3designdk.com`) is a mailbox on the domain; the
+site only links to it (`mailto:` with a `?subject=HotspotUV` prefill) and shows it as
+copyable text in the footer.
+
+If you ever move the domain, the GitHub-Pages-only setup is: apex **A** records
+`185.199.108.153` / `.109` / `.110` / `.111`, `www` **CNAME** → `skuchryk.github.io`,
+then GitHub **Settings → Pages → Custom domain**. (With Cloudflare in front, DNS is
+managed in Cloudflare instead.)
 
 ---
 
@@ -271,3 +297,17 @@ URL and a custom domain.
 - **Changelog:** a `#changelog` section was added to surface the plugin's release
   notes on the site (active-development signal). It's a hand-maintained mirror of
   the plugin repo's `CHANGELOG.txt`, styled as a collapsible timeline.
+- **Control panel section:** a `#controls` section documents every part of the
+  plugin UI with real cropped screenshots + a click-to-zoom lightbox. Screenshots
+  are cropped from the plugin author's captures (`H:\PROJECTS\HotSpotMaxV2\images`)
+  with PowerShell/`System.Drawing`. Rule followed throughout: never describe a
+  control that the card's screenshot hides behind an open dropdown — expanded menus
+  are split into their own card (e.g. *Fine-tuning*, *Per-trim settings*).
+- **Control-panel layout:** first tried a JS masonry (packed columns), but reading
+  `window.innerWidth` on real phones mispositioned the absolutely-placed cards
+  off-screen ("elements don't load" on mobile). Replaced with **CSS multi-column**
+  (`column-count`) — no JS, so mobile just collapses to one column. Trade-off: a
+  slightly more ragged bottom edge on desktop, which is fine.
+- **Custom domain / Cloudflare:** the site moved to `3designdk.com` behind Cloudflare
+  (see *Custom domain*). Contact is `contact@3designdk.com`, shown as copyable text
+  and linked with a `?subject=HotspotUV` prefill.
