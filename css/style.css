@@ -728,6 +728,17 @@ code {
   flex-wrap: wrap;
 }
 .footer-brand p { font-size: 0.88rem; max-width: 340px; margin-top: 10px; }
+.footer-email {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.footer-email:hover { color: var(--accent); border-color: var(--accent); }
 .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
 .footer-links a { font-size: 0.9rem; color: var(--muted); transition: color 0.15s ease; }
 .footer-links a:hover { color: var(--accent); }
