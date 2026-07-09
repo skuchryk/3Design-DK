@@ -29,7 +29,9 @@ it just works.
 
 ```
 3Design DK/
-├── index.html          # the entire page (all sections, one file)
+├── index.html          # the entire landing page (all sections, one file)
+├── tutorial.html       # interactive tutorial (EN/PL toggle) — fully self-contained:
+│                       #   inline CSS/JS, embedded screenshot, no external assets
 ├── css/
 │   └── style.css       # all styling + theme variables + responsive rules
 ├── js/
@@ -46,8 +48,13 @@ it just works.
 └── README.md           # this file
 ```
 
-Everything the visitor sees lives in **`index.html`**. It's a single-page site;
-the nav links (`#features`, `#pricing`, …) just scroll to sections on the same page.
+The landing page lives in **`index.html`**; its nav links (`#features`,
+`#pricing`, …) scroll to sections on the same page. The only other page is
+**`tutorial.html`** — a self-contained interactive tutorial (window anatomy
+with a full function reference, a trim-sheet building recipe, a live
+matching-engine simulator; EN default with a PL toggle). It is linked from
+the nav, the footer and a CTA under `#controls`, and needs no build step —
+edit the file, push, done.
 
 ---
 

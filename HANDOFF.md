@@ -60,6 +60,13 @@ Do not commit tokens.
   multi-column (no JS layout, so mobile-safe). See README → *How the page is built*.
 - **Custom domain** `3designdk.com` live via **Cloudflare**; footer shows a visible,
   copyable `contact@3designdk.com` with a `?subject=HotspotUV` mailto prefill.
+- **Interactive tutorial page** (`tutorial.html`, 2026-07-09) — self-contained
+  (inline CSS/JS + embedded screenshot, no external requests): window anatomy
+  with 12 annotated areas (= full function reference), trim-sheet building
+  recipe, live matching-engine simulator styled after the real plugin UI,
+  modes comparison, concepts. **EN default + PL toggle** (localStorage).
+  Linked from nav, footer and a CTA under `#controls`. Source of truth for
+  its content: `F:\HotSpotMaxV2` (HotspotUV_GUIDE.md, USER_GUIDE v1.2.0).
 
 ---
 
