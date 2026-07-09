@@ -73,6 +73,9 @@
   .nav{margin-left:auto;display:flex;gap:18px;font-size:13px}
   .nav a{color:var(--ink-soft)}.nav a:hover{color:var(--accent)}
   @media(max-width:760px){.nav{display:none}}
+  .backlink{font-family:var(--mono);font-size:12px;color:var(--ink-soft);white-space:nowrap}
+  .backlink:hover{color:var(--accent)}
+  @media(max-width:560px){.chip{display:none}.backlink{font-size:11px}}
   .langsw{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex-shrink:0}
   .langsw button{font-family:var(--mono);font-size:11px;padding:5px 10px;background:transparent;
     border:0;color:var(--ink-soft);cursor:pointer;letter-spacing:.06em}
@@ -197,6 +200,15 @@
   .fact .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
   .fact p{margin:0;font-size:14px;color:var(--ink-soft)}
 
+  /* conversion CTA */
+  .getcta .card{padding:44px 40px;text-align:center;
+    background:linear-gradient(180deg,var(--surface),var(--surface-2))}
+  .getcta .eyebrow{justify-content:center}
+  .getcta h2{margin:2px 0 12px}
+  .getcta p{margin:0 auto 24px}
+  .getcta .btn{display:inline-block;font-size:15px;padding:13px 28px;text-decoration:none}
+  @media(max-width:720px){.getcta .card{padding:34px 22px}}
+
   footer{padding:44px 0 60px;border-top:1px solid var(--line-soft);color:var(--ink-faint);font-size:13px}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .mono{font-family:var(--mono)}
@@ -207,6 +219,7 @@
 <div class="topbar"><div class="wrap">
   <a class="brand" href="index.html">Hotspot<b>UV</b></a>
   <span class="chip">v1.2.0</span>
+  <a class="backlink" href="index.html" data-t="nav_back">← Product page</a>
   <nav class="nav">
     <a href="#createsheet" data-t="nav_ts">Trim sheet</a>
     <a href="#workflow" data-t="nav_wf">Workflow</a>
@@ -403,6 +416,15 @@
   </div>
 </div></section>
 
+<section id="get" class="getcta"><div class="wrap">
+  <div class="card">
+    <p class="eyebrow" data-t="get_eb">Ready to map</p>
+    <h2 data-t="get_h2">Put HotspotUV in your 3ds Max</h2>
+    <p class="lead" data-t="get_lead">You've seen the workflow and the matching engine. The plugin sits on top of the standard Unwrap_UVW — no pipeline changes, one Undo per run.</p>
+    <a class="btn btn-primary" href="index.html" data-t="get_btn">Get HotspotUV →</a>
+  </div>
+</div></section>
+
 <footer><div class="wrap">
   <span class="mono">HotspotUV v1.2.0 — by 3Design</span>
   <span class="mono">Built on Unwrap_UVW · 3ds Max 2020–2026</span>
@@ -456,7 +478,12 @@
       f5k:'Performance',f5p:'Bulk pipeline: ~1.7 ms per island. 1888 islands → about 3.3 s.',
       f6k:'File format',f6p:'<code>.json</code> — pixels, background, inset, World W/H, fit axis.',
       f7k:'Setup requirement',f7p:'1+ objects, an active <b>Unwrap_UVW</b>, <b>Polygon</b> mode, faces selected — the tool checks this before every run.',
-      f8k:'Seamless-aware matching',f8p:'An island longer than a strip along its free axis is a legal match (it tiles anyway) — the tightest strip that accepts it wins.'
+      f8k:'Seamless-aware matching',f8p:'An island longer than a strip along its free axis is a legal match (it tiles anyway) — the tightest strip that accepts it wins.',
+      nav_back:'← Product page',
+      get_eb:'Ready to map',
+      get_h2:'Put HotspotUV in your 3ds Max',
+      get_lead:'You\'ve seen the workflow and the matching engine. The plugin sits on top of the standard Unwrap_UVW — no pipeline changes, one Undo per run.',
+      get_btn:'Get HotspotUV →'
     },
     pl:{
       nav_ts:'Trim-sheet',nav_wf:'Workflow',nav_an:'Anatomia i funkcje',nav_pg:'Dopasowanie',nav_md:'Tryby',
@@ -500,7 +527,12 @@
       f5k:'Wydajność',f5p:'Ścieżka bulk: ~1,7 ms/wyspę. 1888 wysp → ok. 3,3 s.',
       f6k:'Format pliku',f6p:'<code>.json</code> — piksele, tło, inset, World W/H, fit axis.',
       f7k:'Wymóg setupu',f7p:'1+ obiekt, aktywny <b>Unwrap_UVW</b>, tryb <b>Polygon</b>, zaznaczone facey — narzędzie pilnuje tego przed każdym runem.',
-      f8k:'Seamless-aware matching',f8p:'Wyspa dłuższa od pasa po wolnej osi to legalne dopasowanie (i tak się kafelkuje) — wygrywa najciaśniejszy pas, który ją przyjmie.'
+      f8k:'Seamless-aware matching',f8p:'Wyspa dłuższa od pasa po wolnej osi to legalne dopasowanie (i tak się kafelkuje) — wygrywa najciaśniejszy pas, który ją przyjmie.',
+      nav_back:'← Strona produktu',
+      get_eb:'Gotowy do pracy',
+      get_h2:'Zainstaluj HotspotUV w swoim 3ds Max',
+      get_lead:'Znasz już workflow i silnik dopasowania. Wtyczka działa na standardowym Unwrap_UVW — bez zmian w pipelinie, jeden Undo na przebieg.',
+      get_btn:'Pobierz HotspotUV →'
     }
   };
 
