@@ -5,7 +5,7 @@ Autodesk 3ds Max, created by **3Design DK**.
 
 - **Live site:** https://3designdk.com (the old `https://skuchryk.github.io/3Design-DK/`
   URL now 301-redirects here). The domain runs through **Cloudflare** — see *Custom domain*.
-- **Buy (Gumroad):** https://skuchryker.gumroad.com/l/ueunpw
+- **Buy (Gumroad):** https://3designdk.gumroad.com/l/ueunpw
 - **Plugin source (separate project):** `H:\PROJECTS\HotSpotMaxV2`
 
 It's a plain static site — HTML, CSS and a little vanilla JavaScript. **No build
@@ -114,7 +114,7 @@ All four buttons link to the Gumroad product page. To change the destination,
 find-and-replace this URL across `index.html`:
 
 ```
-https://skuchryker.gumroad.com/l/ueunpw
+https://3designdk.gumroad.com/l/ueunpw
 ```
 
 > Note: use the *clean* product URL like above. Don't paste Gumroad share links that

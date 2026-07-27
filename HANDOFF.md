@@ -32,7 +32,7 @@ Do not commit tokens.
 - **Live:** https://3designdk.com (via **Cloudflare** → GitHub Pages; the old
   `skuchryk.github.io/3Design-DK/` redirects here). Cloudflare caches assets, so
   hard-refresh (Ctrl+F5) after a deploy; it also obfuscates the contact email.
-- **Buy (Gumroad, $15 USD):** https://skuchryker.gumroad.com/l/ueunpw
+- **Buy (Gumroad, $15 USD):** https://3designdk.gumroad.com/l/ueunpw
 - **Contact:** contact@3designdk.com (mailbox on the domain; shown in the footer).
 - **Plugin source (separate repo):** `H:\PROJECTS\HotSpotMaxV2`
 - Static HTML/CSS/JS, no build step. Single page: `index.html`.
