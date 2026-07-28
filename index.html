@@ -95,7 +95,7 @@
           whole asset and stop fighting your trim sheets.
         </p>
         <div class="hero-actions">
-          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV — $15 <span class="btn-was">$30</span></a>
+          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV — from $15 <span class="btn-was">$30</span></a>
           <a href="#video" class="btn btn-ghost btn-lg">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             Watch demo
@@ -601,26 +601,31 @@
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow">Pricing</p>
-        <h2>One license. Everything included.</h2>
+        <h2>One-time purchase. Three license sizes.</h2>
+        <p class="section-sub">Lifetime license &middot; 1 year of updates included &middot; billed in your local currency at checkout</p>
       </div>
-      <div class="pricing-card reveal">
-        <div class="pricing-main">
-          <p class="price-badge">Launch offer · 50% off</p>
-          <p class="price"><span class="price-currency">$</span><span class="price-amount">15</span><span class="price-was">$30</span></p>
-          <p class="price-limit">Limited offer: first 100 licenses or until Aug 11</p>
-          <p class="price-note">Lifetime license · 1 year of updates included</p>
-          <p class="price-sub">Billed in your local currency at checkout</p>
-          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg btn-block">Get HotspotUV</a>
-          <p class="price-secure">Secure checkout · instant download</p>
+      <div class="tier-grid reveal">
+        <div class="tier-card is-featured">
+          <p class="tier-name">Individual</p>
+          <p class="tier-price"><span class="tier-was">$30</span>$15</p>
+          <p class="tier-desc">For 1 artist. Activate on up to <strong>2 machines</strong> (e.g. desktop&nbsp;+&nbsp;laptop).</p>
+          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-block">Get Individual</a>
         </div>
-        <ul class="pricing-list">
-          <li>HotspotUV plugin — one-click .mzp installer (installs without a Max restart)</li>
-          <li>Sample trim layouts to get started immediately</li>
-          <li>Quick-start guide</li>
-          <li>1 year of free updates included</li>
-          <li>Direct support from the developer</li>
-        </ul>
+        <div class="tier-card">
+          <p class="tier-name">Team</p>
+          <p class="tier-price"><span class="tier-was">$99</span>$49.50</p>
+          <p class="tier-desc">For one team. Activate on up to <strong>5 machines</strong>.</p>
+          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-ghost btn-block">Get Team</a>
+        </div>
+        <div class="tier-card">
+          <p class="tier-name">Studio</p>
+          <p class="tier-price"><span class="tier-was">$249</span>$124.50</p>
+          <p class="tier-desc">For a whole studio. <strong>Unlimited</strong> activations.</p>
+          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-ghost btn-block">Get Studio</a>
+        </div>
       </div>
+      <p class="price-limit tier-offer reveal">Launch offer: 50% off every license — first 100 or until Aug 11 (applied at checkout)</p>
+      <p class="tier-includes reveal">Every license includes: the plugin with a one-click .mzp installer &middot; sample trim layouts &middot; quick-start guide &middot; 1 year of free updates &middot; direct support from the developer</p>
     </div>
   </section>
 
@@ -643,7 +648,7 @@
             <h4>Install</h4>
             <p class="req-lead">Recommended — the <code>.mzp</code> installer (in your download):</p>
             <ol>
-              <li>In 3ds Max: <strong>Scripting &rarr; Run Script&hellip;</strong> and pick <code>HotspotUV_v2.0.0.mzp</code></li>
+              <li>In 3ds Max: <strong>Scripting &rarr; Run Script&hellip;</strong> and pick the <code>HotspotUV_*.mzp</code> from your download</li>
               <li>Confirm the dialog — HotspotUV installs and runs <strong>right away, no restart</strong></li>
             </ol>
             <p class="req-note">Prefer not to click inside Max? Run the included <code>install.bat</code>, or copy the <code>HotspotUV</code> folder into <code>%PROGRAMDATA%\Autodesk\ApplicationPlugins\</code> (all users) or <code>%LOCALAPPDATA%\Autodesk\ApplicationPlugins\</code> (one user, no admin), then restart Max.</p>
@@ -683,7 +688,7 @@
         </details>
         <details>
           <summary>How does licensing work?</summary>
-          <p>It's a lifetime license — the plugin is yours to keep forever — and the price includes one year of updates. After that year the plugin keeps working; you'd only renew if you want newer versions. One purchase, one user. Questions or issues — reach out and I'll help.</p>
+          <p>It's a lifetime license — the plugin is yours to keep forever — and the price includes one year of updates. After that year the plugin keeps working; you'd only renew if you want newer versions. Three sizes: <strong>Individual</strong> (1 artist, up to 2 machines), <strong>Team</strong> (up to 5 machines) and <strong>Studio</strong> (unlimited activations). Need to move a seat to a new machine? Reach out and I'll free it up.</p>
         </details>
       </div>
     </div>
@@ -702,9 +707,36 @@
 
         <details class="release is-latest" open>
           <summary class="release-head">
+            <span class="release-version">v2.2.0</span>
+            <span class="release-date">28 Jul 2026</span>
+            <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">New</span>
+              <ul class="rel-list">
+                <li><strong>Quick UV + Hotspot</strong> — one click takes an unmapped model to trimmed UVs: uniform box-projection at a consistent texel scale (auto-calibrated to your trim sheet), then an immediate hotspot pass. Works on any number of objects at once, with a shared Unwrap for easy inspection.</li>
+                <li><strong>New Trimsheet from Texture</strong> — build a trim sheet automatically from a flat-color layout texture (color-ID map): every uniform color block becomes a trim, with adjustable tolerance and minimum size.</li>
+                <li><strong>Split Selected Trims</strong> — divide trims into equal columns or rows; the parts tile the original exactly.</li>
+                <li><strong>Rotate 90&deg;</strong> — rotate the selected UV islands in place from the map toolbar.</li>
+                <li><strong>Display options</strong> — trim opacity, border strength, thickness and color in one popup: fade the trims to inspect the texture underneath.</li>
+                <li><strong>License tiers</strong> — Individual (2 activations), Team (5) and Studio (unlimited). Licenses purchased before this release keep working without any limit.</li>
+              </ul>
+            </div>
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li>Background image failed to load when the trim sheet referenced it by a relative path.</li>
+                <li>Routine license re-checks no longer count as activations.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
             <span class="release-version">v2.1.0</span>
             <span class="release-date">16 Jul 2026</span>
-            <span class="release-badge">Latest</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">
@@ -840,7 +872,7 @@
     <div class="container narrow reveal">
       <h2>Spend less time fixing UVs.<br>Spend more time creating.</h2>
       <div class="hero-actions center">
-        <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV — $15 <span class="btn-was">$30</span></a>
+        <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV — from $15 <span class="btn-was">$30</span></a>
       </div>
     </div>
   </section>
