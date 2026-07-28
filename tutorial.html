@@ -846,7 +846,9 @@
       /* markers sit on the screenshot, the description lives below the fold —
          without this a click looks like it did nothing */
       var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-      document.getElementById('anno').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      /* 'nearest': scroll just far enough that the whole box (incl. its
+         bottom) is in view — no over-scrolling past the screenshot */
+      document.getElementById('anno').scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'});
     }
   }
   markers.forEach(function(m){m.addEventListener('click',function(){showAnno(+m.dataset.a,true);});});
