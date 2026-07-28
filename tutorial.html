@@ -815,7 +815,7 @@
       legend.appendChild(b);
     });
   }
-  function showAnno(i){
+  function showAnno(i,scroll){
     annoIdx=(i+12)%12;
     var a=ANNO_I18N[LANG][annoIdx];
     markers.forEach(function(m){m.classList.toggle('on',+m.dataset.a===annoIdx);});
@@ -842,8 +842,14 @@
       var td2=document.createElement('td');td2.textContent=r[1];
       tr.appendChild(td1);tr.appendChild(td2);tbl.appendChild(tr);
     });
+    if(scroll){
+      /* markers sit on the screenshot, the description lives below the fold —
+         without this a click looks like it did nothing */
+      var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.getElementById('anno').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    }
   }
-  markers.forEach(function(m){m.addEventListener('click',function(){showAnno(+m.dataset.a);});});
+  markers.forEach(function(m){m.addEventListener('click',function(){showAnno(+m.dataset.a,true);});});
   document.getElementById('annoPrev').addEventListener('click',function(){showAnno(annoIdx-1);});
   document.getElementById('annoNext').addEventListener('click',function(){showAnno(annoIdx+1);});
 
