@@ -184,6 +184,21 @@
     </div>
   </section>
 
+  <!-- ======= QUICK UV SHOWCASE (v2.2) ======= -->
+  <section class="section" id="quickuv">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">New in v2.2</p>
+        <h2>Quick UV + Hotspot — unmapped model to trimmed UVs in one click</h2>
+        <p class="section-sub">No unwrapping first: a uniform box projection at a consistent texel scale, auto-calibrated to your trim sheet, then an immediate hotspot pass — one button, any number of objects.</p>
+      </div>
+      <figure class="reveal" style="margin:0;max-width:1100px;margin:0 auto">
+        <img src="assets/quick_uv_after.jpg" alt="HotspotUV after a Quick UV + Hotspot run — the trim sheet with matched islands in Edit UVWs and fully textured HVAC props in the 3ds Max viewport" width="1600" height="885" loading="lazy" style="width:100%;height:auto;border:1px solid var(--border-strong);border-radius:14px">
+        <figcaption style="margin-top:10px;text-align:center;opacity:.75;font-size:.9em">Raw boxes in, textured props out — every face lands on its trim at one consistent texel density.</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ======= FEATURES ======= -->
   <section class="section section-alt" id="features">
     <div class="container">
@@ -418,7 +433,7 @@
           <h3>Map modes &amp; Fit</h3>
           <p class="control-lead">One switch decides what a click on the map does.</p>
           <button class="control-shot control-shot-wide" type="button" aria-label="Zoom the map toolbar">
-            <img src="assets/toolbar_map.png" alt="HotspotUV map toolbar — Zoom Extents, Background, the Place/Select/Edit mode switch, Fit dropdown and Snap" width="474" height="36" loading="lazy">
+            <img src="assets/toolbar_map.png" alt="HotspotUV map toolbar — Zoom Extents, Background, the Place/Select/Edit mode switch, Fit dropdown, Snap and the Display popup" width="600" height="36" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <button class="control-shot" type="button" aria-label="Zoom the map in Select mode">
@@ -434,7 +449,13 @@
             <dd>Move and scale the trims themselves — see the next card.</dd>
             <dt>Background &amp; view</dt>
             <dd>Zoom Extents plus a texture underlay — from a file or straight off the selected object's material.</dd>
+            <dt>Display</dt>
+            <dd>Trim opacity, border strength / thickness / color and label size &amp; color — fade the trims to inspect the texture underneath.</dd>
           </dl>
+          <button class="control-shot" type="button" aria-label="Zoom the Display popup">
+            <img src="assets/panel_display.png" alt="HotspotUV Display popup — opacity and border sliders, border width, label size, border and text color" width="230" height="212" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
         </article>
 
         <article class="card control-group">
@@ -477,17 +498,23 @@
           <h3>Trimsheet &amp; files</h3>
           <p class="control-lead">Load, save and reshape trim layouts.</p>
           <button class="control-shot" type="button" aria-label="Zoom the File menu">
-            <img src="assets/menu_file.png" alt="HotspotUV File menu — New, Open, Save, Import and Edit Trimsheet" width="245" height="210" loading="lazy">
+            <img src="assets/menu_file.png" alt="HotspotUV File menu — New, New from Texture, Open, Save, Import and Edit Trimsheet" width="185" height="207" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>New / Open / Save</dt>
             <dd>Start fresh, load a <code>.json</code> layout, or save your sheet.</dd>
+            <dt>New from Texture</dt>
+            <dd>Point it at a color-ID layout texture and every flat color block becomes a trim — tolerance and minimum size included.</dd>
             <dt>Import Trimsheet</dt>
             <dd>Merge zones from another file into the current sheet.</dd>
             <dt>Edit Trimsheet</dt>
             <dd>Resize the sheet — the zones scale with it.</dd>
           </dl>
+          <button class="control-shot control-shot-tall" type="button" aria-label="Zoom the Trims From Texture dialog">
+            <img src="assets/dialog_from_texture.png" alt="HotspotUV Trims From Texture dialog — color tolerance, minimum block size, background handling and a live detection preview" width="372" height="586" loading="lazy">
+            <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+          </button>
         </article>
 
         <article class="card control-group">
@@ -498,7 +525,7 @@
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <button class="control-shot" type="button" aria-label="Zoom the overflow menu">
-            <img src="assets/menu_overflow.png" alt="HotspotUV Trims overflow menu — Set Tags, Remove Tags, Set Fit Axis, Map UVs to Trims" width="245" height="154" loading="lazy">
+            <img src="assets/menu_overflow.png" alt="HotspotUV Trims overflow menu — Split Selected Trims, Set Tags, Remove Tags, Set Fit Axis, Map UVs to Trims" width="160" height="149" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
@@ -509,7 +536,7 @@
             <dt>Grid</dt>
             <dd>Build a regular grid of zones.</dd>
             <dt>⋯ menu</dt>
-            <dd>Set / Remove Tags, Set Fit Axis and Map UVs to Trims — bulk actions on the selection, also in the right-click menu.</dd>
+            <dd>Split Selected Trims (equal columns or rows), Set / Remove Tags, Set Fit Axis and Map UVs to Trims — bulk actions on the selection, also in the right-click menu.</dd>
           </dl>
         </article>
 
