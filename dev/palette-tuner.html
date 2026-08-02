@@ -114,13 +114,27 @@
     box-shadow: 0 3px 18px rgba(0, 0, 0, 0.16);
   }
   .fallback {
-    display: none; padding: 16px; font-size: 0.86rem; line-height: 1.6;
+    display: none; padding: 14px 16px; margin-top: 10px;
+    font-size: 0.86rem; line-height: 1.6; border-radius: var(--r-sm);
     color: var(--bad); background: var(--bad-bg);
-    border: 1px solid color-mix(in srgb, var(--bad) 25%, transparent); border-radius: var(--r-sm);
+    border: 1px solid color-mix(in srgb, var(--bad) 25%, transparent);
   }
   .fallback code { font-family: var(--mono); font-size: 0.94em; }
-  body.no-frame .framebox { display: none; }
-  body.no-frame .fallback { display: block; }
+  /* script access denied: the frame is useless, so hide it */
+  body.state-blocked .framebox { display: none; }
+  body.state-blocked .fallback { display: block; }
+  /* frame works but this page has its own palette: keep it, just explain */
+  body.state-foreign .fallback {
+    display: block;
+    color: var(--warn); background: var(--warn-bg);
+    border-color: color-mix(in srgb, var(--warn) 25%, transparent);
+  }
+  .home {
+    font: inherit; font-size: 0.79rem; padding: 7px 12px; cursor: pointer;
+    color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+  }
+  .home:hover { border-color: var(--focus); }
 
   /* ---------- readouts ---------- */
   .advisories { display: flex; flex-direction: column; gap: 8px; }
@@ -233,19 +247,19 @@
       <section>
         <div class="frame-head">
           <h2>Live page</h2>
-          <div class="seg" id="device" role="group" aria-label="Preview width">
-            <button type="button" data-w="100%">Desktop</button>
-            <button type="button" data-w="768px">Tablet</button>
-            <button type="button" data-w="375px">Phone</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+            <button type="button" class="home" id="home">Back to home page</button>
+            <div class="seg" id="device" role="group" aria-label="Preview width">
+              <button type="button" data-w="100%">Desktop</button>
+              <button type="button" data-w="768px">Tablet</button>
+              <button type="button" data-w="375px">Phone</button>
+            </div>
           </div>
         </div>
         <div class="framebox">
           <iframe id="site" src="../index.html" title="Live preview of the site"></iframe>
         </div>
-        <div class="fallback" id="fallback">
-          <b>The page could not be driven from here.</b><br>
-          Open this tool over a local server rather than double-clicking the file — browsers block script access between <code>file://</code> documents. From the repo root run <code>python -m http.server 8000</code>, then visit <code>http://localhost:8000/dev/palette-tuner.html</code>.
-        </div>
+        <div class="fallback" id="fallback"></div>
       </section>
 
       <section class="panel">
@@ -386,15 +400,43 @@
   /* ---------- read the running stylesheet ---------- */
   var frame = el("site"), fdoc = null;
 
+  function setState(state, html) {
+    document.body.classList.remove("state-blocked", "state-foreign");
+    if (state) document.body.classList.add("state-" + state);
+    el("fallback").innerHTML = html || "";
+  }
+
   function readLive() {
+    var cs, get, bg, soft, tx, mt, m2;
     try {
       fdoc = frame.contentDocument;
-      if (!fdoc || !fdoc.documentElement) throw new Error("no document");
-      var cs = fdoc.defaultView.getComputedStyle(fdoc.documentElement);
-      var get = function (n) { return cs.getPropertyValue(n).trim(); };
-      var bg = hslOf(get("--bg")), soft = hslOf(get("--bg-soft")),
-          tx = hslOf(get("--text")), mt = hslOf(get("--muted")), m2 = hslOf(get("--muted-2"));
-      if (!bg || !tx) throw new Error("no tokens");
+      if (!fdoc || !fdoc.documentElement) throw new Error("unreadable");
+      cs = fdoc.defaultView.getComputedStyle(fdoc.documentElement);
+      get = function (n) { return cs.getPropertyValue(n).trim(); };
+      bg = hslOf(get("--bg")); soft = hslOf(get("--bg-soft"));
+      tx = hslOf(get("--text")); mt = hslOf(get("--muted")); m2 = hslOf(get("--muted-2"));
+    } catch (e) {
+      fdoc = null;
+      setState("blocked",
+        "<b>The page cannot be driven from here.</b><br>" +
+        "Open this tool over a local server rather than double-clicking the file — browsers block script access between <code>file://</code> documents. " +
+        "From the repo root run <code>python -m http.server 8000</code>, then visit <code>http://localhost:8000/dev/palette-tuner.html</code>.");
+      return false;
+    }
+
+    /* Same origin and readable, but not a page built on the site palette —
+       tutorial.html carries its own tokens and its own light/dark theme. */
+    if (!bg || !tx) {
+      var where = "";
+      try { where = fdoc.location.pathname.split("/").pop() || "this page"; } catch (e) { where = "this page"; }
+      setState("foreign",
+        "<b>" + where + " has its own palette.</b> It does not use <code>css/style.css</code>, " +
+        "so the sliders leave it untouched — nothing is broken. The readings below still describe " +
+        "the values you have set. Use <b>Back to home page</b> to return to a page these tokens apply to.");
+      return false;
+    }
+
+    try {
 
       var live = {
         bgH: bg.h, bgS: bg.s, bgL: bg.l,
@@ -422,17 +464,21 @@
 
       PRESETS["Live site"] = live;
       S = Object.assign({}, live);
-      document.body.classList.remove("no-frame");
+      setState(null);
       return true;
     } catch (e) {
-      document.body.classList.add("no-frame");
+      setState("blocked",
+        "<b>The page cannot be driven from here.</b><br>" +
+        "Reading its styles failed unexpectedly. Serve the repo over " +
+        "<code>python -m http.server 8000</code> and open the tool from " +
+        "<code>http://localhost:8000/dev/palette-tuner.html</code>.");
       return false;
     }
   }
 
   /* ---------- push into the page ---------- */
   function inject(t, accentInk, promoInk) {
-    if (!fdoc) return;
+    if (!fdoc || document.body.classList.contains("state-foreign")) return;
     try {
       var root = fdoc.documentElement;
       root.style.setProperty("--bg", t.bg);
@@ -455,7 +501,7 @@
         ".promo-bar:hover{background:" + t.promo + ";}" +
         ".promo-cta{background:" + t.bg + ";color:" + promoInk + ";}";
     } catch (e) {
-      document.body.classList.add("no-frame");
+      fdoc = null;
     }
   }
 
@@ -590,6 +636,8 @@
     });
   });
   el("device").firstElementChild.setAttribute("aria-pressed", "true");
+
+  el("home").addEventListener("click", function () { frame.src = "../index.html"; });
 
   el("copyCss").addEventListener("click", function () {
     var btn = el("copyCss"), old = btn.textContent;
