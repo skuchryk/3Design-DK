@@ -36,9 +36,21 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      // threshold must stay 0: a percentage threshold can never be met by an
+      // element taller than the viewport (the mobile one-column .controls-grid
+      // is ~9000px, so at most ~9% of it is ever on screen) and such blocks
+      // would stay invisible forever. The negative bottom margin still delays
+      // the reveal until the element is properly in view.
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
     );
     document.querySelectorAll(".reveal").forEach(function (el) {
+      // A block taller than the screen can't be "revealed" perceptibly anyway,
+      // and on phones (one-column layouts) it is the case most likely to get
+      // stuck hidden. Show those straight away and only animate the rest.
+      if (el.getBoundingClientRect().height >= window.innerHeight) {
+        el.classList.add("visible");
+        return;
+      }
       observer.observe(el);
     });
   } else {
