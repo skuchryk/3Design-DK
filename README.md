@@ -218,6 +218,14 @@ git commit -m "Describe your change"
 git push origin main
 ```
 
+**Tuning colours:** `dev/palette-tuner.html` drives the real `index.html` in an
+iframe — sliders write straight into its custom properties, with live WCAG
+contrast readouts and paste-ready CSS. It reads the running stylesheet, so its
+"Live site" preset never drifts from `style.css`. Serve the repo and open
+`http://localhost:8000/dev/palette-tuner.html` (double-clicking the file will
+not work: browsers block script access between `file://` documents). It ships
+with the site at `/dev/palette-tuner.html` but carries `noindex, nofollow`.
+
 **After editing `css/style.css` or `js/main.js`, bump the `?v=` stamp** on their
 `<link>` / `<script>` tags in `index.html` *and* `privacy.html` (e.g.
 `css/style.css?v=20260802` → `?v=20260815`). Those two files are served with

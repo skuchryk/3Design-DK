@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Palette Tuner — HotspotUV site (dev)</title>
+<style>
+  :root {
+    --paper: #f4f6f9;
+    --panel: #ffffff;
+    --ink: #14171f;
+    --ink-soft: #565d6e;
+    --line: #dfe4ec;
+    --line-soft: #eceff5;
+    --focus: #2f5ad4;
+    --ok: #17794a;  --ok-bg: #e4f4ea;
+    --warn: #8f6410; --warn-bg: #fbf1dc;
+    --bad: #b3352b;  --bad-bg: #fbe7e4;
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+    --r: 10px; --r-sm: 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0f1117; --panel: #161a23; --ink: #e8ebf2; --ink-soft: #98a0b2;
+      --line: #262b36; --line-soft: #1d222c; --focus: #87a6ff;
+      --ok: #4cc182; --ok-bg: #16301f;
+      --warn: #dda548; --warn-bg: #302713;
+      --bad: #f0806f; --bad-bg: #331c19;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--ui); line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1500px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .masthead {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 22px;
+  }
+  .masthead h1 { font-size: 1.35rem; font-weight: 650; letter-spacing: -0.015em; margin: 0; }
+  .masthead p { margin: 0; color: var(--ink-soft); font-size: 0.88rem; max-width: 62ch; }
+
+  .layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 22px; align-items: start; }
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: 1fr; }
+    .rail { position: static; max-height: none; }
+  }
+  .rail {
+    position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto;
+    display: flex; flex-direction: column; gap: 12px; padding-right: 4px;
+  }
+  .stage { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 15px; }
+  .panel > h2 {
+    margin: 0 0 4px; font-size: 0.7rem; font-weight: 650; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .panel > .hint { margin: 0 0 12px; font-size: 0.79rem; color: var(--ink-soft); }
+
+  .ctl { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; margin-bottom: 11px; }
+  .ctl:last-child { margin-bottom: 0; }
+  .ctl label { font-size: 0.82rem; }
+  .ctl output { font-family: var(--mono); font-size: 0.75rem; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+  .ctl input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--focus); margin: 2px 0 0; }
+
+  .swatch-row { display: flex; align-items: center; gap: 8px; margin-bottom: 13px; }
+  .swatch-row input[type="color"] {
+    width: 38px; height: 30px; padding: 0; background: none; cursor: pointer;
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+  }
+  .swatch-row input[type="text"] {
+    flex: 1; min-width: 0; font-family: var(--mono); font-size: 0.81rem; text-transform: lowercase;
+    padding: 6px 8px; color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+  }
+
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg button {
+    flex: 1; font: inherit; font-size: 0.79rem; padding: 7px 4px; cursor: pointer;
+    color: var(--ink-soft); background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+  }
+  .seg button[aria-pressed="true"] {
+    color: var(--panel); background: var(--ink); border-color: var(--ink); font-weight: 600;
+  }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; }
+  .presets button {
+    font: inherit; font-size: 0.77rem; padding: 6px 10px; cursor: pointer;
+    color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 999px;
+  }
+  .presets button:hover, .seg button:hover { border-color: var(--focus); }
+  :where(button, input, [tabindex]):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* ---------- live frame ---------- */
+  .frame-head {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 10px;
+  }
+  .frame-head h2 { margin: 0; font-size: 0.7rem; font-weight: 650; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-soft); }
+  .framebox {
+    border: 1px solid var(--line); border-radius: var(--r);
+    background: var(--line-soft); padding: 12px; display: flex; justify-content: center;
+  }
+  iframe {
+    display: block; width: 100%; height: 660px; border: 0;
+    border-radius: var(--r-sm); background: #000;
+    box-shadow: 0 3px 18px rgba(0, 0, 0, 0.16);
+  }
+  .fallback {
+    display: none; padding: 16px; font-size: 0.86rem; line-height: 1.6;
+    color: var(--bad); background: var(--bad-bg);
+    border: 1px solid color-mix(in srgb, var(--bad) 25%, transparent); border-radius: var(--r-sm);
+  }
+  .fallback code { font-family: var(--mono); font-size: 0.94em; }
+  body.no-frame .framebox { display: none; }
+  body.no-frame .fallback { display: block; }
+
+  /* ---------- readouts ---------- */
+  .advisories { display: flex; flex-direction: column; gap: 8px; }
+  .adv {
+    display: flex; gap: 9px; align-items: flex-start; padding: 9px 12px;
+    border-radius: var(--r-sm); font-size: 0.83rem; border: 1px solid transparent;
+  }
+  .adv b { font-weight: 650; }
+  .adv-ok { background: var(--ok-bg); color: var(--ok); border-color: color-mix(in srgb, var(--ok) 25%, transparent); }
+  .adv-warn { background: var(--warn-bg); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 25%, transparent); }
+  .adv-bad { background: var(--bad-bg); color: var(--bad); border-color: color-mix(in srgb, var(--bad) 25%, transparent); }
+
+  .tablewrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line-soft); white-space: nowrap; }
+  th { font-size: 0.67rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); border-bottom-color: var(--line); }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+  tr:last-child td { border-bottom: none; }
+  .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.69rem; font-weight: 650; }
+  .chip-ok { background: var(--ok-bg); color: var(--ok); }
+  .chip-warn { background: var(--warn-bg); color: var(--warn); }
+  .chip-bad { background: var(--bad-bg); color: var(--bad); }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; border: 1px solid rgba(128,128,128,0.4); vertical-align: -1px; margin-right: 6px; }
+
+  .out-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .copy {
+    font: inherit; font-size: 0.77rem; font-weight: 600; padding: 6px 12px; cursor: pointer;
+    color: var(--panel); background: var(--ink); border: none; border-radius: var(--r-sm);
+  }
+  .copy:hover { opacity: 0.88; }
+  pre {
+    margin: 0; padding: 13px 14px; background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+    font-family: var(--mono); font-size: 0.77rem; line-height: 1.6; overflow-x: auto; color: var(--ink);
+  }
+  .note { margin: 10px 0 0; font-size: 0.79rem; color: var(--ink-soft); }
+  .note code { font-family: var(--mono); font-size: 0.94em; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>Palette Tuner</h1>
+    <p>Drives the real <code>index.html</code> in the frame below — every slider writes straight into its custom properties. Nothing here is saved; when you like a set, paste the CSS at the bottom into <code>css/style.css</code>.</p>
+  </header>
+
+  <div class="layout">
+
+    <aside class="rail">
+
+      <section class="panel">
+        <h2>Presets</h2>
+        <p class="hint">“Live site” is read from the running stylesheet, so it never drifts.</p>
+        <div class="presets" id="presets"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Ground</h2>
+        <p class="hint">Base surface; band and cards step up from it.</p>
+        <div class="swatch-row">
+          <input type="color" id="bgPick" aria-label="Ground colour picker">
+          <input type="text" id="bgHex" aria-label="Ground hex value" spellcheck="false">
+        </div>
+        <div class="ctl"><label for="bgH">Hue</label><output id="bgHOut"></output><input type="range" id="bgH" min="0" max="360" step="1"></div>
+        <div class="ctl"><label for="bgS">Saturation</label><output id="bgSOut"></output><input type="range" id="bgS" min="0" max="100" step="0.5"></div>
+        <div class="ctl"><label for="bgL">Lightness</label><output id="bgLOut"></output><input type="range" id="bgL" min="0" max="30" step="0.2"></div>
+        <div class="ctl"><label for="step">Layer separation</label><output id="stepOut"></output><input type="range" id="step" min="0" max="7" step="0.1"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Text</h2>
+        <p class="hint">Near-white headings are what glare. Pull them down before lifting the ground.</p>
+        <div class="ctl"><label for="txH">Hue</label><output id="txHOut"></output><input type="range" id="txH" min="0" max="360" step="1"></div>
+        <div class="ctl"><label for="txS">Saturation</label><output id="txSOut"></output><input type="range" id="txS" min="0" max="60" step="0.5"></div>
+        <div class="ctl"><label for="txL">Headings</label><output id="txLOut"></output><input type="range" id="txL" min="60" max="100" step="0.5"></div>
+        <div class="ctl"><label for="mtL">Body copy</label><output id="mtLOut"></output><input type="range" id="mtL" min="40" max="95" step="0.5"></div>
+        <div class="ctl"><label for="m2L">Small print</label><output id="m2LOut"></output><input type="range" id="m2L" min="35" max="90" step="0.5"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Accent</h2>
+        <p class="hint">The buy button.</p>
+        <div class="swatch-row">
+          <input type="color" id="acPick" aria-label="Accent colour picker">
+          <input type="text" id="acHex" aria-label="Accent hex value" spellcheck="false">
+        </div>
+        <div class="ctl"><label for="acH">Hue</label><output id="acHOut"></output><input type="range" id="acH" min="0" max="360" step="1"></div>
+        <div class="ctl"><label for="acS">Saturation</label><output id="acSOut"></output><input type="range" id="acS" min="0" max="100" step="0.5"></div>
+        <div class="ctl"><label for="acL">Lightness</label><output id="acLOut"></output><input type="range" id="acL" min="15" max="80" step="0.5"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Promo bar</h2>
+        <p class="hint">Its text is 13.6px bold — normal text, so it needs 4.5:1, not the 3:1 large-text allowance.</p>
+        <div class="ctl"><label for="prL">Bar lightness</label><output id="prLOut"></output><input type="range" id="prL" min="15" max="75" step="0.5"></div>
+        <div class="seg" id="promoInk" role="group" aria-label="Promo bar text colour">
+          <button type="button" data-ink="white">White text</button>
+          <button type="button" data-ink="ground">Dark text</button>
+        </div>
+      </section>
+
+    </aside>
+
+    <main class="stage">
+
+      <section>
+        <div class="frame-head">
+          <h2>Live page</h2>
+          <div class="seg" id="device" role="group" aria-label="Preview width">
+            <button type="button" data-w="100%">Desktop</button>
+            <button type="button" data-w="768px">Tablet</button>
+            <button type="button" data-w="375px">Phone</button>
+          </div>
+        </div>
+        <div class="framebox">
+          <iframe id="site" src="../index.html" title="Live preview of the site"></iframe>
+        </div>
+        <div class="fallback" id="fallback">
+          <b>The page could not be driven from here.</b><br>
+          Open this tool over a local server rather than double-clicking the file — browsers block script access between <code>file://</code> documents. From the repo root run <code>python -m http.server 8000</code>, then visit <code>http://localhost:8000/dev/palette-tuner.html</code>.
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Verdict</h2>
+        <p class="hint">Live checks on the values you have set.</p>
+        <div class="advisories" id="advisories"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Contrast</h2>
+        <p class="hint">AAA ≥ 7:1 · AA ≥ 4.5:1 · large text only ≥ 3:1. Body copy and small print count as normal text.</p>
+        <div class="tablewrap">
+          <table><thead><tr><th>Pair</th><th style="text-align:right">Ratio</th><th>Rating</th></tr></thead><tbody id="ratios"></tbody></table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Layer separation</h2>
+        <p class="hint">Not a WCAG rule — just whether bands and cards read as separate surfaces. Under about 1.04:1 they flatten into one plane.</p>
+        <div class="tablewrap">
+          <table><thead><tr><th>Pair</th><th style="text-align:right">Ratio</th><th>Reads as</th></tr></thead><tbody id="layers"></tbody></table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="out-head">
+          <h2 style="margin:0">Paste into css/style.css</h2>
+          <button class="copy" type="button" id="copyCss">Copy</button>
+        </div>
+        <pre id="cssOut"></pre>
+        <p class="note">The two greens are not variables yet — they sit in <code>.btn-primary</code> and <code>.promo-bar</code>. Remember to bump the <code>?v=</code> stamp in <code>index.html</code> and <code>privacy.html</code> after saving, or returning visitors keep the old stylesheet for four hours.</p>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- colour maths ---------- */
+  function hslToRgb(h, s, l) {
+    h = ((h % 360) + 360) % 360; s /= 100; l /= 100;
+    var c = (1 - Math.abs(2 * l - 1)) * s,
+        x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+        m = l - c / 2, r = 0, g = 0, b = 0;
+    if (h < 60) { r = c; g = x; }
+    else if (h < 120) { r = x; g = c; }
+    else if (h < 180) { g = c; b = x; }
+    else if (h < 240) { g = x; b = c; }
+    else if (h < 300) { r = x; b = c; }
+    else { r = c; b = x; }
+    return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
+  }
+  function hex(h, s, l) {
+    return "#" + hslToRgb(h, s, l).map(function (v) { return v.toString(16).padStart(2, "0"); }).join("");
+  }
+  function hexToRgb(x) {
+    x = String(x).trim().replace("#", "");
+    if (x.length === 3) x = x.split("").map(function (c) { return c + c; }).join("");
+    return [parseInt(x.slice(0, 2), 16), parseInt(x.slice(2, 4), 16), parseInt(x.slice(4, 6), 16)];
+  }
+  function anyToHex(v) {
+    v = String(v).trim();
+    if (v.charAt(0) === "#") return v.length === 4
+      ? "#" + v.slice(1).split("").map(function (c) { return c + c; }).join("")
+      : v.slice(0, 7);
+    var m = v.match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    var p = m[1].split(/[,\s/]+/).map(parseFloat);
+    return "#" + p.slice(0, 3).map(function (n) { return Math.round(n).toString(16).padStart(2, "0"); }).join("");
+  }
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn,
+        l = (mx + mn) / 2, s = 0, h = 0;
+    if (d) {
+      s = d / (1 - Math.abs(2 * l - 1));
+      if (mx === r) h = ((g - b) / d) % 6;
+      else if (mx === g) h = (b - r) / d + 2;
+      else h = (r - g) / d + 4;
+      h *= 60; if (h < 0) h += 360;
+    }
+    return [h, s * 100, l * 100];
+  }
+  var round1 = function (n) { return Math.round(n * 10) / 10; };
+  function hslOf(v) {
+    var h = anyToHex(v); if (!h) return null;
+    var t = rgbToHsl.apply(null, hexToRgb(h));
+    return { h: Math.round(t[0]), s: round1(t[1]), l: round1(t[2]) };
+  }
+  function lum(x) {
+    return hexToRgb(x).map(function (v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    }).reduce(function (a, v, i) { return a + v * [0.2126, 0.7152, 0.0722][i]; }, 0);
+  }
+  function ratio(a, b) {
+    var x = lum(a), y = lum(b), hi = Math.max(x, y), lo = Math.min(x, y);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+  var isHex = function (v) { return /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.test(String(v).trim()); };
+
+  /* ---------- state ---------- */
+  var FALLBACK = {
+    bgH: 232, bgS: 62.7, bgL: 11.6, step: 3.5,
+    txH: 219, txS: 35, txL: 92.2, mtS: 21, mtL: 67.3, m2S: 18, m2L: 56.9,
+    acH: 128, acS: 49, acL: 48.6, prL: 40.4, promoInk: "white"
+  };
+  var PRESETS = {
+    "Live site": Object.assign({}, FALLBACK),
+    "Off pure black": { bgH: 232, bgS: 55, bgL: 14.5, step: 4, txH: 219, txS: 30, txL: 88, mtS: 21, mtL: 66, m2S: 18, m2L: 58, acH: 128, acS: 49, acL: 48.6, prL: 45, promoInk: "ground" },
+    "Readable promo": { bgH: 232, bgS: 62.7, bgL: 11.6, step: 3.5, txH: 219, txS: 35, txL: 92.2, mtS: 21, mtL: 67.3, m2S: 18, m2L: 56.9, acH: 128, acS: 49, acL: 52, prL: 52, promoInk: "ground" },
+    "Pure black era": { bgH: 232, bgS: 67.4, bgL: 8.4, step: 3, txH: 214, txS: 20, txL: 96.1, mtS: 21, mtL: 67.3, m2S: 16, m2L: 49.8, acH: 128, acS: 49, acL: 48.6, prL: 40.4, promoInk: "white" }
+  };
+  var S = Object.assign({}, PRESETS["Live site"]);
+
+  var el = function (id) { return document.getElementById(id); };
+  var SLIDERS = ["bgH", "bgS", "bgL", "step", "txH", "txS", "txL", "mtL", "m2L", "acH", "acS", "acL", "prL"];
+  var UNITS = { bgH: "°", bgS: "%", bgL: "%", step: "%", txH: "°", txS: "%", txL: "%", mtL: "%", m2L: "%", acH: "°", acS: "%", acL: "%", prL: "%" };
+
+  function tokens() {
+    var st = S.step;
+    return {
+      bg:        hex(S.bgH, S.bgS, S.bgL),
+      bgSoft:    hex(S.bgH, S.bgS - 3, S.bgL + st),
+      card:      hex(S.bgH, S.bgS - 6, S.bgL + st * 2),
+      cardHover: hex(S.bgH, S.bgS - 11, S.bgL + st * 3.1),
+      text:      hex(S.txH, S.txS, S.txL),
+      muted:     hex(S.txH, S.mtS, S.mtL),
+      muted2:    hex(S.txH, S.m2S, S.m2L),
+      accent:    hex(S.acH, S.acS, S.acL),
+      promo:     hex(S.acH, S.acS, S.prL)
+    };
+  }
+
+  /* ---------- read the running stylesheet ---------- */
+  var frame = el("site"), fdoc = null;
+
+  function readLive() {
+    try {
+      fdoc = frame.contentDocument;
+      if (!fdoc || !fdoc.documentElement) throw new Error("no document");
+      var cs = fdoc.defaultView.getComputedStyle(fdoc.documentElement);
+      var get = function (n) { return cs.getPropertyValue(n).trim(); };
+      var bg = hslOf(get("--bg")), soft = hslOf(get("--bg-soft")),
+          tx = hslOf(get("--text")), mt = hslOf(get("--muted")), m2 = hslOf(get("--muted-2"));
+      if (!bg || !tx) throw new Error("no tokens");
+
+      var live = {
+        bgH: bg.h, bgS: bg.s, bgL: bg.l,
+        step: soft ? Math.max(0, round1(soft.l - bg.l)) : 3.5,
+        txH: tx.h, txS: tx.s, txL: tx.l,
+        mtS: mt ? mt.s : 21, mtL: mt ? mt.l : 67.3,
+        m2S: m2 ? m2.s : 18, m2L: m2 ? m2.l : 56.9,
+        acH: FALLBACK.acH, acS: FALLBACK.acS, acL: FALLBACK.acL,
+        prL: FALLBACK.prL, promoInk: "white"
+      };
+
+      /* the two greens are plain declarations, so read them off real elements */
+      var btn = fdoc.querySelector(".btn-primary"), bar = fdoc.querySelector(".promo-bar");
+      if (btn) {
+        var a = hslOf(fdoc.defaultView.getComputedStyle(btn).backgroundColor);
+        if (a && a.s > 5) { live.acH = a.h; live.acS = a.s; live.acL = a.l; }
+      }
+      if (bar) {
+        var bs = fdoc.defaultView.getComputedStyle(bar);
+        var p = hslOf(bs.backgroundColor);
+        if (p && p.s > 5) live.prL = p.l;
+        var ink = hslOf(bs.color);
+        if (ink) live.promoInk = ink.l > 55 ? "white" : "ground";
+      }
+
+      PRESETS["Live site"] = live;
+      S = Object.assign({}, live);
+      document.body.classList.remove("no-frame");
+      return true;
+    } catch (e) {
+      document.body.classList.add("no-frame");
+      return false;
+    }
+  }
+
+  /* ---------- push into the page ---------- */
+  function inject(t, accentInk, promoInk) {
+    if (!fdoc) return;
+    try {
+      var root = fdoc.documentElement;
+      root.style.setProperty("--bg", t.bg);
+      root.style.setProperty("--bg-soft", t.bgSoft);
+      root.style.setProperty("--card", t.card);
+      root.style.setProperty("--card-hover", t.cardHover);
+      root.style.setProperty("--text", t.text);
+      root.style.setProperty("--muted", t.muted);
+      root.style.setProperty("--muted-2", t.muted2);
+
+      var tag = fdoc.getElementById("tuner-override");
+      if (!tag) {
+        tag = fdoc.createElement("style");
+        tag.id = "tuner-override";
+        fdoc.head.appendChild(tag);
+      }
+      tag.textContent =
+        ".btn-primary{background:" + t.accent + ";color:" + accentInk + ";box-shadow:none;}" +
+        ".promo-bar{background:" + t.promo + ";color:" + promoInk + ";}" +
+        ".promo-bar:hover{background:" + t.promo + ";}" +
+        ".promo-cta{background:" + t.bg + ";color:" + promoInk + ";}";
+    } catch (e) {
+      document.body.classList.add("no-frame");
+    }
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    var t = tokens();
+    var promoInk = S.promoInk === "white" ? "#ffffff" : t.bg;
+    var accentInk = ratio("#ffffff", t.accent) >= ratio(t.bg, t.accent) ? "#ffffff" : t.bg;
+
+    inject(t, accentInk, promoInk);
+
+    SLIDERS.forEach(function (k) {
+      el(k).value = S[k];
+      el(k + "Out").textContent = round1(S[k]) + UNITS[k];
+    });
+    el("bgPick").value = t.bg; el("bgHex").value = t.bg;
+    el("acPick").value = t.accent; el("acHex").value = t.accent;
+    Array.prototype.forEach.call(el("promoInk").children, function (b) {
+      b.setAttribute("aria-pressed", b.dataset.ink === S.promoInk ? "true" : "false");
+    });
+
+    var pairs = [
+      ["Headings on ground", t.text, t.bg, 4.5],
+      ["Body copy on ground", t.muted, t.bg, 4.5],
+      ["Small print on ground", t.muted2, t.bg, 4.5],
+      ["Headings on card", t.text, t.card, 4.5],
+      ["Body copy on card", t.muted, t.card, 4.5],
+      ["Small print on card", t.muted2, t.card, 4.5],
+      ["Button label on accent", accentInk, t.accent, 4.5],
+      ["Promo bar text", promoInk, t.promo, 4.5],
+      ["Accent against ground", t.accent, t.bg, 3]
+    ];
+    el("ratios").innerHTML = pairs.map(function (row) {
+      var r = ratio(row[1], row[2]), cls, label;
+      if (r >= 7) { cls = "chip-ok"; label = "AAA"; }
+      else if (r >= 4.5) { cls = "chip-ok"; label = "AA"; }
+      else if (r >= 3) { cls = row[3] === 3 ? "chip-ok" : "chip-warn"; label = row[3] === 3 ? "Pass" : "Large text only"; }
+      else { cls = "chip-bad"; label = "Fail"; }
+      return "<tr><td><span class='dot' style='background:" + row[1] + "'></span>" + row[0] +
+             "</td><td class='num'>" + r.toFixed(2) + ":1</td><td><span class='chip " + cls + "'>" + label + "</span></td></tr>";
+    }).join("");
+
+    var layers = [
+      ["Ground → section band", t.bg, t.bgSoft],
+      ["Ground → card", t.bg, t.card],
+      ["Card → card hover", t.card, t.cardHover]
+    ];
+    el("layers").innerHTML = layers.map(function (row) {
+      var r = ratio(row[1], row[2]), cls, label;
+      if (r < 1.04) { cls = "chip-bad"; label = "Flat"; }
+      else if (r < 1.09) { cls = "chip-warn"; label = "Subtle"; }
+      else if (r < 1.5) { cls = "chip-ok"; label = "Distinct"; }
+      else { cls = "chip-warn"; label = "Heavy"; }
+      return "<tr><td><span class='dot' style='background:" + row[2] + "'></span>" + row[0] +
+             "</td><td class='num'>" + r.toFixed(3) + ":1</td><td><span class='chip " + cls + "'>" + label + "</span></td></tr>";
+    }).join("");
+
+    var adv = [], headR = ratio(t.text, t.bg), groundL = lum(t.bg);
+    if (headR > 16) adv.push(["bad", "Heading glare", "At " + headR.toFixed(1) + ":1 you are near the 21:1 ceiling. Large bold type at this contrast smears for readers with astigmatism."]);
+    else if (headR > 14) adv.push(["warn", "Headings are hot", headR.toFixed(1) + ":1 is bright but workable. Below 15:1 is calmer."]);
+    else if (headR < 7) adv.push(["bad", "Headings too faint", headR.toFixed(1) + ":1 misses AAA and reads washed out."]);
+    else adv.push(["ok", "Headings balanced", headR.toFixed(1) + ":1 — clear of AAA without glare."]);
+
+    if (groundL < 0.005) adv.push(["warn", "Ground is effectively black", "Luminance " + groundL.toFixed(4) + ". The page reads as a void rather than a surface, and dark screenshots lose their edges against it."]);
+
+    var smallR = ratio(t.muted2, t.card);
+    if (smallR < 4.5) adv.push(["bad", "Small print fails on cards", smallR.toFixed(2) + ":1 against the card, under the 4.5:1 floor for normal text."]);
+
+    var promoR = ratio(promoInk, t.promo);
+    if (promoR < 4.5) adv.push(["bad", "Promo bar text fails", promoR.toFixed(2) + ":1. Switch the text colour or move the bar lightness until it clears 4.5:1."]);
+    else adv.push(["ok", "Promo bar reads", promoR.toFixed(2) + ":1 — clears the floor for 13.6px bold."]);
+
+    el("advisories").innerHTML = adv.map(function (a) {
+      return "<div class='adv adv-" + a[0] + "'><span>◆</span><span><b>" + a[1] + "</b> — " + a[2] + "</span></div>";
+    }).join("");
+
+    el("cssOut").textContent =
+      ":root {\n" +
+      "  --bg: " + t.bg + ";\n  --bg-soft: " + t.bgSoft + ";\n  --card: " + t.card + ";\n" +
+      "  --card-hover: " + t.cardHover + ";\n  --text: " + t.text + ";\n" +
+      "  --muted: " + t.muted + ";\n  --muted-2: " + t.muted2 + ";\n}\n\n" +
+      ".btn-primary { background: " + t.accent + "; color: " + accentInk + "; }\n" +
+      ".promo-bar   { background: " + t.promo + "; color: " + promoInk + "; }";
+  }
+
+  /* ---------- wiring ---------- */
+  SLIDERS.forEach(function (k) {
+    el(k).addEventListener("input", function (e) {
+      var v = parseFloat(e.target.value);
+      if (k === "txS") {
+        /* body and small print keep their distance from the heading colour */
+        var d = v - S.txS;
+        S.mtS = Math.max(0, Math.min(100, round1(S.mtS + d)));
+        S.m2S = Math.max(0, Math.min(100, round1(S.m2S + d)));
+      }
+      S[k] = v;
+      render();
+    });
+  });
+
+  function setFromHex(value, target) {
+    if (!isHex(value)) return;
+    var t = hslOf(value);
+    if (target === "bg") { S.bgH = t.h; S.bgS = t.s; S.bgL = t.l; }
+    else { S.acH = t.h; S.acS = t.s; S.acL = t.l; }
+    render();
+  }
+  el("bgPick").addEventListener("input", function (e) { setFromHex(e.target.value, "bg"); });
+  el("acPick").addEventListener("input", function (e) { setFromHex(e.target.value, "ac"); });
+  el("bgHex").addEventListener("change", function (e) { setFromHex(e.target.value, "bg"); });
+  el("acHex").addEventListener("change", function (e) { setFromHex(e.target.value, "ac"); });
+
+  el("promoInk").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    S.promoInk = b.dataset.ink; render();
+  });
+
+  el("presets").innerHTML = Object.keys(PRESETS).map(function (n) {
+    return "<button type='button'>" + n + "</button>";
+  }).join("");
+  el("presets").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    S = Object.assign({}, PRESETS[b.textContent]);
+    render();
+  });
+
+  el("device").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    frame.style.width = b.dataset.w;
+    Array.prototype.forEach.call(el("device").children, function (x) {
+      x.setAttribute("aria-pressed", x === b ? "true" : "false");
+    });
+  });
+  el("device").firstElementChild.setAttribute("aria-pressed", "true");
+
+  el("copyCss").addEventListener("click", function () {
+    var btn = el("copyCss"), old = btn.textContent;
+    navigator.clipboard.writeText(el("cssOut").textContent).then(function () {
+      btn.textContent = "Copied";
+      setTimeout(function () { btn.textContent = old; }, 1400);
+    }).catch(function () { btn.textContent = "Press Ctrl+C"; });
+  });
+
+  /* the frame reloads its own stylesheet, so re-read and re-apply each time */
+  frame.addEventListener("load", function () { readLive(); render(); });
+  render();
+})();
+</script>
+</body>
+</html>
