@@ -4,15 +4,20 @@
    ============================================================ */
 
 :root {
-  --bg: #070a24;
-  --bg-soft: #0a0e2e;
-  --card: #0e1338;
-  --card-hover: #141a44;
+  /* Dark navy, deliberately lifted off pure black: near-white text on a
+     near-black ground measured 17.8:1, close to the 21:1 ceiling, which is
+     what makes big headings glare. This ladder keeps the identity and puts
+     headings at 15.2:1, body at 7.6:1 and small text at 5.3:1 (was 4.3:1,
+     under the 4.5:1 AA floor). Re-measure, don't eyeball, when changing. */
+  --bg: #0b1030;
+  --bg-soft: #10163c;
+  --card: #151c4a;
+  --card-hover: #1c2456;
   --border: rgba(255, 255, 255, 0.10);
   --border-strong: rgba(255, 255, 255, 0.20);
-  --text: #f3f5f7;
+  --text: #e4e9f2;
   --muted: #9aa6bd;
-  --muted-2: #6b7793;
+  --muted-2: #7d89a5;
   --accent: #f3f5f7;
   --accent-soft: rgba(255, 255, 255, 0.10);
   --accent-glow: rgba(255, 255, 255, 0.16);
@@ -84,7 +89,7 @@ code {
   margin-left: 10px;
   padding: 2px 10px;
   border-radius: 999px;
-  background: #070a24;
+  background: var(--bg);
   color: #ffffff;
   font-size: 0.8rem;
   white-space: nowrap;
@@ -364,7 +369,7 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
 .panel-btn {
   margin-top: 8px;
   background: var(--accent);
-  color: #070a24;
+  color: var(--bg);
   font-size: 0.72rem;
   font-weight: 700;
   text-align: center;
@@ -507,8 +512,8 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
   top: 8px; right: 8px;
   width: 26px; height: 26px;
   border-radius: 7px;
-  background: rgba(7, 10, 36, 0.72);
-  color: #f3f5f7;
+  background: rgba(11, 16, 48, 0.72);
+  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -548,7 +553,7 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
   width: 42px; height: 42px;
   font-size: 1.9rem;
   line-height: 1;
-  color: #f3f5f7;
+  color: var(--text);
   background: none;
   border: none;
   cursor: pointer;
