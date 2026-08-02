@@ -78,7 +78,7 @@
     link.addEventListener("click", function () {
       if (typeof window.gtag !== "function") return;
       var section = link.closest("section, header");
-      var location = (section && section.id) || "unknown";
+      var location = (section && section.id) || link.id || "unknown";
       window.gtag("event", "purchase_click", {
         link_location: location,
         item_id: "hotspotuv",
@@ -116,6 +116,43 @@
     if (lbClose) lbClose.addEventListener("click", closeLightbox);
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
+    });
+  }
+
+  // Launch-offer promo: bar + echoes, auto-hidden once the offer ends.
+  // Offer runs through Aug 11, 2026 (client-local time); from Aug 12 the bar
+  // and every [data-promo] element disappear without a redeploy.
+  var PROMO_END = new Date(2026, 7, 12);
+  var promoNow = new Date();
+  if (promoNow < PROMO_END) {
+    document.body.classList.add("promo-active");
+    var promoDays = document.getElementById("promoDays");
+    if (promoDays) {
+      var daysLeft = Math.ceil((PROMO_END - promoNow) / 86400000);
+      promoDays.textContent =
+        daysLeft <= 1 ? "— last day!" : "— ends in " + daysLeft + " days";
+    }
+    // The bar can wrap to two lines on narrow screens — measure it and let
+    // the CSS offset the fixed nav / hero padding by the real height.
+    var promoBar = document.getElementById("promoBar");
+    function setPromoHeight() {
+      if (promoBar) {
+        document.documentElement.style.setProperty(
+          "--promo-h",
+          promoBar.offsetHeight + "px"
+        );
+      }
+    }
+    setPromoHeight();
+    window.addEventListener("resize", setPromoHeight);
+    window.addEventListener("load", setPromoHeight);
+    // Webfont load can re-wrap the bar without a resize event
+    if (promoBar && "ResizeObserver" in window) {
+      new ResizeObserver(setPromoHeight).observe(promoBar);
+    }
+  } else {
+    document.querySelectorAll("[data-promo]").forEach(function (el) {
+      el.style.display = "none";
     });
   }
 

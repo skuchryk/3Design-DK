@@ -58,6 +58,49 @@ code {
 
 ::selection { background: var(--accent); color: var(--bg); }
 
+/* ---------- promo bar (launch offer) ---------- */
+.promo-bar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 101;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 38px;
+  padding: 6px 16px;
+  background: var(--accent);
+  color: #070a24;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+.promo-bar:hover { background: #ffffff; }
+.promo-bar strong { font-weight: 800; }
+.promo-days { font-weight: 600; }
+.promo-cta {
+  margin-left: 10px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #070a24;
+  color: var(--accent);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.promo-echo {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #3fb950;
+}
+.cta-section .promo-echo { text-align: center; }
+
+body.promo-active .promo-bar { display: flex; }
+body.promo-active .nav { top: var(--promo-h, 38px); }
+body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
+
 /* ---------- buttons ---------- */
 .btn {
   display: inline-flex;
@@ -892,6 +935,7 @@ code {
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; gap: 48px; }
   .hero { padding-top: 130px; }
+  body.promo-active .hero { padding-top: calc(130px + var(--promo-h, 38px)); }
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .strip-inner { grid-template-columns: repeat(2, 1fr); }
@@ -903,6 +947,7 @@ code {
 }
 
 @media (max-width: 720px) {
+  .promo-cta { display: none; }
   .nav-links {
     position: fixed;
     top: 68px; left: 0; right: 0;
