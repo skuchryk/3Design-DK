@@ -218,6 +218,14 @@ git commit -m "Describe your change"
 git push origin main
 ```
 
+**After editing `css/style.css` or `js/main.js`, bump the `?v=` stamp** on their
+`<link>` / `<script>` tags in `index.html` *and* `privacy.html` (e.g.
+`css/style.css?v=20260802` → `?v=20260815`). Those two files are served with
+`Cache-Control: max-age=14400` (4 h) while the HTML is only cached for 10 min —
+without a new query string, returning visitors get fresh markup styled by stale
+CSS/JS, which can render a half-broken page. A hard refresh (Ctrl+F5) fixes it
+for you but not for them.
+
 Config (already set, don't need to touch): GitHub repo **Settings → Pages →
 Source: GitHub Actions**, Enforce HTTPS on. The repository is **public** (required
 for free GitHub Pages).
