@@ -624,12 +624,14 @@
           <p class="section-lead">
             A small in-browser companion to your trim-sheet workflow. Drop an albedo, normal and
             comp (ORM) map and TileCheck repeats them across an infinite plane under real-time PBR
-            lighting — so seams, value jumps and banding show up here, not in the engine.
+            lighting — then measures the edges for you, so seams, value jumps and banding show up
+            here, not in the engine.
           </p>
           <ul class="freetool-list">
-            <li><strong>Light that follows your cursor</strong> — rake the light across the surface to expose normal-map seams and direction flips instantly.</li>
-            <li><strong>Per-channel inspection</strong> — isolate albedo, normal, AO, roughness or metalness with one click.</li>
-            <li><strong>Built for seam hunting</strong> — tile-border overlay and a half-offset mode that moves the seams to the center of your screen.</li>
+            <li><strong>Seams measured, not eyeballed</strong> — every tile edge is scored against the map&rsquo;s own detail, per map and per axis, and the edges in the view glow where the mismatch actually is. Tile borders and a half-offset mode bring the seam to the middle of your screen when you want a closer look.</li>
+            <li><strong>Catches the drift you can&rsquo;t see</strong> — a flat brightness offset between two edges disappears into grain up close, then bands across a whole wall. TileCheck flags it before the engine does.</li>
+            <li><strong>Reloads when you save</strong> — keep it open beside Substance or Photoshop and re-export; the preview updates itself. Hold <b>B</b> to flip back to the version it replaced.</li>
+            <li><strong>Light that follows your cursor</strong> — rake the light across the surface to expose normal-map seams and direction flips, isolate albedo, normal, AO, roughness or metalness, and switch DirectX&nbsp;&harr;&nbsp;OpenGL in one click.</li>
             <li><strong>100% private</strong> — everything runs locally in your browser via WebGL. Your textures are never uploaded.</li>
           </ul>
           <div class="hero-actions">
