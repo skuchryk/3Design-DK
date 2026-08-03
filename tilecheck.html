@@ -78,6 +78,15 @@
   #gl { width:100%; height:100%; display:block; cursor:grab; }
   #hint { position:absolute; left:10px; bottom:8px; color:var(--dim); font-size:11px;
           background:rgba(7,10,36,.75); padding:3px 9px; border-radius:5px; pointer-events:none; }
+  #hint b { color:var(--txt); font-weight:600; }
+  #viewbar { position:absolute; right:10px; top:10px; display:flex; gap:5px; z-index:5; }
+  #viewbar button { background:rgba(7,10,36,.78); font-family:var(--mono); font-size:10.5px;
+                    letter-spacing:.06em; text-transform:uppercase; padding:4px 9px; }
+  #viewbar button.on { border-color:var(--acc); color:var(--txt); }
+  #gizmo { position:absolute; right:10px; bottom:10px; width:66px; height:66px; cursor:pointer;
+           background:rgba(7,10,36,.7); border:1px solid var(--line); border-radius:8px; z-index:5; }
+  #gizmo:hover { border-color:var(--acc); }
+  #gizmo text { font-family:var(--mono); font-size:9px; }
   #warn { color:#ffb347; font-size:11px; margin-top:4px; min-height:14px; }
   .btnrow { display:flex; gap:6px; flex-wrap:wrap; }
   .local-note { margin-top:14px; padding-top:12px; border-top:1px solid var(--line);
@@ -139,7 +148,7 @@
     </fieldset>
 
     <fieldset><legend>Light</legend>
-      <label class="row"><span class="cap">Follow cursor</span>
+      <label class="row" title="Light tracks the cursor. Dragging with the right mouse button aims the sun by hand and turns this off."><span class="cap">Follow cursor</span>
         <input type="checkbox" id="followMouse" checked></label>
       <label class="row"><span class="cap">Azimuth</span>
         <input type="range" id="azim" min="0" max="360" value="315"><span class="val" id="azimV">315°</span></label>
@@ -167,7 +176,13 @@
   </div>
   <div id="stage">
     <canvas id="gl"></canvas>
-    <div id="hint">scroll = zoom · drag = pan · light follows the cursor</div>
+    <div id="viewbar">
+      <button id="vTop" title="Straight-down orthographic view">Top</button>
+      <button id="vPersp" title="Tilted perspective view — see the tiling like an engine does">Persp</button>
+      <button id="vReset" title="Reset camera, zoom and pan">Reset</button>
+    </div>
+    <svg id="gizmo" viewBox="0 0 66 66" aria-label="Camera orientation — click for top view"></svg>
+    <div id="hint">scroll = zoom · <b>LMB</b> = pan · <b>MMB</b> / alt+drag = orbit · <b>RMB</b> = sun direction</div>
     <div id="drop">Drop PNG files&hellip;</div>
   </div>
 </div>
@@ -190,12 +205,33 @@ uniform sampler2D tAlb, tNrm, tCmp;
 uniform vec2 u_center; uniform float u_zoom, u_aspect, u_repeat, u_halfoff;
 uniform int u_mode; uniform bool u_grid, u_hasAlb, u_hasNrm, u_hasCmp, u_flipX, u_flipY;
 uniform vec3 u_light; uniform float u_inten, u_nstr;
+uniform vec3 u_eye, u_camR, u_camU, u_camF;
+uniform float u_tanFov, u_fog; uniform bool u_persp;
 
 vec3 srgb2lin(vec3 c){ return pow(c, vec3(2.2)); }
 vec3 lin2srgb(vec3 c){ return pow(c, vec3(1.0/2.2)); }
 
+// the backdrop behind the horizon — matches the page palette
+vec3 sky(vec3 rd){
+  return mix(vec3(0.075, 0.095, 0.20), vec3(0.027, 0.039, 0.115),
+             clamp(rd.z * 3.5 + 0.15, 0.0, 1.0));
+}
+
 void main(){
-  vec2 world = vec2(v_scr.x * u_aspect, v_scr.y) / u_zoom + u_center;
+  // one ray per pixel; the surface is the infinite z=0 plane
+  vec3 ro, rd;
+  if (u_persp) {
+    ro = u_eye;
+    rd = normalize(u_camF + u_camR * (v_scr.x * u_aspect * u_tanFov) + u_camU * (v_scr.y * u_tanFov));
+  } else {
+    ro = vec3(u_center + vec2(v_scr.x * u_aspect, v_scr.y) / u_zoom, 1.0);
+    rd = vec3(0.0, 0.0, -1.0);
+  }
+
+  float t = rd.z < -1e-5 ? -ro.z / rd.z : -1.0;
+  if (t <= 0.0) { frag = vec4(sky(rd), 1.0); return; }  // above the horizon
+
+  vec2 world = (ro + rd * t).xy;
   vec2 uv = world * u_repeat + u_halfoff * 0.5;
   vec2 tuv = vec2(uv.x, 1.0 - uv.y); // image y-down
 
@@ -220,7 +256,7 @@ void main(){
     float ao = cmp.r, rough = clamp(cmp.g, 0.04, 1.0), metal = cmp.b;
     vec3 base = srgb2lin(alb);
     vec3 L = normalize(u_light);
-    vec3 V = vec3(0.0, 0.0, 1.0);
+    vec3 V = -rd;
     vec3 H = normalize(L + V);
     float ndl = max(dot(n, L), 0.0);
     float ndh = max(dot(n, H), 0.0);
@@ -235,10 +271,17 @@ void main(){
 
   if (u_grid) {
     vec2 f = abs(fract(uv) - 0.5);
-    float px = fwidth(uv.x) * 1.5;
-    float m = max(step(0.5 - px, f.x), step(0.5 - max(fwidth(uv.y)*1.5, px), f.y));
-    col = mix(col, vec3(1.0, 0.25, 0.2), m * 0.85);
+    // in perspective the footprint explodes toward the horizon — clamp it, then fade the
+    // lines out entirely once a tile is thinner than the line itself, or they flood the screen
+    float wx = min(fwidth(uv.x) * 1.5, 0.49);
+    float wy = min(max(fwidth(uv.y) * 1.5, wx), 0.49);
+    float m = max(step(0.5 - wx, f.x), step(0.5 - wy, f.y));
+    float vis = 1.0 - smoothstep(0.12, 0.42, max(wx, wy));
+    col = mix(col, vec3(1.0, 0.25, 0.2), m * 0.85 * vis);
   }
+
+  // distance haze so the horizon dissolves instead of aliasing into noise
+  col = mix(col, sky(rd), clamp(1.0 - exp(-t * u_fog), 0.0, 1.0));
   frag = vec4(col, 1.0);
 }`;
 
@@ -263,7 +306,8 @@ gl.vertexAttribPointer(locP, 2, gl.FLOAT, false, 0, 0);
 
 const U = {};
 ['u_center','u_zoom','u_aspect','u_repeat','u_halfoff','u_mode','u_grid','u_hasAlb','u_hasNrm',
- 'u_hasCmp','u_flipX','u_flipY','u_light','u_inten','u_nstr','tAlb','tNrm','tCmp']
+ 'u_hasCmp','u_flipX','u_flipY','u_light','u_inten','u_nstr','tAlb','tNrm','tCmp',
+ 'u_eye','u_camR','u_camU','u_camF','u_tanFov','u_fog','u_persp']
  .forEach(n => U[n] = gl.getUniformLocation(prog, n));
 gl.uniform1i(U.tAlb, 0); gl.uniform1i(U.tNrm, 1); gl.uniform1i(U.tCmp, 2);
 
@@ -355,6 +399,63 @@ window.addEventListener('drop', e => {
 const view = { cx: 0.5, cy: 0.5, zoom: 0.9 };
 let mouse = { x: 0.7, y: 0.3 };
 
+// ---- camera ----
+// Top view is orthographic (what this tool always did); orbiting switches to a tilted
+// perspective, where repetition and seams read the way they will in an engine.
+const FOV = 35 * Math.PI / 180;
+const TAN_FOV = Math.tan(FOV / 2);
+const YAW_0 = -Math.PI / 2, PITCH_0 = Math.PI / 2;
+const PITCH_MIN = 0.05, PITCH_MAX = Math.PI / 2 - 0.0012;
+const cam = { yaw: YAW_0, pitch: PITCH_0, persp: false };
+
+// distance chosen so the view covers the same ground at the center as the ortho view does,
+// which keeps zoom continuous when you flip between Top and Persp
+function camDist() { return 1 / Math.max(view.zoom * TAN_FOV, 1e-4); }
+
+function camBasis() {
+  const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const dist = camDist();
+  const d = [cp * Math.cos(cam.yaw), cp * Math.sin(cam.yaw), sp];   // target -> eye
+  const eye = [view.cx + d[0] * dist, view.cy + d[1] * dist, d[2] * dist];
+  const f = [-d[0], -d[1], -d[2]];
+  // right = normalize(cross(f, worldUp)); degenerates looking straight down, so fall back to yaw
+  let r = [f[1], -f[0], 0];
+  const rl = Math.hypot(r[0], r[1]);
+  r = rl > 1e-6 ? [r[0] / rl, r[1] / rl, 0] : [-Math.sin(cam.yaw), Math.cos(cam.yaw), 0];
+  const u = [r[1] * f[2] - r[2] * f[1], r[2] * f[0] - r[0] * f[2], r[0] * f[1] - r[1] * f[0]];
+  return { eye, f, r, u, dist };
+}
+
+// screen NDC -> point on the z=0 plane (null when the ray misses, i.e. above the horizon)
+function planeHit(nx, ny) {
+  const b = camBasis(), aspect = canvas.width / canvas.height;
+  let ro, rd;
+  if (cam.persp) {
+    ro = b.eye;
+    rd = [b.f[0] + b.r[0] * nx * aspect * TAN_FOV + b.u[0] * ny * TAN_FOV,
+          b.f[1] + b.r[1] * nx * aspect * TAN_FOV + b.u[1] * ny * TAN_FOV,
+          b.f[2] + b.r[2] * nx * aspect * TAN_FOV + b.u[2] * ny * TAN_FOV];
+    const l = Math.hypot(rd[0], rd[1], rd[2]) || 1;
+    rd = [rd[0] / l, rd[1] / l, rd[2] / l];
+  } else {
+    ro = [view.cx + nx * aspect / view.zoom, view.cy + ny / view.zoom, 1];
+    rd = [0, 0, -1];
+  }
+  if (rd[2] >= -1e-5) return null;
+  const t = -ro[2] / rd[2];
+  return t > 0 ? [ro[0] + rd[0] * t, ro[1] + rd[1] * t] : null;
+}
+
+const PITCH_TILT = 0.95;   // ~54deg — the working angle you land on leaving Top view
+function setView(persp) {
+  cam.persp = persp;
+  if (!persp) { cam.yaw = YAW_0; cam.pitch = PITCH_0; }
+  else { cam.pitch = Math.min(cam.pitch, PITCH_TILT); cam.yaw = YAW_0; }
+  param('vTop').classList.toggle('on', !persp);
+  param('vPersp').classList.toggle('on', persp);
+  drawGizmo(); draw();
+}
+
 function param(id) { return document.getElementById(id); }
 const ids = ['mode','repeat','grid','halfoff','followMouse','azim','elev','inten','flipY','flipX','nstr'];
 ids.forEach(id => param(id).addEventListener('input', () => { syncLabels(); draw(); }));
@@ -365,7 +466,44 @@ function syncLabels() {
   param('intenV').textContent = (param('inten').value / 100).toFixed(1);
   param('nstrV').textContent = (param('nstr').value / 100).toFixed(1);
 }
-param('reset').addEventListener('click', () => { view.cx = .5; view.cy = .5; view.zoom = .9; draw(); });
+// ---- orientation gizmo ----
+// the three world axes run through the same camera basis as the render, so it always
+// agrees with what you are looking at; nearer axes draw on top
+const gizmo = document.getElementById('gizmo');
+const AXES = [
+  { v: [1, 0, 0], label: 'X' },
+  { v: [0, 1, 0], label: 'Y' },
+  { v: [0, 0, 1], label: 'Z' },
+];
+function drawGizmo() {
+  const b = camBasis(), C = 33, R = 19;
+  const parts = AXES.map(a => {
+    const sx = a.v[0] * b.r[0] + a.v[1] * b.r[1] + a.v[2] * b.r[2];
+    const sy = a.v[0] * b.u[0] + a.v[1] * b.u[1] + a.v[2] * b.u[2];
+    const depth = a.v[0] * b.f[0] + a.v[1] * b.f[1] + a.v[2] * b.f[2];
+    return { sx, sy, depth, label: a.label };
+  }).sort((p, q) => q.depth - p.depth);   // draw far axes first
+  gizmo.innerHTML = parts.map(p => {
+    const x = C + p.sx * R, y = C - p.sy * R;
+    const op = (0.45 - p.depth * 0.35).toFixed(2);   // pointing away = dimmer
+    const len = Math.hypot(p.sx, p.sy);
+    const tx = C + p.sx * (R + 7), ty = C - p.sy * (R + 7);
+    return `<line x1="${C}" y1="${C}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"
+              stroke="#f3f5f7" stroke-width="1.4" stroke-linecap="round" opacity="${op}"/>` +
+      (len > 0.25 ? `<text x="${tx.toFixed(1)}" y="${(ty + 3).toFixed(1)}" fill="#f3f5f7"
+              text-anchor="middle" opacity="${op}">${p.label}</text>` : '');
+  }).join('');
+}
+gizmo.addEventListener('click', () => setView(false));
+param('vTop').addEventListener('click', () => setView(false));
+param('vPersp').addEventListener('click', () => setView(true));
+function resetView() {
+  view.cx = .5; view.cy = .5; view.zoom = .9;
+  cam.yaw = YAW_0; cam.pitch = cam.persp ? PITCH_TILT : PITCH_0;
+  drawGizmo(); draw();
+}
+param('vReset').addEventListener('click', resetView);
+param('reset').addEventListener('click', resetView);
 param('clear').addEventListener('click', () => {
   for (const s of Object.values(slots)) {
     s.tex = null; s.size = null; s.el.classList.remove('loaded');
@@ -375,20 +513,51 @@ param('clear').addEventListener('click', () => {
   checkSizes(); draw();
 });
 
-let dragging = false, lastX = 0, lastY = 0;
-canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; canvas.style.cursor='grabbing'; });
-window.addEventListener('mouseup', () => { dragging = false; canvas.style.cursor='grab'; });
+let drag = null, lastX = 0, lastY = 0;
+const DRAG_CURSOR = { pan: 'grabbing', orbit: 'move', light: 'crosshair' };
+canvas.addEventListener('mousedown', e => {
+  // LMB = pan, MMB (or alt) = orbit, RMB = swing the sun
+  drag = e.button === 2 ? 'light' : (e.button === 1 || e.altKey) ? 'orbit' : 'pan';
+  // orbiting out of Top view drops straight to a usable tilt — at 90deg the pitch is already
+  // clamped, so without this the first drag would appear to do nothing
+  if (drag === 'orbit' && !cam.persp) setView(true);
+  lastX = e.clientX; lastY = e.clientY;
+  canvas.style.cursor = DRAG_CURSOR[drag];
+  e.preventDefault();   // also kills middle-click autoscroll
+});
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+window.addEventListener('mouseup', () => { drag = null; canvas.style.cursor = 'grab'; });
 window.addEventListener('mousemove', e => {
   const r = canvas.getBoundingClientRect();
   mouse.x = (e.clientX - r.left) / r.width;
   mouse.y = (e.clientY - r.top) / r.height;
-  if (dragging) {
-    const aspect = canvas.width / canvas.height;
-    view.cx -= (e.clientX - lastX) / r.width * 2 * aspect / view.zoom;
-    view.cy += (e.clientY - lastY) / r.height * 2 / view.zoom;
-    lastX = e.clientX; lastY = e.clientY;
+  const dx = e.clientX - lastX, dy = e.clientY - lastY;
+
+  if (drag === 'orbit') {
+    cam.yaw -= dx * 0.007;
+    cam.pitch = Math.min(PITCH_MAX, Math.max(PITCH_MIN, cam.pitch + dy * 0.007));
+    drawGizmo();
+  } else if (drag === 'light') {
+    // dragging the sun is explicit control, so it takes over from the cursor-follow mode
+    // (which would otherwise overwrite the angles on the very next mouse move)
+    param('followMouse').checked = false;
+    const az = param('azim'), el = param('elev');
+    az.value = (((+az.value - dx * 0.35) % 360) + 360) % 360;
+    el.value = Math.min(+el.max, Math.max(+el.min, +el.value - dy * 0.25));
+    syncLabels();
+  } else if (drag === 'pan') {
+    // pan along the camera's own axes projected onto the plane, so dragging keeps
+    // feeling right after the view is tilted (identical to the old math in Top view)
+    const b = camBasis(), s = 2 / (view.zoom * r.height);
+    let fx = b.f[0], fy = b.f[1];
+    const fl = Math.hypot(fx, fy);
+    if (fl > 1e-6) { fx /= fl; fy /= fl; } else { fx = -Math.cos(cam.yaw); fy = -Math.sin(cam.yaw); }
+    const sinP = Math.max(Math.sin(cam.pitch), 0.12);   // grazing views travel further per pixel
+    view.cx += -b.r[0] * dx * s + fx * dy * s / sinP;
+    view.cy += -b.r[1] * dx * s + fy * dy * s / sinP;
   }
-  if (dragging || param('followMouse').checked) draw();
+  if (drag) { lastX = e.clientX; lastY = e.clientY; }
+  if (drag || param('followMouse').checked) draw();
 });
 canvas.addEventListener('wheel', e => {
   e.preventDefault();
@@ -422,15 +591,28 @@ function draw() {
   gl.uniform1f(U.u_inten, +param('inten').value / 100);
   gl.uniform1f(U.u_nstr, +param('nstr').value / 100);
 
+  const b = camBasis();
+  gl.uniform3f(U.u_eye, b.eye[0], b.eye[1], b.eye[2]);
+  gl.uniform3f(U.u_camR, b.r[0], b.r[1], b.r[2]);
+  gl.uniform3f(U.u_camU, b.u[0], b.u[1], b.u[2]);
+  gl.uniform3f(U.u_camF, b.f[0], b.f[1], b.f[2]);
+  gl.uniform1f(U.u_tanFov, TAN_FOV);
+  gl.uniform1i(U.u_persp, cam.persp ? 1 : 0);
+  gl.uniform1f(U.u_fog, cam.persp ? 1 / (b.dist * 9) : 0);
+
   let az, el;
-  if (param('followMouse').checked) {
-    const dx = mouse.x - 0.5, dy = 0.5 - mouse.y;
+  const lowElev = +param('elev').value;
+  // the light lives in world space: aim it from the point the cursor is actually over,
+  // so raking across a seam keeps working once the camera is tilted
+  const lit = param('followMouse').checked ? planeHit(mouse.x * 2 - 1, 1 - mouse.y * 2) : null;
+  if (lit) {
+    const dx = lit[0] - view.cx, dy = lit[1] - view.cy;
     az = Math.atan2(dy, dx);
-    const d = Math.min(1, Math.hypot(dx, dy) * 2.2);
-    el = (90 - d * (90 - (+param('elev').value))) * Math.PI / 180;
+    const d = Math.min(1, Math.hypot(dx, dy) * view.zoom * 1.1);
+    el = (90 - d * (90 - lowElev)) * Math.PI / 180;
   } else {
     az = (+param('azim').value) * Math.PI / 180;
-    el = (+param('elev').value) * Math.PI / 180;
+    el = lowElev * Math.PI / 180;
   }
   gl.uniform3f(U.u_light, Math.cos(az) * Math.cos(el), Math.sin(az) * Math.cos(el), Math.sin(el));
 
@@ -442,7 +624,7 @@ function draw() {
 }
 syncLabels();
 resize();
-draw();
+setView(false);
 </script>
 </body>
 </html>
