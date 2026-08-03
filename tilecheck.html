@@ -92,6 +92,46 @@
   #gizmo text { font-family:var(--mono); font-size:9px; }
   #warn { color:#ffb347; font-size:11px; margin-top:4px; min-height:14px; }
   .btnrow { display:flex; gap:6px; flex-wrap:wrap; }
+
+  /* ---- segmented control (normal-map convention) ---- */
+  .seg { display:flex; gap:0; flex:1; }
+  .seg button { flex:1; border-radius:0; font-family:var(--mono); font-size:10.5px;
+                letter-spacing:.05em; padding:4px 2px; color:var(--dim); }
+  .seg button:first-child { border-radius:6px 0 0 6px; }
+  .seg button:last-child { border-radius:0 6px 6px 0; margin-left:-1px; }
+  .seg button.on { border-color:var(--acc); color:var(--txt); background:rgba(243,245,247,.10); }
+  .hidden-input { position:absolute; opacity:0; pointer-events:none; width:0; height:0; }
+
+  /* ---- seam readout ---- */
+  #seamTable { width:100%; border-collapse:collapse; font-size:11px; margin:2px 0 0; }
+  #seamTable th { color:var(--dim-2); font-weight:400; font-family:var(--mono); font-size:9.5px;
+                  letter-spacing:.06em; text-transform:uppercase; text-align:right; padding:0 0 3px; }
+  #seamTable th:first-child { text-align:left; }
+  #seamTable td { padding:2px 0; border-top:1px solid var(--line); text-align:right;
+                  font-variant-numeric:tabular-nums; font-family:var(--mono); }
+  #seamTable td:first-child { text-align:left; font-family:var(--font); color:var(--dim); }
+  #seamTable tr.off td { color:var(--dim-2); opacity:.5; }
+  .v-ok  { color:#5fd39b; }
+  .v-mid { color:#ffcc4d; }
+  .v-bad { color:#ff6b5e; }
+  .seam-note { color:var(--dim-2); font-size:10.5px; margin:7px 0 0; line-height:1.45; }
+  #driftWarn { color:#ffcc4d; font-size:10.5px; line-height:1.45; margin-top:7px; }
+  #driftWarn:empty { display:none; }
+  #driftWarn b { color:var(--txt); font-weight:600; }
+
+  /* ---- live-reload badge on a slot ---- */
+  .slot .watch { display:none; font-size:9.5px; font-family:var(--mono); color:var(--dim-2);
+                 letter-spacing:.06em; }
+  .slot.watched .watch { display:block; }
+  .slot.watched .watch::before { content:"\25CF"; color:#5fd39b; margin-right:4px; font-size:8px;
+                                 vertical-align:1px; }
+  @keyframes slotflash { from { border-color:var(--acc); background:rgba(243,245,247,.12); } }
+  .slot.flash { animation:slotflash .55s ease-out; }
+  #prevhint { position:absolute; left:10px; top:10px; z-index:5; display:none;
+              background:rgba(11,16,48,.78); border:1px solid var(--line); border-radius:5px;
+              padding:3px 9px; font-size:11px; color:var(--dim); pointer-events:none; }
+  #prevhint b { color:var(--txt); font-weight:600; }
+  #prevhint.on { border-color:var(--acc); color:var(--txt); }
   .local-note { margin-top:14px; padding-top:12px; border-top:1px solid var(--line);
                 color:var(--dim-2); font-size:11px; }
   .local-note a { color:var(--dim); }
@@ -157,13 +197,29 @@
       <b>onto its slot</b> below, or click a slot to browse.</p>
 
     <div class="slot" id="slot-albd"><canvas width="64" height="64"></canvas>
-      <div class="info"><div class="name">Albedo</div><div class="file">— empty —</div></div></div>
+      <div class="info"><div class="name">Albedo</div><div class="file">— empty —</div>
+      <div class="watch">watching</div></div></div>
     <div class="slot" id="slot-norm"><canvas width="64" height="64"></canvas>
-      <div class="info"><div class="name">Normal</div><div class="file">— empty —</div></div></div>
+      <div class="info"><div class="name">Normal</div><div class="file">— empty —</div>
+      <div class="watch">watching</div></div></div>
     <div class="slot" id="slot-comp"><canvas width="64" height="64"></canvas>
       <div class="info"><div class="name">Comp <small>(AO·R / Rough·G / Metal·B)</small></div>
-      <div class="file">— empty —</div></div></div>
+      <div class="file">— empty —</div><div class="watch">watching</div></div></div>
     <div id="warn"></div>
+
+    <fieldset id="seamBox" style="display:none"><legend>Seam check</legend>
+      <table id="seamTable">
+        <thead><tr><th>Map</th><th title="Left edge against right edge">X</th>
+          <th title="Top edge against bottom edge">Y</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div id="driftWarn"></div>
+      <label class="row" style="margin-top:8px"><span class="cap">Heat</span>
+        <input type="checkbox" id="seamHeat" checked> <span>colour tile edges by mismatch</span></label>
+      <p class="seam-note">The number is how much bigger the step across the seam is than the
+        typical step between neighbouring pixels inside the map. <b>1×</b> is invisible; past
+        <b>3×</b> you will see a line.</p>
+    </fieldset>
 
     <fieldset><legend>View</legend>
       <label class="row"><span class="cap">Mode</span>
@@ -195,10 +251,26 @@
     </fieldset>
 
     <fieldset><legend>Normal map</legend>
-      <label class="row"><span class="cap">Flip G (Y)</span><input type="checkbox" id="flipY"></label>
+      <!-- the green channel IS the DirectX/OpenGL difference; flipY stays the state everything
+           else reads, the buttons are just the name people actually use for it -->
+      <div class="row"><span class="cap" title="DirectX maps point green down, OpenGL up. Not sure? Rake the light from the top — bumps should read raised, not sunken.">Convention</span>
+        <span class="seg">
+          <button id="convDX" title="Green down (−Y) — 3ds Max, Unreal, MSFS, Substance's DirectX export">DirectX</button>
+          <button id="convGL" title="Green up (+Y) — Blender, Unity, glTF, Substance's OpenGL export">OpenGL</button>
+        </span></div>
+      <input type="checkbox" id="flipY" class="hidden-input" tabindex="-1" aria-hidden="true">
       <label class="row"><span class="cap">Flip R (X)</span><input type="checkbox" id="flipX"></label>
       <label class="row"><span class="cap">Strength</span>
         <input type="range" id="nstr" min="0" max="300" value="100"><span class="val" id="nstrV">1.0</span></label>
+    </fieldset>
+
+    <fieldset><legend>Files</legend>
+      <label class="row" id="autoReloadRow"
+             title="Re-reads the file when you save it in Substance, Photoshop or Designer. Needs a browser with the File System Access API.">
+        <span class="cap">Auto-reload</span>
+        <input type="checkbox" id="autoReload" checked> <span>reload on save</span></label>
+      <p class="seam-note" id="autoReloadNote">Hold <b>B</b> over the view to flip back to the
+        previous version of a reloaded map.</p>
     </fieldset>
 
     <div class="btnrow">
@@ -216,7 +288,9 @@
       <button id="vTop" title="Straight-down orthographic view">Top</button>
       <button id="vPersp" title="Tilted perspective view — see the tiling like an engine does">Persp</button>
       <button id="vReset" title="Reset camera, zoom and pan">Reset</button>
+      <button id="vFull" title="Fullscreen (F)">Full</button>
     </div>
+    <div id="prevhint">hold <b>B</b> — previous version</div>
     <svg id="gizmo" viewBox="0 0 66 66" aria-label="Camera orientation — click for top view"></svg>
     <div id="hint">scroll = zoom · <b>LMB</b> = pan · <b>MMB</b> / alt+drag = orbit · <b>RMB</b> = sun direction</div>
     <div id="drop">Drop PNG files&hellip;</div>
@@ -237,15 +311,23 @@ void main(){ v_scr = p; gl_Position = vec4(p,0.,1.); }`;
 const FS = `#version 300 es
 precision highp float;
 in vec2 v_scr; out vec4 frag;
-uniform sampler2D tAlb, tNrm, tCmp;
+uniform sampler2D tAlb, tNrm, tCmp, tSeam;
 uniform vec2 u_center; uniform float u_zoom, u_aspect, u_repeat, u_halfoff;
 uniform int u_mode; uniform bool u_grid, u_hasAlb, u_hasNrm, u_hasCmp, u_flipX, u_flipY;
+uniform bool u_seam, u_hasSeam;
 uniform vec3 u_light; uniform float u_inten, u_nstr;
 uniform vec3 u_eye, u_camR, u_camU, u_camF;
 uniform float u_tanFov, u_fog; uniform bool u_persp;
 
 vec3 srgb2lin(vec3 c){ return pow(c, vec3(2.2)); }
 vec3 lin2srgb(vec3 c){ return pow(c, vec3(1.0/2.2)); }
+
+// green -> yellow -> red. Low heat never reaches the screen (it is faded out by alpha),
+// so in practice this reads as "the hotter the line, the worse the seam".
+vec3 heatRamp(float h){
+  return h < 0.5 ? mix(vec3(0.16,0.83,0.55), vec3(1.0,0.80,0.20), h * 2.0)
+                 : mix(vec3(1.0,0.80,0.20), vec3(1.0,0.22,0.16), (h - 0.5) * 2.0);
+}
 
 // the backdrop behind the horizon — matches the page palette
 vec3 sky(vec3 rd){
@@ -305,15 +387,26 @@ void main(){
     col = lin2srgb(direct + ambient);
   }
 
-  if (u_grid) {
+  if (u_grid || (u_seam && u_hasSeam)) {
     vec2 f = abs(fract(uv) - 0.5);
     // in perspective the footprint explodes toward the horizon — clamp it, then fade the
     // lines out entirely once a tile is thinner than the line itself, or they flood the screen
     float wx = min(fwidth(uv.x) * 1.5, 0.49);
     float wy = min(max(fwidth(uv.y) * 1.5, wx), 0.49);
-    float m = max(step(0.5 - wx, f.x), step(0.5 - wy, f.y));
+    float mx = step(0.5 - wx, f.x);          // on a vertical tile edge (left meets right)
+    float my = step(0.5 - wy, f.y);          // on a horizontal tile edge (top meets bottom)
     float vis = 1.0 - smoothstep(0.12, 0.42, max(wx, wy));
-    col = mix(col, vec3(1.0, 0.25, 0.2), m * 0.85 * vis);
+
+    if (u_grid) col = mix(col, vec3(1.0, 0.25, 0.2), max(mx, my) * 0.85 * vis);
+
+    if (u_seam && u_hasSeam) {
+      // row 0 of tSeam profiles the vertical edge along the image y, row 1 the horizontal
+      // edge along the image x — so the colour tracks where on the seam the mismatch is
+      float hx = texture(tSeam, vec2(fract(tuv.y), 0.25)).r;
+      float hy = texture(tSeam, vec2(fract(tuv.x), 0.75)).r;
+      float heat = max(mx * hx, my * hy);
+      col = mix(col, heatRamp(heat), clamp(heat * 1.7, 0.0, 1.0) * vis);
+    }
   }
 
   // distance haze so the horizon dissolves instead of aliasing into noise
@@ -342,16 +435,20 @@ gl.vertexAttribPointer(locP, 2, gl.FLOAT, false, 0, 0);
 
 const U = {};
 ['u_center','u_zoom','u_aspect','u_repeat','u_halfoff','u_mode','u_grid','u_hasAlb','u_hasNrm',
- 'u_hasCmp','u_flipX','u_flipY','u_light','u_inten','u_nstr','tAlb','tNrm','tCmp',
- 'u_eye','u_camR','u_camU','u_camF','u_tanFov','u_fog','u_persp']
+ 'u_hasCmp','u_flipX','u_flipY','u_light','u_inten','u_nstr','tAlb','tNrm','tCmp','tSeam',
+ 'u_eye','u_camR','u_camU','u_camF','u_tanFov','u_fog','u_persp','u_seam','u_hasSeam']
  .forEach(n => U[n] = gl.getUniformLocation(prog, n));
-gl.uniform1i(U.tAlb, 0); gl.uniform1i(U.tNrm, 1); gl.uniform1i(U.tCmp, 2);
+gl.uniform1i(U.tAlb, 0); gl.uniform1i(U.tNrm, 1); gl.uniform1i(U.tCmp, 2); gl.uniform1i(U.tSeam, 3);
 
 const slots = {
-  albd: { el: document.getElementById('slot-albd'), tex: null, size: null, unit: 0 },
-  norm: { el: document.getElementById('slot-norm'), tex: null, size: null, unit: 1 },
-  comp: { el: document.getElementById('slot-comp'), tex: null, size: null, unit: 2 },
+  albd: { el: document.getElementById('slot-albd'), label: 'Albedo', unit: 0 },
+  norm: { el: document.getElementById('slot-norm'), label: 'Normal', unit: 1 },
+  comp: { el: document.getElementById('slot-comp'), label: 'Comp',   unit: 2 },
 };
+// tex/prevTex double-buffer so holding B can bind the outgoing version without re-uploading it
+for (const s of Object.values(slots))
+  Object.assign(s, { tex: null, prevTex: null, size: null, handle: null,
+                     stamp: 0, bytes: 0, loading: false, edges: null });
 
 function classify(name) {
   // the token closest to the end of the name wins ("Composite_04_ALBD" -> albd, not comp)
@@ -370,10 +467,283 @@ function classify(name) {
   return best;
 }
 
-function loadIntoSlot(key, file) {
+// ---- edge analysis ----------------------------------------------------------------
+// A tiling seam is a step in the image where column W-1 meets column 0 (and row H-1 meets
+// row 0). The absolute size of that step says nothing on its own: gravel steps hard between
+// every pair of neighbouring pixels and still tiles perfectly, while a smooth gradient shows
+// a seam at a fraction of the same number. So everything here is measured as a RATIO against
+// the map's own typical neighbour-to-neighbour step. 1x is invisible by construction.
+const PROFILE_N = 256;   // seam profiles are resampled to this before going to the GPU
+const HEAT_MAX = 6;      // ratio at which the heat ramp saturates
+const CLEAN = 1.6, SOFT = 3.0;   // ratio verdict thresholds
+
+// pulls a sub-rectangle at 1:1 — decoding a whole 4K map into a canvas would cost 64 MB
+// for the six thin strips this actually needs
+function stripData(img, sx, sy, sw, sh) {
+  const c = document.createElement('canvas');
+  c.width = sw; c.height = sh;
+  const cx = c.getContext('2d', { willReadFrequently: true });
+  cx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+  return cx.getImageData(0, 0, sw, sh).data;
+}
+
+function rgbDiff(a, ia, b, ib) {
+  return (Math.abs(a[ia] - b[ib]) + Math.abs(a[ia + 1] - b[ib + 1]) +
+          Math.abs(a[ia + 2] - b[ib + 2])) / 3;
+}
+function rgbSigned(a, ia, b, ib) {
+  return ((a[ia] - b[ib]) + (a[ia + 1] - b[ib + 1]) + (a[ia + 2] - b[ib + 2])) / 3;
+}
+
+// ---- brightness drift across the wrap ----
+// The ratio above averages |difference|, which a hard seam dominates but a gentle one hides
+// in: bury a flat +12 level step in grain that already jumps +-46 between neighbours and the
+// ratio barely moves off 1.0. The eye does not average absolute values though — it integrates
+// over an area and sees two patches of different mean. Signed differences do the same thing:
+// on a map that tiles they cancel, on a drifting one they all share a sign.
+function newAccum() { return { sum: 0, sq: 0, n: 0 }; }
+function accumWrap(acc, a, ia, b, ib) {
+  const d = rgbSigned(a, ia, b, ib);
+  acc.sum += d; acc.sq += d * d; acc.n++;
+}
+// `excess` is how far the average step across the wrap sits beyond the largest average step
+// the map already takes internally — the same outlier test the ratio uses, asked of the
+// signed step so that a flat offset cannot cancel itself out. `sigma` then guards against
+// grain: with enough noise, any edge shows some drift by chance.
+function driftOf(acc, internalPeak) {
+  const m = acc.sum / acc.n;
+  const variance = Math.max(acc.sq / acc.n - m * m, 0);
+  const stderr = Math.sqrt(variance / acc.n);
+  return {
+    level: m,
+    excess: Math.abs(m) - internalPeak,
+    sigma: Math.abs(m) / Math.max(stderr, 1e-6),
+  };
+}
+// the excess floor stops a huge map from making a 0.3-level rounding drift "significant"
+const drifts = d => d.excess >= 1.5 && d.sigma >= 2.5;
+
+// smooth, then resample keeping the worst value in each bucket — a one-pixel-wide seam is
+// still a seam and averaging it into 256 buckets would hide exactly what we are looking for
+function toProfile(raw, base) {
+  const n = raw.length, R = 2, sm = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    let sum = 0, cnt = 0;
+    for (let k = -R; k <= R; k++) {
+      const j = i + k;
+      if (j >= 0 && j < n) { sum += raw[j]; cnt++; }
+    }
+    sm[i] = sum / cnt;
+  }
+  const out = new Uint8Array(PROFILE_N);
+  for (let i = 0; i < PROFILE_N; i++) {
+    const a = Math.floor(i * n / PROFILE_N);
+    const b = Math.max(a + 1, Math.floor((i + 1) * n / PROFILE_N));
+    let mx = 0;
+    for (let j = a; j < b && j < n; j++) if (sm[j] > mx) mx = sm[j];
+    const heat = (mx / base - 1) / (HEAT_MAX - 1);
+    out[i] = Math.max(0, Math.min(255, Math.round(heat * 255)));
+  }
+  return out;
+}
+
+function mean(arr) {
+  let s = 0;
+  for (let i = 0; i < arr.length; i++) s += arr[i];
+  return arr.length ? s / arr.length : 0;
+}
+function percentile(arr, p) {
+  if (!arr.length) return 0;
+  const a = Float64Array.from(arr).sort();
+  return a[Math.min(a.length - 1, Math.floor(p * (a.length - 1)))];
+}
+
+// ---- the yardstick ----
+// How big a step does this map take between neighbouring pixels ANYWHERE, as a distribution?
+// The wrap is then judged on whether it is an outlier in it. A mean will not do: brickwork
+// steps hard at every mortar course, and a course landing exactly on the tile edge is correct
+// authoring, not a seam — against the mean that reads as 22x. Neither will the step at the
+// adjacent pixel: a map can slope steeply right where it wraps and still tile perfectly. A
+// high percentile answers the question actually being asked — "has this map done this before?"
+const BAND = 512;        // rows per read; a whole 4K map at once would be 64 MB
+const MIN_SAMPLES = 512; // how many lines an average along a boundary is worth taking over
+const STEP_PCT = 0.98;
+// The signed test compares against the very top of the internal distribution rather than the
+// 98th percentile: a legitimate hard feature at the tile edge — brickwork with a mortar course
+// exactly on the seam — is entitled to be the single biggest step in the whole map.
+const SIGN_PCT = 0.995;
+
+// EVERY boundary is enumerated; only the averaging ALONG a boundary is ever subsampled.
+// Sampling every 4th boundary looks like a harmless saving and is not: textures are periodic,
+// so a stride of 4 against a 32px checker steps over every cell edge, finds nothing but flat
+// interiors, and then reports the (perfectly correct) wrap as a 233x seam.
+function stepStats(img) {
+  const W = img.width, H = img.height;
+  const nCol = Math.max(W - 1, 1);
+  const xStride = Math.max(1, Math.floor(W / MIN_SAMPLES));
+  const yStride = Math.max(1, Math.floor(H / MIN_SAMPLES));
+  const colAbs = new Float64Array(nCol), colSign = new Float64Array(nCol);
+  const rowAbs = [], rowSign = [];
+  let colN = 0;
+  const c = document.createElement('canvas');
+  const cx = c.getContext('2d', { willReadFrequently: true });
+
+  for (let y0 = 0; y0 < H; y0 += BAND) {
+    const h = Math.min(BAND, H - y0);
+    c.width = W; c.height = h;
+    cx.drawImage(img, 0, y0, W, h, 0, 0, W, h);
+    const d = cx.getImageData(0, 0, W, h).data;
+
+    for (let y = 0; y < h; y++) {
+      const base = y * W * 4;
+      if (y % yStride === 0) {
+        for (let x = 0, i = base; x < nCol; x++, i += 4) {
+          const dr = d[i + 4] - d[i], dg = d[i + 5] - d[i + 1], db = d[i + 6] - d[i + 2];
+          colAbs[x] += (Math.abs(dr) + Math.abs(dg) + Math.abs(db)) / 3;
+          colSign[x] += (dr + dg + db) / 3;
+        }
+        colN++;
+      }
+      if (y + 1 < h) {                 // boundaries straddling two bands are simply skipped
+        const nxt = base + W * 4;
+        let s = 0, sg = 0, n = 0;
+        for (let x = 0, i = base, j = nxt; x < W; x += xStride, i += xStride * 4, j += xStride * 4) {
+          const dr = d[j] - d[i], dg = d[j + 1] - d[i + 1], db = d[j + 2] - d[i + 2];
+          s += (Math.abs(dr) + Math.abs(dg) + Math.abs(db)) / 3;
+          sg += (dr + dg + db) / 3;
+          n++;
+        }
+        rowAbs.push(s / n); rowSign.push(sg / n);
+      }
+    }
+  }
+  const colVals = new Float64Array(nCol), colSignVals = new Float64Array(nCol);
+  const k = Math.max(colN, 1);
+  for (let x = 0; x < nCol; x++) {
+    colVals[x] = colAbs[x] / k;
+    colSignVals[x] = Math.abs(colSign[x]) / k;
+  }
+  return {
+    x: percentile(colVals, STEP_PCT),
+    y: percentile(rowAbs, STEP_PCT),
+    signX: percentile(colSignVals, SIGN_PCT),
+    signY: percentile(rowSign.map(Math.abs), SIGN_PCT),
+  };
+}
+
+function analyzeEdges(img) {
+  const W = img.width, H = img.height;
+  if (W < 4 || H < 4) return null;
+  try {
+    const left  = stripData(img, 0, 0, 2, H);          // columns 0 and 1
+    const right = stripData(img, W - 2, 0, 2, H);      // columns W-2 and W-1
+    const top   = stripData(img, 0, 0, W, 2);          // rows 0 and 1
+    const bot   = stripData(img, 0, H - 2, W, 2);      // rows H-2 and H-1
+
+    // the wrap: last column against first, last row against first
+    const wrapX = new Float32Array(H), dx = newAccum();
+    for (let y = 0; y < H; y++) {
+      wrapX[y] = rgbDiff(right, y * 8 + 4, left, y * 8);
+      accumWrap(dx, left, y * 8, right, y * 8 + 4);          // col 0 minus col W-1
+    }
+    const wrapY = new Float32Array(W), dy = newAccum();
+    for (let x = 0; x < W; x++) {
+      wrapY[x] = rgbDiff(bot, (W + x) * 4, top, x * 4);
+      accumWrap(dy, top, x * 4, bot, (W + x) * 4);            // row 0 minus row H-1
+    }
+
+    // the floor keeps a flat, gradient-free map from dividing by ~0 and reporting a
+    // catastrophic seam over a rounding difference
+    const step = stepStats(img);
+    const baseX = Math.max(step.x, 0.6);
+    const baseY = Math.max(step.y, 0.6);
+
+    return {
+      ratioX: mean(wrapX) / baseX,
+      ratioY: mean(wrapY) / baseY,
+      driftX: driftOf(dx, step.signX),
+      driftY: driftOf(dy, step.signY),
+      profX: toProfile(wrapX, baseX),
+      profY: toProfile(wrapY, baseY),
+    };
+  } catch (err) {
+    return null;   // tainted canvas or an image the 2D context refuses — just skip the check
+  }
+}
+
+// one R8 texture, 256x2: row 0 profiles the vertical seam, row 1 the horizontal one,
+// each the worst case across every loaded map so the overlay never under-reports
+let seamTex = null, hasSeam = false;
+function buildSeamTexture() {
+  const loaded = Object.values(slots).filter(s => s.edges);
+  hasSeam = loaded.length > 0;
+  // upload even when empty: a sampler bound to an incomplete texture makes some drivers
+  // unhappy regardless of whether the branch that reads it is taken
+  const data = new Uint8Array(PROFILE_N * 2);
+  for (const s of loaded)
+    for (let i = 0; i < PROFILE_N; i++) {
+      if (s.edges.profX[i] > data[i]) data[i] = s.edges.profX[i];
+      const j = PROFILE_N + i;
+      if (s.edges.profY[i] > data[j]) data[j] = s.edges.profY[i];
+    }
+  if (!seamTex) seamTex = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE3);
+  gl.bindTexture(gl.TEXTURE_2D, seamTex);
+  gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, PROFILE_N, 2, 0, gl.RED, gl.UNSIGNED_BYTE, data);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+}
+
+function verdict(r) {
+  if (r < CLEAN) return ['v-ok', '✓'];
+  if (r < SOFT)  return ['v-mid', '~'];
+  return ['v-bad', '⚠'];
+}
+function renderSeamTable() {
+  const rows = Object.entries(slots).filter(([, s]) => s.size);
+  param('seamBox').style.display = rows.length ? '' : 'none';
+  param('seamTable').tBodies[0].innerHTML = rows.map(([, s]) => {
+    if (!s.edges) return `<tr class="off"><td>${s.label}</td><td>—</td><td>—</td><td></td></tr>`;
+    const e = s.edges;
+    const [cx] = verdict(e.ratioX), [cy] = verdict(e.ratioY);
+    // a map can be clean on the ratio and still drift, so the mark takes the worse of the two
+    let mark = verdict(Math.max(e.ratioX, e.ratioY));
+    if ((drifts(e.driftX) || drifts(e.driftY)) && mark[1] === '✓') mark = ['v-mid', '~'];
+    return `<tr><td>${s.label}</td>` +
+      `<td class="${cx}">${e.ratioX.toFixed(1)}×</td>` +
+      `<td class="${cy}">${e.ratioY.toFixed(1)}×</td>` +
+      `<td class="${mark[0]}">${mark[1]}</td></tr>`;
+  }).join('');
+
+  const notes = [];
+  for (const [, s] of rows) {
+    if (!s.edges) continue;
+    for (const [axis, d] of [['Left↔right', s.edges.driftX], ['Top↔bottom', s.edges.driftY]])
+      if (drifts(d)) notes.push(
+        `${axis} edges of <b>${s.label.toLowerCase()}</b> differ by ` +
+        `${Math.abs(d.level).toFixed(0)} levels on average — reads as banding across tiles, ` +
+        `even where no hard line shows.`);
+  }
+  param('driftWarn').innerHTML = notes.length ? '⚠ ' + notes.join('<br>⚠ ') : '';
+}
+
+function loadIntoSlot(key, file, handle, isReload) {
+  const s = slots[key];
+  s.loading = true;
   const img = new Image();
+  img.onerror = () => {
+    // a half-written file mid-save decodes as garbage; leaving the stamp alone means the
+    // next poll picks it up again once the writer is done
+    s.loading = false;
+    URL.revokeObjectURL(img.src);
+  };
   img.onload = () => {
-    const s = slots[key];
+    s.loading = false;
+    // hand the outgoing version to prevTex so B can flip to it without a re-upload
+    if (s.tex) { const spare = s.prevTex; s.prevTex = s.tex; s.tex = spare; }
     if (!s.tex) s.tex = gl.createTexture();
     gl.activeTexture(gl.TEXTURE0 + s.unit);
     gl.bindTexture(gl.TEXTURE_2D, s.tex);
@@ -388,14 +758,25 @@ function loadIntoSlot(key, file) {
     if (ext) gl.texParameterf(gl.TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT,
       Math.min(8, gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
     s.size = [img.width, img.height];
+    s.stamp = file.lastModified; s.bytes = file.size;
+    if (handle !== undefined) s.handle = handle || null;
+    s.edges = analyzeEdges(img);
     s.el.classList.add('loaded');
+    s.el.classList.toggle('watched', !!s.handle);
     s.el.querySelector('.file').textContent = file.name + ' · ' + img.width + '×' + img.height;
     const c = s.el.querySelector('canvas');
     const cx = c.getContext('2d'); cx.drawImage(img, 0, 0, c.width, c.height);
     URL.revokeObjectURL(img.src);
-    checkSizes(); draw();
+    if (isReload) flashSlot(s);
+    buildSeamTexture(); renderSeamTable(); syncPrevHint(); checkSizes(); startWatch(); draw();
   };
   img.src = URL.createObjectURL(file);
+}
+
+function flashSlot(s) {
+  s.el.classList.remove('flash');
+  void s.el.offsetWidth;          // restart the animation rather than let it no-op
+  s.el.classList.add('flash');
 }
 
 function checkSizes() {
@@ -408,28 +789,95 @@ function checkSizes() {
 // forceKey = the user aimed at a specific slot (clicked it, or dropped straight onto it).
 // That is an explicit choice, so it beats guessing from the filename — which is what makes
 // maps with no ALBD/NORM/COMP suffix (MSFS exports, engine dumps) usable at all.
-function takeFiles(files, forceKey) {
+// items are Files, or {file, handle} when the browser gave us a handle we can watch for saves
+function takeFiles(items, forceKey) {
   const warn = document.getElementById('warn');
-  const list = [...files].filter(f => /image/.test(f.type) || /\.(png|jpe?g|webp)$/i.test(f.name));
+  const list = [...items]
+    .map(it => it instanceof File ? { file: it, handle: null } : it)
+    .filter(it => /image/.test(it.file.type) || /\.(png|jpe?g|webp)$/i.test(it.file.name));
   if (!list.length) {
     warn.textContent = '⚠ No PNG, JPG or WebP found in what you dropped.';
     return;
   }
-  if (forceKey && list.length === 1) { warn.textContent = ''; loadIntoSlot(forceKey, list[0]); return; }
+  if (forceKey && list.length === 1) {
+    warn.textContent = '';
+    loadIntoSlot(forceKey, list[0].file, list[0].handle);
+    return;
+  }
   const unassigned = [];
-  for (const f of list) {
-    const k = classify(f.name);
-    if (k) loadIntoSlot(k, f); else unassigned.push(f);
+  for (const it of list) {
+    const k = classify(it.file.name);
+    if (k) loadIntoSlot(k, it.file, it.handle); else unassigned.push(it.file);
   }
   if (unassigned.length) warn.textContent =
     '⚠ No ALBD / NORM / COMP in: ' + unassigned.map(f => f.name).join(', ') +
     ' — drop a file straight onto a slot to place it by hand.';
 }
 
+// ---- live reload ------------------------------------------------------------------
+// A File dropped into a page is a dead snapshot: re-exporting the map from Substance leaves
+// the preview showing the old bytes. A FileSystemFileHandle is a live reference, so polling
+// its lastModified turns TileCheck into a second monitor for whatever you are painting in.
+const FS_OK = typeof window.showOpenFilePicker === 'function';
+const PICK_TYPES = [{ description: 'Textures',
+  accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] } }];
+
+async function collectHandles(h, out, depth) {
+  if (!h || depth > 4 || out.length > 200) return;
+  try {
+    if (h.kind === 'file') out.push({ file: await h.getFile(), handle: h });
+    else if (h.kind === 'directory')
+      for await (const [, child] of h.entries()) {
+        if (out.length > 200) break;
+        await collectHandles(child, out, depth + 1);
+      }
+  } catch (err) { /* unreadable entry — skip it, the rest of the drop still works */ }
+}
+
+let watchTimer = null;
+function startWatch() {
+  if (!watchTimer && Object.values(slots).some(s => s.handle))
+    watchTimer = setInterval(pollHandles, 1200);
+}
+async function pollHandles() {
+  if (!Object.values(slots).some(s => s.handle)) {
+    clearInterval(watchTimer); watchTimer = null; return;
+  }
+  if (!param('autoReload').checked || document.hidden) return;
+  for (const [key, s] of Object.entries(slots)) {
+    if (!s.handle || s.loading) continue;
+    let f;
+    try {
+      f = await s.handle.getFile();
+    } catch (err) {
+      // moved, deleted, or permission revoked — stop claiming we are watching it
+      s.handle = null; s.el.classList.remove('watched');
+      continue;
+    }
+    if (f.lastModified !== s.stamp || f.size !== s.bytes) loadIntoSlot(key, f, s.handle, true);
+  }
+}
+param('autoReloadRow').style.display = FS_OK ? '' : 'none';
+if (!FS_OK) param('autoReloadNote').innerHTML =
+  'Reloading on save needs the File System Access API — Chrome, Edge or Opera. ' +
+  'This browser can still open and drop files normally.';
+
 let pickTarget = null;
 const filepick = document.getElementById('filepick');
 for (const [key, s] of Object.entries(slots)) {
-  s.el.addEventListener('click', () => { pickTarget = key; filepick.click(); });
+  s.el.addEventListener('click', async () => {
+    if (FS_OK) {
+      try {
+        const [h] = await window.showOpenFilePicker({ multiple: false, types: PICK_TYPES });
+        if (h) { document.getElementById('warn').textContent = ''; loadIntoSlot(key, await h.getFile(), h); }
+        return;
+      } catch (err) {
+        if (err && err.name === 'AbortError') return;   // user closed the dialog
+        /* anything else: fall through to the plain input below */
+      }
+    }
+    pickTarget = key; filepick.click();
+  });
   // dropping onto a slot assigns it regardless of what the file is called
   s.el.addEventListener('dragover', e => {
     e.preventDefault(); e.stopPropagation();
@@ -437,11 +885,21 @@ for (const [key, s] of Object.entries(slots)) {
     s.el.classList.add('target');
   });
   s.el.addEventListener('dragleave', () => s.el.classList.remove('target'));
-  s.el.addEventListener('drop', e => {
+  s.el.addEventListener('drop', async e => {
     e.preventDefault(); e.stopPropagation();     // keep the window handler out of it
     s.el.classList.remove('target');
     dropOverlay.style.display = 'none';
-    takeFiles(e.dataTransfer.files, key);
+    const files = [...e.dataTransfer.files];
+    const pending = grabHandles(e.dataTransfer);
+    if (pending.length) {
+      const hs = (await Promise.all(pending)).filter(h => h && h.kind === 'file');
+      if (hs.length === 1) {
+        const out = [];
+        await collectHandles(hs[0], out, 0);
+        if (out.length) return takeFiles(out, key);
+      }
+    }
+    takeFiles(files, key);
   });
 }
 filepick.addEventListener('change', () => { takeFiles(filepick.files, pickTarget); filepick.value = ''; });
@@ -465,13 +923,30 @@ async function readEntry(entry, out, depth) {
   }
 }
 
+// must be called synchronously on the drop event — dataTransfer is neutered after the first await
+function grabHandles(dt) {
+  return [...(dt.items || [])]
+    .map(i => i.getAsFileSystemHandle ? i.getAsFileSystemHandle().catch(() => null) : null)
+    .filter(Boolean);
+}
+
 window.addEventListener('drop', async e => {
   e.preventDefault(); dropOverlay.style.display = 'none';
   pickTarget = null;
   const files = [...e.dataTransfer.files];
   // grab the entries synchronously — dataTransfer is neutered after the first await
+  const pending = grabHandles(e.dataTransfer);
   const entries = [...(e.dataTransfer.items || [])]
     .map(i => i.webkitGetAsEntry && i.webkitGetAsEntry()).filter(Boolean);
+  // handles first: same files, but each one stays live for auto-reload
+  if (pending.length) {
+    const hs = (await Promise.all(pending)).filter(Boolean);
+    if (hs.length) {
+      const out = [];
+      for (const h of hs) await collectHandles(h, out, 0);
+      if (out.length) return takeFiles(out);
+    }
+  }
   if (entries.some(en => en.isDirectory)) {
     const out = [];
     for (const en of entries) await readEntry(en, out, 0);
@@ -542,15 +1017,55 @@ function setView(persp) {
 }
 
 function param(id) { return document.getElementById(id); }
-const ids = ['mode','repeat','grid','halfoff','followMouse','azim','elev','inten','flipY','flipX','nstr'];
-ids.forEach(id => param(id).addEventListener('input', () => { syncLabels(); draw(); }));
+const ids = ['mode','repeat','grid','halfoff','followMouse','azim','elev','inten','flipY','flipX',
+             'nstr','seamHeat','autoReload'];
+ids.forEach(id => param(id).addEventListener('input', () => {
+  syncLabels(); saveSettings(); draw();
+}));
 function syncLabels() {
   param('repeatV').textContent = param('repeat').value;
   param('azimV').textContent = param('azim').value + '°';
   param('elevV').textContent = param('elev').value + '°';
   param('intenV').textContent = (param('inten').value / 100).toFixed(1);
   param('nstrV').textContent = (param('nstr').value / 100).toFixed(1);
+  param('convDX').classList.toggle('on', !param('flipY').checked);
+  param('convGL').classList.toggle('on', param('flipY').checked);
 }
+
+// ---- settings persistence ----
+// Controls only. The camera is deliberately not restored: coming back to a tool aimed at
+// some angle you set last week reads as a bug, not as a convenience.
+const STORE = 'tilecheck.settings.v1';
+function saveSettings() {
+  try {
+    const o = {};
+    for (const id of ids) {
+      const el = param(id);
+      o[id] = el.type === 'checkbox' ? el.checked : el.value;
+    }
+    localStorage.setItem(STORE, JSON.stringify(o));
+  } catch (err) { /* private mode or a full quota — the tool works fine without it */ }
+}
+function loadSettings() {
+  try {
+    const o = JSON.parse(localStorage.getItem(STORE) || 'null');
+    if (!o) return;
+    for (const id of ids) {
+      if (!(id in o)) continue;
+      const el = param(id);
+      if (el.type === 'checkbox') el.checked = !!o[id]; else el.value = o[id];
+    }
+  } catch (err) { /* corrupt entry — fall back to the defaults in the markup */ }
+}
+
+// DirectX vs OpenGL is exactly the sign of the green channel, so both buttons drive flipY
+// and everything downstream keeps reading one checkbox.
+function setConvention(gl_) {
+  param('flipY').checked = gl_;
+  syncLabels(); saveSettings(); draw();
+}
+param('convDX').addEventListener('click', () => setConvention(false));
+param('convGL').addEventListener('click', () => setConvention(true));
 // ---- orientation gizmo ----
 // the three world axes run through the same camera basis as the render, so it always
 // agrees with what you are looking at; nearer axes draw on top
@@ -591,11 +1106,50 @@ param('vReset').addEventListener('click', resetView);
 param('reset').addEventListener('click', resetView);
 param('clear').addEventListener('click', () => {
   for (const s of Object.values(slots)) {
-    s.tex = null; s.size = null; s.el.classList.remove('loaded');
+    if (s.tex) gl.deleteTexture(s.tex);
+    if (s.prevTex) gl.deleteTexture(s.prevTex);
+    s.tex = s.prevTex = null; s.size = null; s.edges = null; s.handle = null;
+    s.stamp = 0; s.bytes = 0;
+    s.el.classList.remove('loaded', 'watched');
     s.el.querySelector('.file').textContent = '— empty —';
     const c = s.el.querySelector('canvas'); c.getContext('2d').clearRect(0,0,c.width,c.height);
   }
-  checkSizes(); draw();
+  hasSeam = false;
+  document.getElementById('warn').textContent = '';
+  renderSeamTable(); syncPrevHint(); checkSizes(); draw();
+});
+
+// ---- fullscreen ----
+function toggleFull() {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen().catch(() => {});
+}
+param('vFull').addEventListener('click', toggleFull);
+document.addEventListener('fullscreenchange', () => {
+  param('vFull').classList.toggle('on', !!document.fullscreenElement);
+  resize(); draw();
+});
+
+// ---- hold B for the version this one replaced ----
+let showPrev = false;
+const anyPrev = () => Object.values(slots).some(s => s.prevTex && s.tex);
+function syncPrevHint() {
+  const hint = param('prevhint');
+  hint.style.display = anyPrev() ? 'block' : 'none';
+  hint.classList.toggle('on', showPrev);
+}
+window.addEventListener('keydown', e => {
+  if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (k === 'f') { e.preventDefault(); toggleFull(); }
+  else if (k === 'b' && !showPrev && anyPrev()) { showPrev = true; syncPrevHint(); draw(); }
+});
+window.addEventListener('keyup', e => {
+  if (e.key.toLowerCase() === 'b' && showPrev) { showPrev = false; syncPrevHint(); draw(); }
+});
+// releasing B outside the window would otherwise leave the view stuck on the old version
+window.addEventListener('blur', () => {
+  if (showPrev) { showPrev = false; syncPrevHint(); draw(); }
 });
 
 let drag = null, lastX = 0, lastY = 0;
@@ -668,6 +1222,8 @@ function draw() {
   gl.uniform1f(U.u_halfoff, param('halfoff').checked ? 1 : 0);
   gl.uniform1i(U.u_mode, +param('mode').value);
   gl.uniform1i(U.u_grid, param('grid').checked ? 1 : 0);
+  gl.uniform1i(U.u_seam, param('seamHeat').checked ? 1 : 0);
+  gl.uniform1i(U.u_hasSeam, hasSeam ? 1 : 0);
   gl.uniform1i(U.u_hasAlb, slots.albd.tex ? 1 : 0);
   gl.uniform1i(U.u_hasNrm, slots.norm.tex ? 1 : 0);
   gl.uniform1i(U.u_hasCmp, slots.comp.tex ? 1 : 0);
@@ -703,11 +1259,17 @@ function draw() {
 
   for (const s of Object.values(slots)) {
     gl.activeTexture(gl.TEXTURE0 + s.unit);
-    gl.bindTexture(gl.TEXTURE_2D, s.tex);
+    gl.bindTexture(gl.TEXTURE_2D, showPrev && s.prevTex ? s.prevTex : s.tex);
   }
+  gl.activeTexture(gl.TEXTURE3);
+  gl.bindTexture(gl.TEXTURE_2D, seamTex);
   gl.drawArrays(gl.TRIANGLES, 0, 3);
 }
+loadSettings();
 syncLabels();
+buildSeamTexture();
+renderSeamTable();
+syncPrevHint();
 resize();
 setView(false);
 </script>
