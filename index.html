@@ -76,6 +76,7 @@
         <a href="#how-it-works">How it works</a>
         <a href="#video">Video</a>
         <a href="tutorial.html">Tutorial</a>
+        <a href="#free-tool">Free tool</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
         <a href="#changelog">Changelog</a>
@@ -613,6 +614,72 @@
     </div>
   </section>
 
+  <!-- ======= FREE TOOL: TILECHECK ======= -->
+  <section class="section" id="free-tool">
+    <div class="container">
+      <div class="freetool-grid">
+        <div class="freetool-copy reveal">
+          <p class="eyebrow">Free tool · no sign-up, no install</p>
+          <h2>TileCheck — see your textures tile <em>before</em> they ship</h2>
+          <p class="section-lead">
+            A small in-browser companion to your trim-sheet workflow. Drop an albedo, normal and
+            comp (ORM) map and TileCheck repeats them across an infinite plane under real-time PBR
+            lighting — so seams, value jumps and banding show up here, not in the engine.
+          </p>
+          <ul class="freetool-list">
+            <li><strong>Light that follows your cursor</strong> — rake the light across the surface to expose normal-map seams and direction flips instantly.</li>
+            <li><strong>Per-channel inspection</strong> — isolate albedo, normal, AO, roughness or metalness with one click.</li>
+            <li><strong>Built for seam hunting</strong> — tile-border overlay and a half-offset mode that moves the seams to the center of your screen.</li>
+            <li><strong>100% private</strong> — everything runs locally in your browser via WebGL. Your textures are never uploaded.</li>
+          </ul>
+          <div class="hero-actions">
+            <a href="tilecheck.html" class="btn btn-primary btn-lg">Open TileCheck — it&rsquo;s free</a>
+          </div>
+        </div>
+
+        <a href="tilecheck.html" class="freetool-visual reveal" aria-label="Open TileCheck, the free texture tiling checker">
+          <div class="window">
+            <div class="window-bar">
+              <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+              <span class="window-title">TileCheck — brick_wall_ALBD.png · 3×3</span>
+            </div>
+            <svg class="freetool-tiles" viewBox="0 0 420 300" fill="none" aria-hidden="true">
+              <defs>
+                <pattern id="tcTile" width="140" height="100" patternUnits="userSpaceOnUse">
+                  <rect width="140" height="100" fill="rgba(255,255,255,0.03)"/>
+                  <rect x="10" y="12" width="52" height="30" rx="4" fill="rgba(255,255,255,0.07)"/>
+                  <rect x="74" y="12" width="56" height="30" rx="4" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="10" y="52" width="26" height="36" rx="4" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="46" y="52" width="84" height="16" rx="4" fill="rgba(255,255,255,0.08)"/>
+                  <rect x="46" y="76" width="40" height="12" rx="3" fill="rgba(255,255,255,0.04)"/>
+                  <circle cx="106" cy="82" r="7" fill="rgba(255,255,255,0.09)"/>
+                </pattern>
+                <radialGradient id="tcLight" cx="0.62" cy="0.32" r="0.75">
+                  <stop offset="0" stop-color="rgba(255,255,255,0.18)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="420" height="300" fill="url(#tcTile)"/>
+              <rect width="420" height="300" fill="url(#tcLight)"/>
+              <g stroke="rgba(255,90,80,0.55)" stroke-dasharray="5 6">
+                <line x1="140" y1="0" x2="140" y2="300"/>
+                <line x1="280" y1="0" x2="280" y2="300"/>
+                <line x1="0" y1="100" x2="420" y2="100"/>
+                <line x1="0" y1="200" x2="420" y2="200"/>
+              </g>
+              <g stroke="rgba(255,255,255,0.8)" stroke-width="1.6" stroke-linecap="round" transform="translate(261 96)">
+                <circle r="10"/>
+                <line x1="-16" y1="0" x2="-6" y2="0"/><line x1="6" y1="0" x2="16" y2="0"/>
+                <line x1="0" y1="-16" x2="0" y2="-6"/><line x1="0" y1="6" x2="0" y2="16"/>
+              </g>
+            </svg>
+          </div>
+          <p class="freetool-caption">Drag &amp; drop your maps — get an answer in seconds.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ======= WHO IT'S FOR ======= -->
   <section class="section" id="who">
     <div class="container">
@@ -946,6 +1013,7 @@
       <div class="footer-links">
         <a href="#features">Features</a>
         <a href="tutorial.html">Tutorial</a>
+        <a href="tilecheck.html">TileCheck (free)</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
         <a href="#changelog">Changelog</a>

@@ -1118,3 +1118,54 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
   .rel-group { grid-template-columns: 1fr; gap: 8px; }
   .rel-cat { justify-self: start; padding: 4px 14px; }
 }
+
+/* ---------- free tool (TileCheck) ---------- */
+.freetool-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+.freetool-copy h2 em { font-style: italic; color: var(--muted); }
+.freetool-list {
+  list-style: none;
+  margin: 24px 0 30px;
+  display: grid;
+  gap: 13px;
+}
+.freetool-list li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--muted);
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+.freetool-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text);
+}
+.freetool-list strong { color: var(--text); font-weight: 600; }
+.freetool-visual { display: block; }
+.freetool-visual .window { transform: rotateY(4deg) rotateX(2deg); }
+.freetool-visual:hover .window { transform: rotateY(0) rotateX(0); }
+.freetool-tiles { display: block; width: 100%; height: auto; }
+.freetool-caption {
+  margin-top: 14px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--muted-2);
+}
+.freetool-visual:hover .freetool-caption { color: var(--muted); }
+
+@media (max-width: 920px) {
+  .freetool-grid { grid-template-columns: 1fr; gap: 40px; }
+  .freetool-visual { max-width: 560px; margin: 0 auto; width: 100%; }
+  .freetool-visual .window { transform: none; }
+}
