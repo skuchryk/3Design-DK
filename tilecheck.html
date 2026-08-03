@@ -18,8 +18,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#070a24; --panel:#0a0e2e; --card:#0e1338; --line:rgba(255,255,255,.10);
-    --line-strong:rgba(255,255,255,.22); --txt:#f3f5f7; --dim:#9aa6bd; --dim-2:#6b7793;
+    /* mirrors the ladder in css/style.css — including --dim-2, which the site lifted to
+       #7d89a5 to clear the 4.5:1 AA floor. Re-measure there first when changing. */
+    --bg:#0b1030; --panel:#10163c; --card:#151c4a; --line:rgba(255,255,255,.10);
+    --line-strong:rgba(255,255,255,.20); --txt:#e4e9f2; --dim:#9aa6bd; --dim-2:#7d89a5;
     --acc:#f3f5f7;
     --font:"Inter",ui-sans-serif,system-ui,sans-serif;
     --mono:"JetBrains Mono",ui-monospace,monospace;
@@ -31,7 +33,7 @@
 
   /* ---- top bar ---- */
   .topbar { display:flex; align-items:center; gap:12px; height:52px; padding:0 16px;
-            background:rgba(4,8,17,.72); border-bottom:1px solid var(--line); flex-shrink:0; }
+            background:rgba(7,11,34,.72); border-bottom:1px solid var(--line); flex-shrink:0; }
   .brand { display:flex; align-items:center; gap:9px; color:var(--txt); text-decoration:none;
            font-weight:700; font-size:15px; letter-spacing:-.01em; }
   .brand svg { width:24px; height:24px; }
@@ -59,6 +61,7 @@
   .slot .name small { color:var(--dim-2); font-weight:400; }
   .slot .file { color:var(--dim-2); font-size:11px; word-break:break-all; }
   .slot.loaded { border-style:solid; }
+  .slot.target { border-color:var(--acc); background:rgba(243,245,247,.07); }
   fieldset { border:1px solid var(--line); border-radius:8px; margin:0 0 10px; padding:8px 10px;
              min-width:0; }
   legend { color:var(--dim-2); padding:0 5px; font-size:10.5px; text-transform:uppercase;
@@ -77,14 +80,14 @@
   #stage { flex:1; position:relative; }
   #gl { width:100%; height:100%; display:block; cursor:grab; }
   #hint { position:absolute; left:10px; bottom:8px; color:var(--dim); font-size:11px;
-          background:rgba(7,10,36,.75); padding:3px 9px; border-radius:5px; pointer-events:none; }
+          background:rgba(11,16,48,.75); padding:3px 9px; border-radius:5px; pointer-events:none; }
   #hint b { color:var(--txt); font-weight:600; }
   #viewbar { position:absolute; right:10px; top:10px; display:flex; gap:5px; z-index:5; }
-  #viewbar button { background:rgba(7,10,36,.78); font-family:var(--mono); font-size:10.5px;
+  #viewbar button { background:rgba(11,16,48,.78); font-family:var(--mono); font-size:10.5px;
                     letter-spacing:.06em; text-transform:uppercase; padding:4px 9px; }
   #viewbar button.on { border-color:var(--acc); color:var(--txt); }
   #gizmo { position:absolute; right:10px; bottom:10px; width:66px; height:66px; cursor:pointer;
-           background:rgba(7,10,36,.7); border:1px solid var(--line); border-radius:8px; z-index:5; }
+           background:rgba(11,16,48,.7); border:1px solid var(--line); border-radius:8px; z-index:5; }
   #gizmo:hover { border-color:var(--acc); }
   #gizmo text { font-family:var(--mono); font-size:9px; }
   #warn { color:#ffb347; font-size:11px; margin-top:4px; min-height:14px; }
@@ -93,6 +96,25 @@
                 color:var(--dim-2); font-size:11px; }
   .local-note a { color:var(--dim); }
   .local-note a:hover { color:var(--txt); }
+
+  /* ---- desktop-only notice ----
+     Orbit is the middle mouse button and the sun is the right one; touch has neither,
+     so a phone-sized layout would render a tool you cannot actually drive. Say so
+     plainly instead of shipping a viewport squeezed down to a sliver. */
+  #nodesk { display:none; flex:1; flex-direction:column; justify-content:center;
+            padding:32px 24px; max-width:520px; margin:0 auto; }
+  #nodesk h2 { font-size:19px; margin:0 0 12px; letter-spacing:-.01em; }
+  #nodesk p { color:var(--dim); font-size:13.5px; line-height:1.6; margin:0 0 14px; }
+  #nodesk ul { color:var(--dim); font-size:13px; line-height:1.65; margin:0 0 18px; padding-left:18px; }
+  #nodesk .cta { display:inline-block; align-self:flex-start; color:var(--txt);
+                 text-decoration:none; border:1px solid var(--line-strong); border-radius:8px;
+                 padding:9px 16px; font-size:13px; }
+  #nodesk .cta:hover { border-color:var(--acc); }
+  @media (pointer:coarse), (max-width:720px) {
+    html,body { overflow:auto; }
+    #app { display:none; }
+    #nodesk { display:flex; }
+  }
 </style>
 </head>
 <body>
@@ -113,12 +135,26 @@
   <a class="tb-back" href="index.html">&larr; Back to HotspotUV</a>
 </header>
 
+<section id="nodesk">
+  <h2>TileCheck needs a mouse</h2>
+  <p>This one is desktop only — not a smaller screen away, a different input away. Driving the
+    preview takes buttons a touchscreen doesn&rsquo;t have:</p>
+  <ul>
+    <li>middle mouse button to orbit the camera</li>
+    <li>right mouse button to swing the light across the surface</li>
+    <li>scroll wheel to zoom, and a window wide enough to judge a seam</li>
+  </ul>
+  <p>Open <b>3designdk.com/tilecheck.html</b> on a desktop and drop your maps straight onto the page.</p>
+  <a class="cta" href="index.html">&larr; Back to HotspotUV</a>
+</section>
+
 <div id="app">
   <div id="side">
     <h1>TileCheck <small>· tiling preview</small></h1>
-    <p class="intro">Drop your PBR maps and see how they tile — lit in real time. Files are matched by name
-      (<b>ALBD&thinsp;/&thinsp;NORM&thinsp;/&thinsp;COMP</b>, also <b>albedo</b>, <b>normal</b>, <b>ORM</b>&hellip;),
-      or click a slot to browse.</p>
+    <p class="intro">Drop your PBR maps and see how they tile — lit in real time. Drop a whole folder
+      and they get matched by name (<b>ALBD&thinsp;/&thinsp;NORM&thinsp;/&thinsp;COMP</b>, also
+      <b>albedo</b>, <b>normal</b>, <b>ORM</b>&hellip;). No suffixes in your filenames? Drop each file
+      <b>onto its slot</b> below, or click a slot to browse.</p>
 
     <div class="slot" id="slot-albd"><canvas width="64" height="64"></canvas>
       <div class="info"><div class="name">Albedo</div><div class="file">— empty —</div></div></div>
@@ -369,30 +405,79 @@ function checkSizes() {
     uniq.length > 1 ? '⚠ Map sizes differ: ' + uniq.join(' vs ') : '';
 }
 
-function takeFiles(files) {
+// forceKey = the user aimed at a specific slot (clicked it, or dropped straight onto it).
+// That is an explicit choice, so it beats guessing from the filename — which is what makes
+// maps with no ALBD/NORM/COMP suffix (MSFS exports, engine dumps) usable at all.
+function takeFiles(files, forceKey) {
+  const warn = document.getElementById('warn');
   const list = [...files].filter(f => /image/.test(f.type) || /\.(png|jpe?g|webp)$/i.test(f.name));
+  if (!list.length) {
+    warn.textContent = '⚠ No PNG, JPG or WebP found in what you dropped.';
+    return;
+  }
+  if (forceKey && list.length === 1) { warn.textContent = ''; loadIntoSlot(forceKey, list[0]); return; }
   const unassigned = [];
   for (const f of list) {
     const k = classify(f.name);
     if (k) loadIntoSlot(k, f); else unassigned.push(f);
   }
-  if (unassigned.length === 1 && list.length === 1 && pickTarget) loadIntoSlot(pickTarget, unassigned[0]);
-  else if (unassigned.length) document.getElementById('warn').textContent =
-    '⚠ Could not match by file name: ' + unassigned.map(f => f.name).join(', ');
+  if (unassigned.length) warn.textContent =
+    '⚠ No ALBD / NORM / COMP in: ' + unassigned.map(f => f.name).join(', ') +
+    ' — drop a file straight onto a slot to place it by hand.';
 }
 
 let pickTarget = null;
 const filepick = document.getElementById('filepick');
-for (const [key, s] of Object.entries(slots))
+for (const [key, s] of Object.entries(slots)) {
   s.el.addEventListener('click', () => { pickTarget = key; filepick.click(); });
-filepick.addEventListener('change', () => { takeFiles(filepick.files); filepick.value = ''; });
+  // dropping onto a slot assigns it regardless of what the file is called
+  s.el.addEventListener('dragover', e => {
+    e.preventDefault(); e.stopPropagation();
+    dropOverlay.style.display = 'none';
+    s.el.classList.add('target');
+  });
+  s.el.addEventListener('dragleave', () => s.el.classList.remove('target'));
+  s.el.addEventListener('drop', e => {
+    e.preventDefault(); e.stopPropagation();     // keep the window handler out of it
+    s.el.classList.remove('target');
+    dropOverlay.style.display = 'none';
+    takeFiles(e.dataTransfer.files, key);
+  });
+}
+filepick.addEventListener('change', () => { takeFiles(filepick.files, pickTarget); filepick.value = ''; });
 
 const dropOverlay = document.getElementById('drop');
 window.addEventListener('dragover', e => { e.preventDefault(); dropOverlay.style.display = 'flex'; });
 window.addEventListener('dragleave', e => { if (!e.relatedTarget) dropOverlay.style.display = 'none'; });
-window.addEventListener('drop', e => {
+// walk a dropped directory — dataTransfer.files is empty for folders, so the entry API
+// is the only way to reach what is inside one
+async function readEntry(entry, out, depth) {
+  if (!entry || depth > 4 || out.length > 200) return;
+  if (entry.isFile) {
+    await new Promise(res => entry.file(f => { out.push(f); res(); }, res));
+  } else if (entry.isDirectory) {
+    const reader = entry.createReader();
+    for (;;) {                                   // readEntries hands back 100 at a time
+      const batch = await new Promise(res => reader.readEntries(res, () => res([])));
+      if (!batch.length) break;
+      for (const e of batch) await readEntry(e, out, depth + 1);
+    }
+  }
+}
+
+window.addEventListener('drop', async e => {
   e.preventDefault(); dropOverlay.style.display = 'none';
-  pickTarget = null; takeFiles(e.dataTransfer.files);
+  pickTarget = null;
+  const files = [...e.dataTransfer.files];
+  // grab the entries synchronously — dataTransfer is neutered after the first await
+  const entries = [...(e.dataTransfer.items || [])]
+    .map(i => i.webkitGetAsEntry && i.webkitGetAsEntry()).filter(Boolean);
+  if (entries.some(en => en.isDirectory)) {
+    const out = [];
+    for (const en of entries) await readEntry(en, out, 0);
+    if (out.length) return takeFiles(out);
+  }
+  takeFiles(files);
 });
 
 // ---- view state ----
