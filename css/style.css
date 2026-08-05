@@ -606,7 +606,6 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
 }
 .video-frame--vertical {
   aspect-ratio: 9 / 16;
-  grid-column: 1 / -1;
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
