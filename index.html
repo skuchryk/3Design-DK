@@ -599,10 +599,11 @@
       <div class="section-head reveal">
         <p class="eyebrow">See it in action</p>
         <h2>Watch HotspotUV work</h2>
+        <p class="section-sub">Free 6-part course: from a blank plane, through baking and an auto-built trim sheet, to props that UV themselves in one click.</p>
       </div>
       <div class="video-main reveal">
         <div class="video-frame">
-          <iframe src="https://www.youtube-nocookie.com/embed/L8o9stdKdqM" title="HotspotUV demo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PLT5yLwtn3Nig" title="Trim Sheets in 3ds Max: the free HotspotUV course" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
       <div class="video-shorts reveal">
@@ -834,9 +835,35 @@
 
         <details class="release is-latest" open>
           <summary class="release-head">
+            <span class="release-version">v2.3.0</span>
+            <span class="release-date">8 Aug 2026</span>
+            <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">New</span>
+              <ul class="rel-list">
+                <li><strong>Quick UV: Break every edge</strong> &mdash; one option detaches every polygon into its own island, exactly like a manual break-all, so each face gets its own trim pick. The right mode for hard-surface blockouts: one box face, one panel. Runs natively, stays fast on thousands of faces.</li>
+                <li><strong>Quick UV: Break islands at folds / corners</strong> &mdash; fresh box islands are cut along fold edges and 90&deg; strip turns, each run straightened to the UV axes, so ribbons and frame borders match trims per run instead of as one connected shape.</li>
+                <li><strong>Auto-detect trim sheet</strong> &mdash; opening the window (or changing the selection) finds the .json next to the selected object&rsquo;s textures, loads it and picks the albedo as the map background.</li>
+                <li><strong>Drag &amp; drop</strong> &mdash; drop a .json on the window to load a sheet, drop an image to set the map background.</li>
+                <li><strong>Smarter seamless bands</strong> &mdash; Seamless U/V picks the band by island thickness, and Keep proportion scales all islands on a shared band with one common factor.</li>
+                <li><strong>Trim label controls</strong> &mdash; label size and color in the Display popup.</li>
+              </ul>
+            </div>
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li>Quick UV Flatten mode failed on 3ds Max 2024; the Flatten Mapping call now runs reliably.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
             <span class="release-version">v2.2.0</span>
             <span class="release-date">28 Jul 2026</span>
-            <span class="release-badge">Latest</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">
