@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HotspotUV — Interactive Tutorial | 3Design</title>
-<meta name="description" content="Interactive tutorial for HotspotUV — trim-sheet / hotspot UV mapping plugin for 3ds Max. Workflow, full UI reference and a live matching-engine playground.">
-<meta property="og:title" content="HotspotUV — Interactive Tutorial">
-<meta property="og:description" content="Trim-sheet UV mapping for 3ds Max: workflow, full UI reference and a live matching simulator.">
+<title>3ds Max Trim Sheet Workflow: Complete Tutorial | HotspotUV</title>
+<meta name="description" content="The complete 3ds Max trim sheet workflow: model the sheet, bake an ID map, build trims from the texture, then hotspot UV map whole props in one click. Written walkthrough, six video episodes and a live matching playground.">
+<link rel="canonical" href="https://3designdk.com/tutorial.html">
+<meta property="og:title" content="3ds Max Trim Sheet Workflow: Complete Tutorial">
+<meta property="og:description" content="Model the sheet, bake the ID map, build trims from the texture, hotspot UV map a whole prop in one click. Six episodes plus a live matching playground.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://3designdk.com/tutorial.html">
+<meta property="og:image" content="https://3designdk.com/assets/logo_hotspotuv_1024.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="alternate icon" href="assets/favicon.ico">
 </head>
 <body>
 <style>
@@ -237,10 +245,10 @@
 <header class="hero"><div class="wrap hero-grid">
   <div>
     <p class="eyebrow">Trim-sheet UV mapping · 3ds Max</p>
-    <h1 data-t="hero_h1">A UV island lands on the perfect trim. One click.</h1>
-    <p class="lead" data-t="hero_lead">HotspotUV matches every island to the best-fitting trim — by shape,
-      area and texel density — then rotates and scales it into place. The whole run is a single Undo step.
-      Built entirely on the standard Unwrap_UVW modifier.</p>
+    <h1 data-t="hero_h1">The complete 3ds Max trim sheet workflow</h1>
+    <p class="lead" data-t="hero_lead">A UV island lands on the perfect trim, in one click. HotspotUV matches
+      every island to the best-fitting trim by shape, area and texel density, then rotates and scales it into
+      place. The whole run is a single Undo step. Built entirely on the standard Unwrap_UVW modifier.</p>
     <div class="btnrow">
       <button class="btn btn-primary" data-t="hero_b1" onclick="document.getElementById('playground').scrollIntoView({behavior:'smooth'})">Try the matching ↓</button>
       <button class="btn btn-ghost" data-t="hero_b2" onclick="document.getElementById('workflow').scrollIntoView({behavior:'smooth'})">See the workflow</button>
@@ -268,7 +276,7 @@
 </div></section>
 
 <section id="course"><div class="wrap">
-  <p class="eyebrow">Video course · free</p>
+  <p class="eyebrow">Video series</p>
   <h2>Trim Sheets in 3ds Max: the full series</h2>
   <p class="lead" style="margin:14px 0 22px">Six short episodes, about 25 minutes total: model the sheet from one
     plane, bake and texture it in Substance Painter, let HotspotUV build the trim sheet from an ID map,
@@ -280,14 +288,37 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe>
   </div>
-  <ol style="margin:0;padding-left:22px;font-size:14px;line-height:2;color:var(--ink-soft)">
-    <li><a href="https://www.youtube.com/watch?v=XFgaWIhxBCg" target="_blank" rel="noopener">Model the Sheet (primitives only, no sculpting)</a></li>
-    <li><a href="https://www.youtube.com/watch?v=PBrY3G6hn74" target="_blank" rel="noopener">Bake &amp; Texture in Substance Painter (the ID map trick)</a></li>
-    <li><a href="https://www.youtube.com/watch?v=zX5upFm7gTI" target="_blank" rel="noopener">Your ID Map Builds the Trim Sheet FOR You</a></li>
-    <li><a href="https://www.youtube.com/watch?v=jJRvy1eGYiI" target="_blank" rel="noopener">UV Map Any Prop in ONE Click</a></li>
-    <li><a href="https://www.youtube.com/watch?v=BdmSKcyk6AI" target="_blank" rel="noopener">Thousands of Faces, ZERO Unwrapping: Quick UV + Hotspot</a></li>
-    <li><a href="https://www.youtube.com/watch?v=44tXtkpf9Vk" target="_blank" rel="noopener">Quick UV + Hotspot: One Click Per Prop</a></li>
+  <ol style="margin:0;padding-left:22px;font-size:14px;line-height:1.75;color:var(--ink-soft)">
+    <li style="margin-bottom:14px"><a href="https://www.youtube.com/watch?v=XFgaWIhxBCg" target="_blank" rel="noopener"><b>Model the Sheet</b> (primitives only, no sculpting)</a><br>
+      Start from a single plane in the Top view, cut it into bands with Connect, then extrude panel grooves and
+      bevels. No sculpting and no high-poly detour: the sheet is built from primitives, so every trim stays a
+      clean rectangle and the UV work later stays predictable.</li>
+    <li style="margin-bottom:14px"><a href="https://www.youtube.com/watch?v=PBrY3G6hn74" target="_blank" rel="noopener"><b>Bake and Texture in Substance Painter</b> (the ID map trick)</a><br>
+      Export the low poly, bake the mesh maps with a distance-based cage, then texture with layered smart
+      materials. The trick is the second export: switch the template to Mesh Maps and pull the ID map out as
+      its own file. That ID map is what builds your trim sheet in the next episode.</li>
+    <li style="margin-bottom:14px"><a href="https://www.youtube.com/watch?v=zX5upFm7gTI" target="_blank" rel="noopener"><b>Your ID Map Builds the Trim Sheet FOR You</b></a><br>
+      Trims From Texture reads the flat colours of the ID map and detects every trim block on its own: colour
+      tolerance, minimum block size, background ignored. Nine trims lifted straight out of one texture, with
+      no rectangles drawn by hand and no drift between the sheet and the pixels.</li>
+    <li style="margin-bottom:14px"><a href="https://www.youtube.com/watch?v=jJRvy1eGYiI" target="_blank" rel="noopener"><b>UV Map Any Prop in ONE Click</b></a><br>
+      Add Unwrap_UVW, select the polygons, press Hotspot. Every island is matched to the closest trim by aspect
+      ratio first and area second, straightened with a minimum-area bounding rectangle, then scaled so texel
+      density matches across the whole selection. One undo step covers the entire run.</li>
+    <li style="margin-bottom:14px"><a href="https://www.youtube.com/watch?v=BdmSKcyk6AI" target="_blank" rel="noopener"><b>Thousands of Faces, ZERO Unwrapping: Quick UV + Hotspot</b></a><br>
+      Quick UV takes an unmapped blockout, breaks every hard edge into its own island and hands the result
+      straight to the hotspot pass. Large modular geometry gets trim sheet UVs without a single seam placed
+      by hand, which is where the time actually goes on environment work.</li>
+    <li><a href="https://www.youtube.com/watch?v=44tXtkpf9Vk" target="_blank" rel="noopener"><b>Quick UV + Hotspot: One Click Per Prop</b></a><br>
+      The same chain applied prop by prop across a modular kit, with matching priorities and texel density held
+      identical between objects so nothing shifts scale from one piece to the next.</li>
   </ol>
+  <p style="margin:22px 0 0;font-size:14px;line-height:1.8;color:var(--ink-soft)">
+    Trim sheets in 3ds Max have always been a manual job: line the island up with the trim, rotate it, scale it,
+    check the density, repeat a few hundred times. The workflow above removes the repetition and leaves the
+    decisions. Everything shown runs on the standard Unwrap_UVW modifier, so the result is a normal 3ds Max
+    scene that any pipeline can open, and it works the same way in 3ds Max 2022 through 2027.
+  </p>
 </div></section>
 
 <section id="createsheet"><div class="wrap">
@@ -463,8 +494,8 @@
   var I18N={
     en:{
       nav_ts:'Trim sheet',nav_wf:'Workflow',nav_an:'Anatomy &amp; functions',nav_pg:'Matching',nav_md:'Modes',
-      hero_h1:'A UV island lands on the perfect trim. One click.',
-      hero_lead:'HotspotUV matches every island to the best-fitting trim — by shape, area and texel density — then rotates and scales it into place. The whole run is a single Undo step. Built entirely on the standard Unwrap_UVW modifier.',
+      hero_h1:'The complete 3ds Max trim sheet workflow',
+      hero_lead:'A UV island lands on the perfect trim, in one click. HotspotUV matches every island to the best-fitting trim by shape, area and texel density, then rotates and scales it into place. The whole run is a single Undo step. Built entirely on the standard Unwrap_UVW modifier.',
       hero_b1:'Try the matching ↓',hero_b2:'See the workflow',
       what_eb:'The idea',what_h2:'What hotspotting is',
       what_lead:'A trim sheet is an atlas of rectangles (trims) you "snap" UV islands onto. Instead of fitting every island by hand, you select a batch of islands — and HotspotUV lays them out across the matching trims.',
@@ -513,8 +544,8 @@
     },
     pl:{
       nav_ts:'Trim-sheet',nav_wf:'Workflow',nav_an:'Anatomia i funkcje',nav_pg:'Dopasowanie',nav_md:'Tryby',
-      hero_h1:'Wyspa UV trafia w idealny trim. Jednym kliknięciem.',
-      hero_lead:'HotspotUV dobiera każdą wyspę do najlepszego trima — po kształcie, polu i gęstości texeli — a potem obraca ją i skaluje do dopasowania. Cały przebieg to jeden krok Undo. Działa wyłącznie przez standardowy Unwrap_UVW.',
+      hero_h1:'Kompletny workflow trim sheetów w 3ds Max',
+      hero_lead:'Wyspa UV trafia w idealny trim, jednym kliknięciem. HotspotUV dobiera każdą wyspę do najlepszego trima po kształcie, polu i gęstości texeli, a potem obraca ją i skaluje do dopasowania. Cały przebieg to jeden krok Undo. Działa wyłącznie przez standardowy Unwrap_UVW.',
       hero_b1:'Wypróbuj dopasowanie ↓',hero_b2:'Zobacz workflow',
       what_eb:'Idea',what_h2:'Czym jest hotspotting',
       what_lead:'Trim-sheet to atlas z prostokątami (trimami), do których „przyklejasz" wyspy UV. Zamiast ręcznie dopasowywać każdą wyspę, wskazujesz zestaw wysp — a HotspotUV rozkłada je po pasujących trimach.',
