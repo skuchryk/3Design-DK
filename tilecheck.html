@@ -257,7 +257,7 @@
            else reads, the buttons are just the name people actually use for it -->
       <div class="row"><span class="cap" title="DirectX maps point green down, OpenGL up. Not sure? Rake the light from the top — bumps should read raised, not sunken.">Convention</span>
         <span class="seg">
-          <button id="convDX" title="Green down (−Y) — 3ds Max, Unreal, MSFS, Substance's DirectX export">DirectX</button>
+          <button id="convDX" title="Green down (−Y) — 3ds Max, Unreal, Unity, Substance's DirectX export">DirectX</button>
           <button id="convGL" title="Green up (+Y) — Blender, Unity, glTF, Substance's OpenGL export">OpenGL</button>
         </span></div>
       <input type="checkbox" id="flipY" class="hidden-input" tabindex="-1" aria-hidden="true">
@@ -790,7 +790,7 @@ function checkSizes() {
 
 // forceKey = the user aimed at a specific slot (clicked it, or dropped straight onto it).
 // That is an explicit choice, so it beats guessing from the filename — which is what makes
-// maps with no ALBD/NORM/COMP suffix (MSFS exports, engine dumps) usable at all.
+// maps with no ALBD/NORM/COMP suffix (simulator exports, engine dumps) usable at all.
 // items are Files, or {file, handle} when the browser gave us a handle we can watch for saves
 function takeFiles(items, forceKey) {
   const warn = document.getElementById('warn');
