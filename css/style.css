@@ -623,6 +623,46 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
   border: 0;
 }
 
+/* Episode index under the playlist embed. Every entry is a link, and the global
+   reset strips link styling (a { color: inherit; text-decoration: none }), so
+   without this the list reads as plain prose and nobody clicks it. The accent
+   here is near-white, so colour cannot carry the affordance on its own — the
+   underline does the work and brightens on hover. */
+.course-index {
+  max-width: 760px;
+  margin: 18px auto 0;
+  font-size: 0.9rem;
+}
+.course-index-head {
+  text-align: center;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.course-index-head strong { color: var(--text); }
+.course-index a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.course-index a:hover,
+.course-index a:focus-visible { text-decoration-color: var(--text); }
+.course-index-list {
+  margin: 0;
+  padding-left: 26px;
+  color: var(--muted);
+  line-height: 2;
+}
+.course-index-list li::marker { color: var(--muted-2); }
+/* Marks the entries that leave the site for YouTube; the walkthrough link in
+   the heading stays bare because it is an internal page. */
+.course-index-list a::after {
+  content: " \2197";
+  color: var(--muted-2);
+  text-decoration: none;
+}
+
 /* ---------- who ---------- */
 .who-grid {
   display: grid;
