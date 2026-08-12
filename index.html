@@ -48,7 +48,7 @@
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "3D modeling plugin",
     "operatingSystem": "Windows 10, Windows 11",
-    "softwareVersion": "2.3.0",
+    "softwareVersion": "2.3.1",
     "softwareRequirements": "Autodesk 3ds Max 2022 to 2027",
     "image": "https://3designdk.com/assets/logo_hotspotuv_1024.png",
     "author": { "@type": "Person", "name": "Dawid Kucharyk" },
@@ -889,9 +889,24 @@
 
         <details class="release is-latest" open>
           <summary class="release-head">
+            <span class="release-version">v2.3.1</span>
+            <span class="release-date">12 Aug 2026</span>
+            <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li><strong>Padding now holds on both axes.</strong> It was measured against the whole sheet instead of the trim an island lands in, so the gap shrank with the trim&rsquo;s proportions &mdash; on a 2048&times;2048 sheet, a 640&times;128 trim asked for 8 px got 2.5 px at the sides and half a pixel top and bottom, which reads as padding working horizontally only. Padding is now literally that many pixels on every side of the trim, whatever its shape, and the same goes for per-trim insets and the Padding scale multiplier.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
             <span class="release-version">v2.3.0</span>
             <span class="release-date">8 Aug 2026</span>
-            <span class="release-badge">Latest</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">
