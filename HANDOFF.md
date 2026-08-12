@@ -4,7 +4,7 @@ Snapshot of where the HotspotUV website project stands, so work can continue
 from another computer via the repo. See [README.md](README.md) for the full
 technical guide (structure, editing, deploy, colours).
 
-_Last updated: 2026-07-07._
+_Last updated: 2026-08-12._
 
 ---
 
@@ -32,7 +32,7 @@ Do not commit tokens.
 - **Live:** https://3designdk.com (via **Cloudflare** → GitHub Pages; the old
   `skuchryk.github.io/3Design-DK/` redirects here). Cloudflare caches assets, so
   hard-refresh (Ctrl+F5) after a deploy; it also obfuscates the contact email.
-- **Buy (Gumroad, $15 USD):** https://3designdk.gumroad.com/l/ueunpw
+- **Buy (Gumroad, $30 / $99 / $249 USD):** https://3designdk.gumroad.com/l/ueunpw
 - **Contact:** contact@3designdk.com (mailbox on the domain; shown in the footer).
 - **Plugin source (separate repo):** `H:\PROJECTS\HotSpotMaxV2`
 - Static HTML/CSS/JS, no build step. Single page: `index.html`.
@@ -40,7 +40,9 @@ Do not commit tokens.
 ## Done so far
 - Full single-page marketing site (hero with animated plugin mock, features,
   workflow, videos, pricing, requirements, FAQ, changelog, footer).
-- Price **$15 USD**; all "Get HotspotUV" buttons link to the Gumroad page.
+- Prices **$30 / $99 / $249 USD** (Individual / Team / Studio); all "Get HotspotUV"
+  buttons link to the Gumroad page. Regional pricing (up to -40%) is on from
+  12.08.2026; the launch offer EARLY50 ended 11.08.2026.
 - License copy: **lifetime license · 1 year of updates included**.
 - **Monochrome white-on-navy** theme (reworked from the original teal).
 - Custom **white-on-navy logo set** in `assets/` (circular badge, mark-only,
@@ -79,7 +81,7 @@ since republished and now serves the latest commits. Verified on 2026-07-06:
 curl -s https://skuchryk.github.io/3Design-DK/ | grep G-P0LGVQESN5   # prints the ID
 ```
 
-Consent banner, Consent Mode v2 and the $15 pricing are all live. In GA, open the
+Consent banner, Consent Mode v2 and the tier pricing are all live. In GA, open the
 site, click **Accept**, then GA → **Reports → Realtime** should show you.
 
 ---

@@ -99,15 +99,26 @@ data file — so a new version is added by hand (see *Update the changelog* belo
 ## Editing common things
 
 ### Change the price
-The price shows as **$15 USD** (that's the product currency on Gumroad; buyers in
-other countries pay the converted local amount at Gumroad checkout). It appears in
-**two** places in `index.html`:
+Three tiers, in **USD** on Gumroad: **$30 Individual / $99 Team / $249 Studio**
+(buyers elsewhere pay the converted local amount at checkout, and since Aug 12,
+2026 Gumroad's regional pricing takes up to 40% off in eligible countries). Every
+figure lives in `index.html`:
 
-- The pricing card: `<span class="price-currency">$</span><span class="price-amount">15</span>`
-- The two big buttons: `Get HotspotUV — $15` (hero and final CTA)
+- The three pricing cards: `<p class="tier-price">$30</p>` and friends
+- The two big buttons: `Get HotspotUV — $30` (hero and final CTA)
+- The `offers.price` field in the JSON-LD block in `<head>` — **keep it in sync**,
+  it feeds the price shown in Google results
 
-Search `index.html` for `15` and update both. The plain nav / pricing buttons that
-just say "Get HotspotUV" have no number.
+The plain nav / pricing buttons that just say "Get HotspotUV" have no number.
+
+### Run a promotion
+The promo bar markup in `index.html` is commented out between offers; `PROMO_END`
+in `js/main.js` holds the first day WITHOUT the offer. To run one: uncomment the
+bar, set the date, and mark any supporting lines with `data-promo` so they vanish
+together with the bar when it expires. **The tier prices and button labels are
+plain HTML and do NOT revert on their own** — discounted figures have to be put in
+and taken out by hand (this bit us on Aug 12, 2026: the bar expired on schedule
+while the cards still advertised the promo price).
 
 ### Change the "Buy" link
 All four buttons link to the Gumroad product page. To change the destination,
@@ -303,9 +314,10 @@ managed in Cloudflare instead.)
   mark-only and horizontal variants, plus favicon/ico/apple-touch. The nav shows the
   emblem inside a ringed circle. Assets are regenerated from the scripts kept in the
   scratchpad; colours follow the `#f3f5f7` mark / navy disc scheme.
-- **Selling platform** moved from Crevio to **Gumroad** (`/l/ueunpw`). Price is set
-  in **USD ($15)** on Gumroad; the site shows `$15` and notes local-currency
-  checkout, rather than a fixed PLN figure, because Gumroad auto-converts.
+- **Selling platform** moved from Crevio to **Gumroad** (`/l/ueunpw`). Prices are set
+  in **USD** on Gumroad ($30/$99/$249 since the launch offer ended); the site shows
+  USD and notes local-currency checkout, rather than a fixed PLN figure, because
+  Gumroad auto-converts.
 - **License model:** lifetime license, one year of updates included in the price
   (plugin keeps working after that; updates renewable).
 - **Hosting:** GitHub Pages from a public repo. Repo was flipped from private to

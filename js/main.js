@@ -131,9 +131,11 @@
     });
   }
 
-  // Launch-offer promo: bar + echoes, auto-hidden once the offer ends.
-  // Offer runs through Aug 11, 2026 (client-local time); from Aug 12 the bar
-  // and every [data-promo] element disappear without a redeploy.
+  // Promo machinery: bar + [data-promo] lines, auto-hidden once the offer ends.
+  // PROMO_END is the first day WITHOUT the offer (client-local time), so both
+  // disappear on their own, with no redeploy.
+  // Currently parked: the launch offer ended Aug 11, 2026 and the bar markup in
+  // index.html is commented out. Re-arm the bar and this date together.
   var PROMO_END = new Date(2026, 7, 12);
   var promoNow = new Date();
   if (promoNow < PROMO_END) {
