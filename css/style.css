@@ -772,6 +772,10 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
 .tier-includes a:hover { color: var(--text); }
 
 .review-section { padding-block: 48px; }
+.review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; }
+.review-grid .review-quote { max-width: none; }
+.review-grid .review-quote blockquote { font-size: 1.06rem; }
+@media (max-width: 720px) { .review-grid { grid-template-columns: 1fr; gap: 30px; } }
 .review-quote { text-align: center; max-width: 640px; margin: 0 auto; }
 .review-stars { color: #e3b341; font-size: 1rem; letter-spacing: 0.3em; margin-bottom: 14px; }
 .review-quote blockquote {
