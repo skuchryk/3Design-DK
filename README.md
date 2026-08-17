@@ -206,7 +206,8 @@ that too.
 ## Local preview
 
 Open `index.html` directly in a browser, **or** serve the folder (needed for the
-YouTube embeds to behave like production):
+YouTube embeds to behave like production, and for the "back to home" links on
+the sub-pages — they point at `/`, which only resolves over HTTP):
 
 ```bash
 # from the repo root
