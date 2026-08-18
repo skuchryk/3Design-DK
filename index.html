@@ -48,7 +48,7 @@
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "3D modeling plugin",
     "operatingSystem": "Windows 10, Windows 11",
-    "softwareVersion": "2.3.1",
+    "softwareVersion": "2.4.0",
     "softwareRequirements": "Autodesk 3ds Max 2022 to 2027",
     "image": "https://3designdk.com/assets/logo_hotspotuv_1024.png",
     "author": { "@type": "Person", "name": "Dawid Kucharyk" },
@@ -346,7 +346,7 @@
         </figure>
         <figure style="margin:0">
           <button class="control-shot" type="button" aria-label="Zoom the Advanced view">
-            <img src="assets/ui_advanced.png" alt="HotspotUV window in Advanced view — the full options panel with Padding and Variation sections" width="882" height="792" loading="lazy">
+            <img src="assets/ui_advanced.webp" alt="HotspotUV window in Advanced view — a 36-trim sheet on the map and the full options panel with Padding and Variation sections" width="1114" height="1434" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <figcaption style="margin-top:8px;text-align:center;opacity:.75;font-size:.9em"><strong>Advanced</strong> — every option, one switch away. Your choice is remembered.</figcaption>
@@ -364,7 +364,7 @@
           </button>
           <dl class="control-list">
             <dt>Basic</dt>
-            <dd>Mode, Orient, Priority, Area and the Scale toggles — enough for 90% of runs.</dd>
+            <dd>Mode, Orient, Measure, Priority, Trim size and the Scale toggles — enough for 90% of runs.</dd>
             <dt>Advanced</dt>
             <dd>Reveals the long-tail options plus the Padding and Variation sections. Your choice is remembered between sessions.</dd>
             <dt>Target counter</dt>
@@ -376,7 +376,7 @@
           <h3>Mapping</h3>
           <p class="control-lead">How each island lands in its trim.</p>
           <button class="control-shot" type="button" aria-label="Zoom the Mapping panel">
-            <img src="assets/panel_mapping.png" alt="HotspotUV panel — Mapping section with the Mode dropdown open: Hotspot, Seamless U, Seamless V, From trim settings" width="361" height="158" loading="lazy">
+            <img src="assets/panel_mapping.png" alt="HotspotUV panel — Mapping section: Mode, Orient set to Orient to World, and the Flat tolerance field" width="361" height="166" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
@@ -384,6 +384,8 @@
             <dd>Fit the island inside the trim (<em>Hotspot</em>), let it tile past the trim (<em>Seamless&nbsp;U/V</em>), or use each trim's own setting (<em>From trim settings</em>) to mix normal trims and seamless strips in one pass.</dd>
             <dt>Orient</dt>
             <dd><em>As&nbsp;Is</em>, <em>Auto</em> (longest side horizontal), <em>Straighten</em> skew to the UV axis, or <em>Orient to World</em> — the surface's world-up (Z) points up in UV, so walls stay vertical and upside-down islands are fixed.</dd>
+            <dt>Flat tolerance</dt>
+            <dd>Only with <em>Orient to World</em>: how much tilt a surface needs before it counts as sloped. Below it, a face is treated as flat and the next world axis decides, so chamfers and near-level faces stop picking arbitrary angles. Default 10&deg;. <em>(Advanced)</em></dd>
             <dt>Random offset in trim</dt>
             <dd>Seeded random placement instead of centering, so repeated islands don't line up. <em>(Advanced)</em></dd>
           </dl>
@@ -397,14 +399,16 @@
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <button class="control-shot" type="button" aria-label="Zoom the Matching panel">
-            <img src="assets/panel_matching.png" alt="HotspotUV panel — Matching section with the Area dropdown open" width="361" height="197" loading="lazy">
+            <img src="assets/panel_matching.png" alt="HotspotUV panel — Matching section: Measure (Current UVs or Model geometry) and the Trim size dropdown open" width="361" height="222" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
+            <dt>Measure</dt>
+            <dd><em>Current UVs</em> matches on the island&rsquo;s UV bounding box as it is now; <em>Model geometry (3D)</em> matches on its real size on the model, so re-running with different settings decides from scratch instead of snapping back to the trim it already sits in.</dd>
             <dt>Priority</dt>
             <dd><em>Balanced</em> (closest to the island's actual size — uniform density), by shape first, by size first, or by real-world area (texel density).</dd>
-            <dt>Area</dt>
-            <dd>Prefer the closest-sized zone, the largest, the smallest, or a manual scale factor.</dd>
+            <dt>Trim size</dt>
+            <dd>Aim at trims the island&rsquo;s own size (<em>Island size</em>), or bias the search toward larger or smaller trims &mdash; or set the multiplier yourself.</dd>
           </dl>
         </article>
 
@@ -417,7 +421,7 @@
           </button>
           <dl class="control-list">
             <dt>Manual scale</dt>
-            <dd>Zone-area multiplier when Area = <em>Manual</em> — above 1 picks bigger zones, below 1 smaller.</dd>
+            <dd>Zone-area multiplier when Trim size = <em>Manual</em> — above 1 picks bigger zones, below 1 smaller.</dd>
             <dt>Aspect bias</dt>
             <dd>Nudge matches toward wider (<em>+</em>) or narrower (<em>−</em>) zones.</dd>
             <dt>Allow 90° rotation</dt>
@@ -896,9 +900,39 @@
 
         <details class="release is-latest" open>
           <summary class="release-head">
+            <span class="release-version">v2.4.0</span>
+            <span class="release-date">18 Aug 2026</span>
+            <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">New</span>
+              <ul class="rel-list">
+                <li><strong>Flat tolerance</strong> &mdash; <em>Orient to World</em> reads which world axis runs uphill across a face, and a face lying level to that axis has no uphill at all, so the next axis decides. That call used to hang on a raw threshold, which let a chamfer half a degree off level &mdash; or plain rounding noise on a flat face &mdash; set the rotation for a whole island. It is now the surface&rsquo;s tilt in degrees: below the tolerance a face counts as flat. Default 10&deg;. Reported by Edward B.</li>
+                <li><strong>Measure: Current UVs or Model geometry (3D)</strong> &mdash; matching reads an island&rsquo;s current UV bounding box, which makes a second pass sticky: once an island sits in a trim it carries that trim&rsquo;s proportions and matches straight back to it, so new settings look ignored until you clear the UVs. Measuring on the model instead makes every pass decide from scratch. Needs a scale to compare against: one trim with a real-world size, or texel density. Reported by Edward B.</li>
+              </ul>
+            </div>
+            <div class="rel-group">
+              <span class="rel-cat">Changed</span>
+              <ul class="rel-list">
+                <li><strong>&ldquo;Area&rdquo; is now &ldquo;Trim size&rdquo;</strong>, and its entries say what they do: <em>Island size (closest)</em>, <em>Prefer large trims</em>, <em>Prefer small trims</em>, <em>Manual</em>. They bias the size search rather than rank trims &mdash; on a sheet whose trims dwarf the island, &ldquo;prefer large&rdquo; can land in between, which the old &ldquo;largest zone&rdquo; label promised it would not. Existing presets keep working. Reported by Edward B.</li>
+                <li><strong>Drag the arrows on any number field</strong> to sweep the value, the way Max spinners work &mdash; Ctrl for fine steps, Shift for coarse. A plain click still steps once.</li>
+                <li>Options that do not apply now grey out together with their captions.</li>
+              </ul>
+            </div>
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li>Texel density was used as a sheet scale even with its mode switched off, reading a value from a greyed-out field &mdash; so <em>Model geometry</em> always believed it had a scale and the warning about a sheet without one could never appear.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
             <span class="release-version">v2.3.1</span>
             <span class="release-date">12 Aug 2026</span>
-            <span class="release-badge">Latest</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">

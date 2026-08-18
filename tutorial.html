@@ -226,7 +226,7 @@
 
 <div class="topbar"><div class="wrap">
   <a class="brand" href="/">Hotspot<b>UV</b></a>
-  <span class="chip">v2.3.1</span>
+  <span class="chip">v2.4.0</span>
   <a class="backlink" href="/" data-t="nav_back">← Product page</a>
   <nav class="nav">
     <a href="#course" data-t="nav_co">Course</a>
@@ -482,7 +482,7 @@
 </div></section>
 
 <footer><div class="wrap">
-  <span class="mono">HotspotUV v2.3.1 — by 3Design</span>
+  <span class="mono">HotspotUV v2.4.0 — by 3Design</span>
   <span class="mono">Built on Unwrap_UVW · 3ds Max 2020–2026</span>
 </div></footer>
 
@@ -642,7 +642,7 @@
         ['Button','Matches all selected islands to the target zones in one pass.'],
         ['Quick UV + Hotspot','For raw, unmapped objects: a uniform box projection at a consistent texel scale (auto-calibrated to the sheet; Flatten for organics), then an immediate hotspot pass. Any number of objects, one shared Unwrap, two undo steps.'],
         ['Targets','Zones selected on the map; no selection = all enabled zones. The counter always tells you which: “All enabled trims (N)” or “N target trims selected”.'],
-        ['Basic | Advanced','Progressive disclosure: Basic shows Quick UV, Mode, Orient, Priority, Area and the Scale toggles; Advanced adds the long-tail rows plus Padding and Variation. The choice is remembered between sessions.'],
+        ['Basic | Advanced','Progressive disclosure: Basic shows Quick UV, Mode, Orient, Measure, Priority, Trim size and the Scale toggles; Advanced adds the long-tail rows plus Padding and Variation. The choice is remembered between sessions.'],
         ['Hidden-options hint','In Basic a muted line counts what’s hidden — nothing is ever lost, just tucked away.'],
         ['Undo','The whole run is one Ctrl+Z — multi-object runs included. Ctrl+Z works inside the tool window.'],
         ['Listener','After every run a summary line: islands matched/skipped and time.']]},
@@ -651,11 +651,13 @@
         ['Mode: Seamless U / V','Fit one axis only — the island keeps proportions and may overflow (tiling) along the other.'],
         ['Mode: From trim settings','Use each trim’s own Fit axis — one pass mixes normal trims, seamless strips and Fill.'],
         ['Orient','As Is · Auto (longest side horizontal) · Orient (straighten skew to the UV axis, min-area rect, sub-degree too) · Orient to World (world-up Z → up in UV; fixes upside-down islands).'],
+        ['Flat tolerance','Orient to World only: how much tilt a surface needs before it counts as sloped. Below it the face is treated as level and the next world axis decides, so chamfers and near-flat faces stop picking arbitrary angles. Default 10°. Advanced.'],
         ['Random offset in trim','Random placement instead of centering (seeded). Advanced view.']]},
-      {k:'[8] Matching',s:'Matching',t:'Which zone to pick',p:'The heart of the engine. Basic shows Priority and Area; the fine-tuning rows live in Advanced.',rows:[
+      {k:'[8] Matching',s:'Matching',t:'Which zone to pick',p:'The heart of the engine. Basic shows Measure, Priority and Trim size; the fine-tuning rows live in Advanced.',rows:[
         ['Priority','Balanced (closest to the island’s actual size — uniform density, default) · Aspect (shape first) · Area (size first) · World size (real-world area).'],
-        ['Area','As Is (closest area) · Max (largest zone) · Min (smallest) · Manual (multiplier).'],
-        ['Manual scale','Area multiplier for Area = Manual: >1 aims at larger zones, <1 at smaller. Advanced.'],
+        ['Measure','Current UVs (the island’s UV bounding box as it is now) · Model geometry (3D) (its real size on the model, so a second pass with different settings decides from scratch instead of snapping back to the trim it sits in). Needs a trim with a real-world size, or texel density.'],
+        ['Trim size','Island size (closest) · Prefer large trims · Prefer small trims · Manual (multiplier). A bias on the size search, not a ranking: on a sheet whose trims dwarf the island, “prefer large” can land in between.'],
+        ['Manual scale','Area multiplier for Trim size = Manual: >1 aims at larger zones, <1 at smaller. Advanced.'],
         ['Aspect bias','+ favours wider zones, − narrower, 0 = off. Advanced.'],
         ['Allow 90° rotation','Lets an island rotate 90° to fit the zone orientation. Advanced.'],
         ['Detect radial → “Radial” trims','Round islands (caps, dials, wheels) map only to trims tagged Radial; other islands skip them. Advanced.'],
@@ -734,11 +736,13 @@
         ['Mode: Seamless U / V','Dopasowanie tylko jednej osi — wyspa trzyma proporcje i może wystawać (kafelkować) wzdłuż drugiej.'],
         ['Mode: From trim settings','Używa własnej osi Fit każdego trima — jeden przebieg miesza zwykłe trimy, pasy seamless i Fill.'],
         ['Orient','As Is · Auto (dłuższy bok poziomo) · Orient (prostowanie skośnych do osi UV, min-area rect, działa poniżej 1°) · Orient to World (światowe Z → góra UV; naprawia wyspy do góry nogami).'],
+        ['Flat tolerance','Tylko przy Orient to World: ile nachylenia musi mieć powierzchnia, żeby liczyła się jako spadek. Poniżej progu jest traktowana jak płaska i decyduje kolejna oś świata, więc fazki i prawie poziome ścianki przestają dostawać przypadkowe kąty. Domyślnie 10°. Advanced.'],
         ['Random offset in trim','Losowe położenie zamiast centrowania (seedowane). Widok Advanced.']]},
       {k:'[8] Matching',s:'Matching',t:'Którą strefę wybrać',p:'Serce silnika. Basic pokazuje Priority i Area; wiersze fine-tuningu mieszkają w Advanced.',rows:[
         ['Priority','Balanced (najbliższy realnemu rozmiarowi wyspy — jednolita gęstość, domyślny) · Aspect (najpierw kształt) · Area (najpierw rozmiar) · World size (realne wymiary).'],
-        ['Area','As Is (najbliższe pole) · Max (największa) · Min (najmniejsza) · Manual (mnożnik).'],
-        ['Manual scale','Mnożnik pola dla Area = Manual: >1 celuje w większe strefy, <1 w mniejsze. Advanced.'],
+        ['Measure','Current UVs (bieżąca ramka UV wyspy) · Model geometry (3D) (realny rozmiar na modelu, więc drugi przebieg z innymi ustawieniami decyduje od nowa, zamiast wracać do trimu, w którym wyspa już siedzi). Wymaga trimu z rozmiarem rzeczywistym albo texel density.'],
+        ['Trim size','Island size (najbliższy rozmiar) · Prefer large trims · Prefer small trims · Manual (mnożnik). To bias wyszukiwania, nie ranking: przy arkuszu, którego trimy są dużo większe od wyspy, „prefer large” może wypaść pośrodku.'],
+        ['Manual scale','Mnożnik pola dla Trim size = Manual: >1 celuje w większe strefy, <1 w mniejsze. Advanced.'],
         ['Aspect bias','+ faworyzuje szersze strefy, − węższe, 0 = wył. Advanced.'],
         ['Allow 90° rotation','Pozwala obrócić wyspę o 90° pod orientację strefy. Advanced.'],
         ['Detect radial → „Radial”','Okrągłe wyspy (kapsle, tarcze, koła) trafiają tylko w trimy z tagiem Radial; inne je omijają. Advanced.'],
