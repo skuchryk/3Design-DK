@@ -48,7 +48,7 @@
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "3D modeling plugin",
     "operatingSystem": "Windows 10, Windows 11",
-    "softwareVersion": "2.4.1",
+    "softwareVersion": "2.4.2",
     "softwareRequirements": "Autodesk 3ds Max 2022 to 2027",
     "image": "https://3designdk.com/assets/logo_hotspotuv_1024.png",
     "author": { "@type": "Person", "name": "Dawid Kucharyk" },
@@ -76,7 +76,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260822a">
+  <link rel="stylesheet" href="css/style.css?v=20260823a">
 </head>
 <body>
 
@@ -905,9 +905,32 @@
 
         <details class="release is-latest" open>
           <summary class="release-head">
-            <span class="release-version">v2.4.1</span>
-            <span class="release-date">22 Aug 2026</span>
+            <span class="release-version">v2.4.2</span>
+            <span class="release-date">23 Aug 2026</span>
             <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">New</span>
+              <ul class="rel-list">
+                <li><strong>.tga, .exr, .dds and more as a background and as a Trims From Texture source.</strong> Qt cannot decode these, so HotspotUV hands them to 3ds Max&rsquo;s own bitmap loader once and works from a cached copy. The list of accepted formats is now read from the host at run time rather than written by hand, so it matches whatever your version of Max can open. HDR sources are converted to 8-bit for the preview: right for a backdrop you judge trims against, not a colour-managed view. Reported by a customer.</li>
+              </ul>
+            </div>
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li><strong>&ldquo;No textures found on the selected objects&rdquo; when the material referenced a .tga.</strong> The textures were found; a format filter further down then discarded them. When a file really cannot be read, the tool now says how many textures it found instead of claiming there were none.</li>
+                <li><strong>The background file browser offered no way to pick a .tga at all.</strong> Its filter listed five formats and had no <em>All Files</em> option behind it, so the file was not merely hidden, it could not be chosen. It also hid .tif and .tiff, which the tool could open all along.</li>
+                <li><strong>Hotspot on several objects at once silently skipped any object whose Unwrap_UVW had no face selection</strong>, which read as the tool only working on one object at a time. It now names the skipped objects and says why. Face selection belongs to each object, so <em>Quick UV + Hotspot</em> remains the way to have it done for you.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
+            <span class="release-version">v2.4.1</span>
+            <span class="release-date">23 Aug 2026</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">
