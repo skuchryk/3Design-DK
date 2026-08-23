@@ -76,7 +76,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260823c">
+  <link rel="stylesheet" href="css/style.css?v=20260823d">
 </head>
 <body>
 
@@ -930,14 +930,14 @@
               <span class="rel-cat">Fixed</span>
               <ul class="rel-list">
                 <li><strong>Hotspotting several objects at once mapped only a fraction of one of them.</strong> <em>Quick UV</em> built a single Unwrap_UVW and instanced it onto every object, so that the whole selection appeared in one Edit UVWs window. That convenience was quietly breaking the tool: an instanced modifier is one modifier, so its face selection is not per object and every UV write lands on whichever object is active. The run reported every island matched while most objects never moved. Each object now gets its own Unwrap_UVW, and the same scene that produced 1,566 islands before now yields 8,502. The box gizmo stays shared, so resizing the cube still resizes them all; the single Edit UVWs window is the price of the fix.</li>
-                <li><strong>Updating by dragging the .mzp onto 3ds Max did nothing but say it had worked.</strong> MAXScript&rsquo;s file copy refuses to overwrite an existing file, so a first install succeeded and every update after it failed silently, leaving the previous version in place. The installer then reported success because it checked that the package file existed, which it did, from before. It now clears the previous install, copies with overwriting enabled, and reads the version back off disk afterwards, so a failed update can no longer look like a successful one. Reported by Stepan D.</li>
+                <li><strong>Updating by dragging the .mzp onto 3ds Max did nothing but say it had worked.</strong> MAXScript&rsquo;s file copy refuses to overwrite an existing file, so a first install succeeded and every update after it failed silently, leaving the previous version in place. The installer then reported success because it checked that the package file existed, which it did, from before. It now clears the previous install, copies with overwriting enabled, and reads the version back off disk afterwards, so a failed update can no longer look like a successful one. Reported by a customer.</li>
                 <li><strong>&ldquo;Could not load image&rdquo; blamed the file for being undecodable even when it simply was not there.</strong> Missing files and unreadable files now say different things, and the decode message lists the formats this 3ds Max can actually read.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>An uninstaller.</strong> <em>uninstall.bat</em> ships next to the installer. It clears both standard install locations and asks separately about your settings and license activation, so reinstalling does not mean entering your key again. Requested by Stepan D.</li>
+                <li><strong>An uninstaller.</strong> <em>uninstall.bat</em> ships next to the installer. It clears both standard install locations and asks separately about your settings and license activation, so reinstalling does not mean entering your key again. Requested by the same customer.</li>
               </ul>
             </div>
           </div>
