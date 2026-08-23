@@ -48,7 +48,7 @@
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "3D modeling plugin",
     "operatingSystem": "Windows 10, Windows 11",
-    "softwareVersion": "2.4.3",
+    "softwareVersion": "2.4.4",
     "softwareRequirements": "Autodesk 3ds Max 2022 to 2027",
     "image": "https://3designdk.com/assets/logo_hotspotuv_1024.png",
     "author": { "@type": "Person", "name": "Dawid Kucharyk" },
@@ -76,7 +76,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260823b">
+  <link rel="stylesheet" href="css/style.css?v=20260823c">
 </head>
 <body>
 
@@ -905,9 +905,25 @@
 
         <details class="release is-latest" open>
           <summary class="release-head">
-            <span class="release-version">v2.4.3</span>
+            <span class="release-version">v2.4.4</span>
             <span class="release-date">23 Aug 2026</span>
             <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li><strong>RLE-compressed .tga now loads</strong>, as a background and as a <em>Trims From Texture</em> source. Qt lists &ldquo;tga&rdquo; among the formats it reads and then refuses the compressed ones, which is why the format looked supported and still failed. Photoshop ticks its Compress box by default, so most .tga files coming out of it were affected. Any file Qt claims and then returns nothing for is now handed to 3ds Max&rsquo;s own bitmap loader instead of being called broken. Reported by Stepan D.</li>
+                <li>When an image genuinely cannot be loaded, the message carries the reason instead of asking you to go and read the MAXScript Listener.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
+            <span class="release-version">v2.4.3</span>
+            <span class="release-date">23 Aug 2026</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">
