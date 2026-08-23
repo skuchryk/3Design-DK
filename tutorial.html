@@ -157,7 +157,7 @@
   .deftable td:first-child{font-family:var(--mono);font-size:12.5px;color:var(--ink);width:1%;font-weight:600}
   .deftable td:last-child{color:var(--ink-soft)}
 
-  /* playground — faithful HotspotUV/Max dark UI (deliberately single-theme) */
+  /* playground, faithful HotspotUV/Max dark UI (deliberately single-theme) */
   .mxwin{border:1px solid #242424;border-radius:8px;overflow:hidden;background:#3a3a3a;
     color:#dddddd;font-size:13px;box-shadow:0 18px 50px #0006}
   .mxtitle{background:#f2f2f2;color:#1a1a1a;display:flex;align-items:center;
@@ -196,7 +196,7 @@
   .mxpad{padding:12px;background:#3a3a3a}
   .mxstatus{font-family:var(--mono);font-size:10.5px;color:#9a9a9a;text-align:right;margin-top:8px}
 
-  /* modes — Max-style mini panels */
+  /* modes, Max-style mini panels */
   .mode-svg{background:#3a3a3a;border:1px solid #242424;border-radius:8px;padding:14px;color:#dddddd}
   .mode-svg .t{font-size:12.5px;color:#fff;font-weight:700;margin-bottom:2px}
   .mode-svg .d{font-size:12.5px;color:#9a9a9a;margin:6px 0 12px;line-height:1.5}
@@ -226,7 +226,7 @@
 
 <div class="topbar"><div class="wrap">
   <a class="brand" href="/">Hotspot<b>UV</b></a>
-  <span class="chip">v2.4.0</span>
+  <span class="chip">v2.4.1</span>
   <a class="backlink" href="/" data-t="nav_back">← Product page</a>
   <nav class="nav">
     <a href="#course" data-t="nav_co">Course</a>
@@ -268,8 +268,7 @@
   <p class="eyebrow" data-t="what_eb">The idea</p>
   <h2 data-t="what_h2">What hotspotting is</h2>
   <p class="lead" style="margin-top:14px" data-t="what_lead">A trim sheet is an atlas of rectangles (trims) you
-    "snap" UV islands onto. Instead of fitting every island by hand, you select a batch of islands —
-    and HotspotUV lays them out across the matching trims.</p>
+    "snap" UV islands onto. Instead of fitting every island by hand, you select a batch of islands, and HotspotUV lays them out across the matching trims.</p>
   <div class="explain mxcanvas" style="padding:18px;margin-top:22px;border-radius:8px">
     <svg viewBox="0 0 640 190" aria-label="Scattered islands before, organised atlas after"></svg>
   </div>
@@ -325,17 +324,17 @@
   <p class="eyebrow" data-t="cs_eb">Setup · before you start</p>
   <h2 data-t="cs_h2">Build the trim sheet first</h2>
   <p class="lead" style="margin:14px 0 26px" data-t="cs_lead">Hotspot needs a sheet of zones. The most reliable route:
-    <b>generate zones from existing UV islands</b> — the trims then match the texture pixel-perfectly.
+    <b>generate zones from existing UV islands</b>: the trims then match the texture pixel-perfectly.
     A proven recipe (do it once, then just load the file):</p>
   <div class="tile" style="margin:0 0 24px;border-left:3px solid var(--accent)"><div class="k" data-t="cs_texk">Shortcut (v2.2): New Trimsheet from Texture</div><p style="margin:8px 0 0;font-size:14px;color:var(--ink-soft)" data-t="cs_texp">If your sheet is a flat-color layout (color-ID), skip the recipe: <b>File → New Trimsheet from Texture…</b> turns every color block into a trim and sets the texture as the map background. The steps below remain the route for photographic trim sheets.</p></div>
   <div class="steps">
-    <div class="step"><div class="num">A</div><div><h3 data-t="csA_h">Plane + trim texture</h3><p data-t="csA_p">Create a <b>Plane</b> and assign a material with your finished trim-sheet texture — visible in the viewport, it will guide the cuts.</p></div></div>
+    <div class="step"><div class="num">A</div><div><h3 data-t="csA_h">Plane + trim texture</h3><p data-t="csA_p">Create a <b>Plane</b> and assign a material with your finished trim-sheet texture, visible in the viewport, so it will guide the cuts.</p></div></div>
     <div class="step"><div class="num">B</div><div><h3 data-t="csB_h">Cut the trims on the plane</h3><p data-t="csB_p">Cut the plane along the trim borders (Edit Poly: <b>Cut / Slice</b>), following the edges visible on the texture.</p></div></div>
-    <div class="step"><div class="num">C</div><div><h3 data-t="csC_h">Split into islands in Unwrap_UVW</h3><p data-t="csC_p">Add <b>Unwrap_UVW</b> and split the cut faces into separate islands — each trim = one island. The plane's UVs already sit 1:1 on the texture, nothing to lay out.</p></div></div>
+    <div class="step"><div class="num">C</div><div><h3 data-t="csC_h">Split into islands in Unwrap_UVW</h3><p data-t="csC_p">Add <b>Unwrap_UVW</b> and split the cut faces into separate islands, each trim = one island. The plane's UVs already sit 1:1 on the texture, nothing to lay out.</p></div></div>
     <div class="step"><div class="num">D</div><div><h3 data-t="csD_h">Generate Trims from UVs</h3><p data-t="csD_p">Polygon mode, select all islands → click <b>✦ Generate Trims from UVs</b> in HotspotUV. Zones are created in reading order, numbered <code>Trim 01, 02…</code></p></div></div>
     <div class="step"><div class="num">E</div><div><h3 data-t="csE_h">Background, metadata, save</h3><p data-t="csE_p">Set the texture as the map background (<b>Background → From Selected Object…</b>), add tags / Fit axis / World W-H in Edit Trim and save the <code>.json</code>.</p></div></div>
   </div>
-  <p style="margin:26px 0 14px;font-size:15px;color:var(--ink-soft)" data-t="cs_alt"><b>Alternatives</b> — when you don't want to cut geometry:</p>
+  <p style="margin:26px 0 14px;font-size:15px;color:var(--ink-soft)" data-t="cs_alt"><b>Alternatives</b>. When you don't want to cut geometry:</p>
   <div class="grid3">
     <div class="tile"><div class="k" data-t="cs_t1k">Draw over the background</div><p style="margin:8px 0 0;font-size:14px;color:var(--ink-soft)" data-t="cs_t1p">Load the texture as the map background, enable <b>Edit + Snap</b> and build zones by hand: New Trim, Duplicate, drag on the map. Zero geometry.</p></div>
     <div class="tile"><div class="k" data-t="cs_t2k">Generate Grid Trims</div><p style="margin:8px 0 0;font-size:14px;color:var(--ink-soft)" data-t="cs_t2p">For regular atlases: an N×M grid from one dialog, then tweak individual zones in Edit mode.</p></div>
@@ -346,9 +345,9 @@
 <section id="workflow"><div class="wrap">
   <p class="eyebrow" data-t="wf_eb">Workflow · 5 steps</p>
   <h2 data-t="wf_h2">From selection to a finished atlas</h2>
-  <p class="lead" style="margin:14px 0 26px" data-t="wf_lead">This is the real sequence — order matters.</p>
+  <p class="lead" style="margin:14px 0 26px" data-t="wf_lead">This is the real sequence. Order matters.</p>
   <div class="steps">
-    <div class="step"><div class="num">01</div><div><h3 data-t="w1_h">Load a trim sheet</h3><p data-t="w1_p"><code>File → Open Trimsheet</code> (.json) — the sheet built with the recipe above. The last used sheet reloads automatically.</p></div></div>
+    <div class="step"><div class="num">01</div><div><h3 data-t="w1_h">Load a trim sheet</h3><p data-t="w1_p"><code>File → Open Trimsheet</code> (.json), the sheet built with the recipe above. The last used sheet reloads automatically.</p></div></div>
     <div class="step"><div class="num">02</div><div><h3 data-t="w2_h">Prepare the model</h3><p data-t="w2_p">Add / pick <b>Unwrap_UVW</b>, enter <b>Polygon</b> mode and select the faces of one or many islands. You can also select several objects at once.</p></div></div>
     <div class="step"><div class="num">03</div><div><h3 data-t="w3_h">Pick target trims</h3><p data-t="w3_p">On the map, switch to <b>Select</b> and click / drag-select trims. Nothing selected = all enabled zones.</p></div></div>
     <div class="step"><div class="num">04</div><div><h3 data-t="w4_h">Set the options</h3><p data-t="w4_p">In the right panel tune Mapping, Matching and Scale; flip to <b>Advanced</b> for Padding and Variation. Everything saves as you go.</p></div></div>
@@ -360,7 +359,7 @@
   <p class="eyebrow" data-t="an_eb">Interface · full function reference</p>
   <h2 data-t="an_h2">Anatomy of the window</h2>
   <p class="lead" style="margin:14px 0 26px" data-t="an_lead">Twelve areas = the complete reference. Click a number
-    on the screenshot or an item in the legend — every area describes all of its controls.
+    on the screenshot or an item in the legend. Every area describes all of its controls.
     Use ‹ › to walk through the whole window.</p>
   <div class="shot" id="shot">
     <img src="assets/anatomy_v24.webp" alt="HotspotUV window in 3ds Max, Advanced view" width="1114" height="1434">
@@ -401,11 +400,11 @@
   <p class="eyebrow" data-t="pg_eb">Interactive · the matching engine</p>
   <h2 data-t="pg_h2">Why did the island land right there?</h2>
   <p class="lead" style="margin:14px 0 26px" data-t="pg_lead">A simulator of the engine inside a faithful replica of
-    the tool's UI. Change the island's shape and the <b>Matching</b> settings — trim selection happens live,
+    the tool's UI. Change the island's shape and the <b>Matching</b> settings, trim selection happens live,
     with the same logic as in Max: nearest <b>aspect</b> first, then nearest <b>area</b>.
     Read the result like the MAXScript Listener.</p>
   <div class="mxwin" aria-label="HotspotUV window simulator">
-    <div class="mxtitle"><span>HotspotUV — Matching Playground</span><span class="wbtn">–&nbsp;□&nbsp;×</span></div>
+    <div class="mxtitle"><span>HotspotUV - Matching Playground</span><span class="wbtn">–&nbsp;□&nbsp;×</span></div>
     <div class="mxbody">
       <div class="mxleft">
         <div class="mxhead">UV map <span class="cnt">1 selected</span></div>
@@ -444,7 +443,7 @@
       <div class="mxcanvas"><svg viewBox="0 0 120 90" data-mode="hotspot"></svg></div>
     </div>
     <div class="mode-svg">
-      <div class="t">Seamless U</div><div class="d" data-t="md_d2">Fit height only — the island may overflow the trim horizontally (tiling).</div>
+      <div class="t">Seamless U</div><div class="d" data-t="md_d2">Fit height only: the island may overflow the trim horizontally (tiling).</div>
       <div class="mxcanvas"><svg viewBox="0 0 120 90" data-mode="seamless"></svg></div>
     </div>
     <div class="mode-svg">
@@ -453,7 +452,7 @@
     </div>
   </div>
   <p style="margin-top:18px;font-size:14px;color:var(--ink-soft)" data-t="md_note"><b>Seamless V</b> works like Seamless U with the axes swapped
-    (width fitted, vertical overflow). <b>From trim settings</b> reads each trim's own Fit axis —
+    (width fitted, vertical overflow). <b>From trim settings</b> reads each trim's own Fit axis.
     one pass mixes all three strategies on a single sheet.</p>
 </div></section>
 
@@ -462,13 +461,13 @@
   <h2 data-t="co_h2">Concepts &amp; mechanics</h2>
   <div class="facts" style="margin-top:22px">
     <div class="fact"><div class="k" data-t="f1k">Hotspot targets</div><p data-t="f1p">Zones selected on the map. No selection → all enabled zones.</p></div>
-    <div class="fact"><div class="k" data-t="f2k">Position tie-break</div><p data-t="f2p">On a tie the zone closest to the island's current position wins — a stable round-trip. With Randomize → random.</p></div>
+    <div class="fact"><div class="k" data-t="f2k">Position tie-break</div><p data-t="f2p">On a tie the zone closest to the island's current position wins, a stable round-trip. With Randomize → random.</p></div>
     <div class="fact"><div class="k" data-t="f3k">Texel density</div><p data-t="f3p"><code>2048 · √(areaUVW / areaGeom)</code> from a reference island, or one click on <b>Sample</b>.</p></div>
-    <div class="fact"><div class="k" data-t="f4k">One Undo</div><p data-t="f4p">The whole hotspot is one step — a single Ctrl+Z reverts every island, multi-object runs included.</p></div>
+    <div class="fact"><div class="k" data-t="f4k">One Undo</div><p data-t="f4p">The whole hotspot is one step. A single Ctrl+Z reverts every island, multi-object runs included.</p></div>
     <div class="fact"><div class="k" data-t="f5k">Performance</div><p data-t="f5p">Bulk pipeline: ~1.7 ms per island. 1888 islands → about 3.3 s.</p></div>
-    <div class="fact"><div class="k" data-t="f6k">File format</div><p data-t="f6p"><code>.json</code> — pixels, background, inset, World W/H, fit axis.</p></div>
-    <div class="fact"><div class="k" data-t="f7k">Setup requirement</div><p data-t="f7p">1+ objects, an active <b>Unwrap_UVW</b>, <b>Polygon</b> mode, faces selected — the tool checks this before every run.</p></div>
-    <div class="fact"><div class="k" data-t="f8k">Seamless-aware matching</div><p data-t="f8p">An island longer than a strip along its free axis is a legal match (it tiles anyway) — the tightest strip that accepts it wins.</p></div>
+    <div class="fact"><div class="k" data-t="f6k">File format</div><p data-t="f6p"><code>.json</code>, pixels, background, inset, World W/H, fit axis.</p></div>
+    <div class="fact"><div class="k" data-t="f7k">Setup requirement</div><p data-t="f7p">1+ objects, an active <b>Unwrap_UVW</b>, <b>Polygon</b> mode, faces selected. The tool checks this before every run.</p></div>
+    <div class="fact"><div class="k" data-t="f8k">Seamless-aware matching</div><p data-t="f8p">An island longer than a strip along its free axis is a legal match (it tiles anyway). The tightest strip that accepts it wins.</p></div>
   </div>
 </div></section>
 
@@ -476,14 +475,14 @@
   <div class="card">
     <p class="eyebrow" data-t="get_eb">Ready to map</p>
     <h2 data-t="get_h2">Put HotspotUV in your 3ds Max</h2>
-    <p class="lead" data-t="get_lead">You've seen the workflow and the matching engine. The plugin sits on top of the standard Unwrap_UVW — no pipeline changes, one Undo per run.</p>
+    <p class="lead" data-t="get_lead">You've seen the workflow and the matching engine. The plugin sits on top of the standard Unwrap_UVW, no pipeline changes, one Undo per run.</p>
     <a class="btn btn-primary" href="/" data-t="get_btn">Get HotspotUV →</a>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <span class="mono">HotspotUV v2.4.0 — by 3Design</span>
-  <span class="mono">Built on Unwrap_UVW · 3ds Max 2020–2026</span>
+  <span class="mono">HotspotUV v2.4.1 by 3Design</span>
+  <span class="mono">Built on Unwrap_UVW · 3ds Max 2022–2027</span>
 </div></footer>
 
 <script>
@@ -498,48 +497,48 @@
       hero_lead:'A UV island lands on the perfect trim, in one click. HotspotUV matches every island to the best-fitting trim by shape, area and texel density, then rotates and scales it into place. The whole run is a single Undo step. Built entirely on the standard Unwrap_UVW modifier.',
       hero_b1:'Try the matching ↓',hero_b2:'See the workflow',
       what_eb:'The idea',what_h2:'What hotspotting is',
-      what_lead:'A trim sheet is an atlas of rectangles (trims) you "snap" UV islands onto. Instead of fitting every island by hand, you select a batch of islands — and HotspotUV lays them out across the matching trims.',
+      what_lead:'A trim sheet is an atlas of rectangles (trims) you "snap" UV islands onto. Instead of fitting every island by hand, you select a batch of islands, and HotspotUV lays them out across the matching trims.',
       cs_eb:'Setup · before you start',cs_h2:'Build the trim sheet first',
-      cs_lead:'Hotspot needs a sheet of zones. The most reliable route: <b>generate zones from existing UV islands</b> — the trims then match the texture pixel-perfectly. A proven recipe (do it once, then just load the file):',
-      csA_h:'Plane + trim texture',csA_p:'Create a <b>Plane</b> and assign a material with your finished trim-sheet texture — visible in the viewport, it will guide the cuts.',
+      cs_lead:'Hotspot needs a sheet of zones. The most reliable route: <b>generate zones from existing UV islands</b>: the trims then match the texture pixel-perfectly. A proven recipe (do it once, then just load the file):',
+      csA_h:'Plane + trim texture',csA_p:'Create a <b>Plane</b> and assign a material with your finished trim-sheet texture, visible in the viewport, so it will guide the cuts.',
       csB_h:'Cut the trims on the plane',csB_p:'Cut the plane along the trim borders (Edit Poly: <b>Cut / Slice</b>), following the edges visible on the texture.',
-      csC_h:'Split into islands in Unwrap_UVW',csC_p:'Add <b>Unwrap_UVW</b> and split the cut faces into separate islands — each trim = one island. The plane\'s UVs already sit 1:1 on the texture, nothing to lay out.',
+      csC_h:'Split into islands in Unwrap_UVW',csC_p:'Add <b>Unwrap_UVW</b> and split the cut faces into separate islands, each trim = one island. The plane\'s UVs already sit 1:1 on the texture, nothing to lay out.',
       csD_h:'Generate Trims from UVs',csD_p:'Polygon mode, select all islands → click <b>✦ Generate Trims from UVs</b> in HotspotUV. Zones are created in reading order, numbered <code>Trim 01, 02…</code>',
       csE_h:'Background, metadata, save',csE_p:'Set the texture as the map background (<b>Background → From Selected Object…</b>), add tags / Fit axis / World W-H in Edit Trim and save the <code>.json</code>.',
-      cs_alt:'<b>Alternatives</b> — when you don\'t want to cut geometry:',
+      cs_alt:'<b>Alternatives</b>. When you don\'t want to cut geometry:',
       cs_t1k:'Draw over the background',cs_t1p:'Load the texture as the map background, enable <b>Edit + Snap</b> and build zones by hand: New Trim, Duplicate, drag on the map. Zero geometry.',
       cs_t2k:'Generate Grid Trims',cs_t2p:'For regular atlases: an N×M grid from one dialog, then tweak individual zones in Edit mode.',
       cs_t3k:'Existing file',cs_t3p:'<b>Open Trimsheet</b> (.json) loads an existing sheet; <b>Import Trimsheet</b> merges zones from another file into the current one.',
       cs_texk:'Shortcut (v2.2): New Trimsheet from Texture',cs_texp:'If your sheet is a flat-color layout (color-ID), skip the recipe: <b>File → New Trimsheet from Texture…</b> turns every color block into a trim and sets the texture as the map background. The steps below remain the route for photographic trim sheets.',
-      wf_eb:'Workflow · 5 steps',wf_h2:'From selection to a finished atlas',wf_lead:'This is the real sequence — order matters.',
-      w1_h:'Load a trim sheet',w1_p:'<code>File → Open Trimsheet</code> (.json) — the sheet built with the recipe above. The last used sheet reloads automatically.',
+      wf_eb:'Workflow · 5 steps',wf_h2:'From selection to a finished atlas',wf_lead:'This is the real sequence. Order matters.',
+      w1_h:'Load a trim sheet',w1_p:'<code>File → Open Trimsheet</code> (.json), the sheet built with the recipe above. The last used sheet reloads automatically.',
       w2_h:'Prepare the model',w2_p:'Add / pick <b>Unwrap_UVW</b>, enter <b>Polygon</b> mode and select the faces of one or many islands. You can also select several objects at once.',
       w3_h:'Pick target trims',w3_p:'On the map, switch to <b>Select</b> and click / drag-select trims. Nothing selected = all enabled zones.',
       w4_h:'Set the options',w4_p:'In the right panel tune Mapping, Matching and Scale; flip to <b>Advanced</b> for Padding and Variation. Everything saves as you go.',
       w5_h:'Hotspot selected UVs',w5_p:'Hit the big button. Islands snap into trims; one <b>Ctrl+Z</b> reverts everything. A summary line lands in the Listener.',
       an_eb:'Interface · full function reference',an_h2:'Anatomy of the window',
-      an_lead:'Twelve areas = the complete reference. Click a number on the screenshot or an item in the legend — every area describes all of its controls. Use ‹ › to walk through the whole window.',
+      an_lead:'Twelve areas = the complete reference. Click a number on the screenshot or an item in the legend. Every area describes all of its controls. Use ‹ › to walk through the whole window.',
       an_hint:'Screenshot from 3ds Max 2024, HotspotUV v2.4 · MK_EDDM props sheet (4096², 36 trims)',
       pg_eb:'Interactive · the matching engine',pg_h2:'Why did the island land right there?',
-      pg_lead:'A simulator of the engine inside a faithful replica of the tool\'s UI. Change the island\'s shape and the <b>Matching</b> settings — trim selection happens live, with the same logic as in Max: nearest <b>aspect</b> first, then nearest <b>area</b>. Read the result like the MAXScript Listener.',
+      pg_lead:'A simulator of the engine inside a faithful replica of the tool\'s UI. Change the island\'s shape and the <b>Matching</b> settings, trim selection happens live, with the same logic as in Max: nearest <b>aspect</b> first, then nearest <b>area</b>. Read the result like the MAXScript Listener.',
       md_eb:'Mapping · modes',md_h2:'One island, three strategies',md_lead:'The <code>Mode</code> option decides how an island sits in a trim.',
       md_d1:'Fit the whole island inside the matched trim, proportions kept.',
-      md_d2:'Fit height only — the island may overflow the trim horizontally (tiling).',
+      md_d2:'Fit height only: the island may overflow the trim horizontally (tiling).',
       md_d3:'Stretch edge-to-edge to cover the whole trim (per-trim, From trim settings).',
-      md_note:'<b>Seamless V</b> works like Seamless U with the axes swapped (width fitted, vertical overflow). <b>From trim settings</b> reads each trim\'s own Fit axis — one pass mixes all three strategies on a single sheet.',
+      md_note:'<b>Seamless V</b> works like Seamless U with the axes swapped (width fitted, vertical overflow). <b>From trim settings</b> reads each trim\'s own Fit axis. one pass mixes all three strategies on a single sheet.',
       co_eb:'Good to know',co_h2:'Concepts &amp; mechanics',
       f1k:'Hotspot targets',f1p:'Zones selected on the map. No selection → all enabled zones.',
-      f2k:'Position tie-break',f2p:'On a tie the zone closest to the island\'s current position wins — a stable round-trip. With Randomize → random.',
+      f2k:'Position tie-break',f2p:'On a tie the zone closest to the island\'s current position wins, a stable round-trip. With Randomize → random.',
       f3k:'Texel density',f3p:'<code>2048 · √(areaUVW / areaGeom)</code> from a reference island, or one click on <b>Sample</b>.',
-      f4k:'One Undo',f4p:'The whole hotspot is one step — a single Ctrl+Z reverts every island, multi-object runs included.',
+      f4k:'One Undo',f4p:'The whole hotspot is one step. A single Ctrl+Z reverts every island, multi-object runs included.',
       f5k:'Performance',f5p:'Bulk pipeline: ~1.7 ms per island. 1888 islands → about 3.3 s.',
-      f6k:'File format',f6p:'<code>.json</code> — pixels, background, inset, World W/H, fit axis.',
-      f7k:'Setup requirement',f7p:'1+ objects, an active <b>Unwrap_UVW</b>, <b>Polygon</b> mode, faces selected — the tool checks this before every run.',
-      f8k:'Seamless-aware matching',f8p:'An island longer than a strip along its free axis is a legal match (it tiles anyway) — the tightest strip that accepts it wins.',
+      f6k:'File format',f6p:'<code>.json</code>, pixels, background, inset, World W/H, fit axis.',
+      f7k:'Setup requirement',f7p:'1+ objects, an active <b>Unwrap_UVW</b>, <b>Polygon</b> mode, faces selected. The tool checks this before every run.',
+      f8k:'Seamless-aware matching',f8p:'An island longer than a strip along its free axis is a legal match (it tiles anyway). The tightest strip that accepts it wins.',
       nav_back:'← Product page',
       get_eb:'Ready to map',
       get_h2:'Put HotspotUV in your 3ds Max',
-      get_lead:'You\'ve seen the workflow and the matching engine. The plugin sits on top of the standard Unwrap_UVW — no pipeline changes, one Undo per run.',
+      get_lead:'You\'ve seen the workflow and the matching engine. The plugin sits on top of the standard Unwrap_UVW, no pipeline changes, one Undo per run.',
       get_btn:'Get HotspotUV →'
     },
     pl:{
@@ -548,48 +547,48 @@
       hero_lead:'Wyspa UV trafia w idealny trim, jednym kliknięciem. HotspotUV dobiera każdą wyspę do najlepszego trima po kształcie, polu i gęstości texeli, a potem obraca ją i skaluje do dopasowania. Cały przebieg to jeden krok Undo. Działa wyłącznie przez standardowy Unwrap_UVW.',
       hero_b1:'Wypróbuj dopasowanie ↓',hero_b2:'Zobacz workflow',
       what_eb:'Idea',what_h2:'Czym jest hotspotting',
-      what_lead:'Trim-sheet to atlas z prostokątami (trimami), do których „przyklejasz" wyspy UV. Zamiast ręcznie dopasowywać każdą wyspę, wskazujesz zestaw wysp — a HotspotUV rozkłada je po pasujących trimach.',
+      what_lead:'Trim-sheet to atlas z prostokątami (trimami), do których „przyklejasz" wyspy UV. Zamiast ręcznie dopasowywać każdą wyspę, wskazujesz zestaw wysp, a HotspotUV rozkłada je po pasujących trimach.',
       cs_eb:'Przygotowanie · zanim zaczniesz',cs_h2:'Najpierw zbuduj trim-sheet',
-      cs_lead:'Hotspot potrzebuje arkusza stref. Najpewniejsza droga: <b>wygenerować strefy z istniejących wysp UV</b> — wtedy trimy odpowiadają teksturze co do piksela. Sprawdzony przepis (robisz to raz, potem tylko wczytujesz plik):',
-      csA_h:'Plane + tekstura trimów',csA_p:'Stwórz <b>Plane</b> i nałóż materiał z gotową teksturą trim-sheeta — widoczną we viewporcie, będzie prowadnicą cięć.',
+      cs_lead:'Hotspot potrzebuje arkusza stref. Najpewniejsza droga: <b>wygenerować strefy z istniejących wysp UV</b>: wtedy trimy odpowiadają teksturze co do piksela. Sprawdzony przepis (robisz to raz, potem tylko wczytujesz plik):',
+      csA_h:'Plane + tekstura trimów',csA_p:'Stwórz <b>Plane</b> i nałóż materiał z gotową teksturą trim-sheeta, widoczną we viewporcie, będzie prowadnicą cięć.',
       csB_h:'Natnij trimy na plane',csB_p:'Potnij plane wzdłuż granic trimów (Edit Poly: <b>Cut / Slice</b>), prowadząc cięcia dokładnie po krawędziach widocznych na teksturze.',
-      csC_h:'Rozdziel na wyspy w Unwrap_UVW',csC_p:'Dodaj <b>Unwrap_UVW</b> i rozdziel pocięte facey na osobne wyspy — każdy trim = jedna wyspa. UV plane\'a już leżą 1:1 na teksturze, więc nic nie trzeba układać.',
+      csC_h:'Rozdziel na wyspy w Unwrap_UVW',csC_p:'Dodaj <b>Unwrap_UVW</b> i rozdziel pocięte facey na osobne wyspy, każdy trim = jedna wyspa. UV plane\'a już leżą 1:1 na teksturze, więc nic nie trzeba układać.',
       csD_h:'Generate Trims from UVs',csD_p:'Tryb Polygon, zaznacz wszystkie wyspy → w HotspotUV kliknij <b>✦ Generate Trims from UVs</b>. Strefy powstają w reading order z numeracją <code>Trim 01, 02…</code>',
       csE_h:'Tło, metadane, zapis',csE_p:'Ustaw teksturę jako tło mapy (<b>Background → From Selected Object…</b>), dopisz tagi / Fit axis / World W-H w Edit Trim i zapisz <code>.json</code>.',
-      cs_alt:'<b>Alternatywy</b> — gdy nie chcesz ciąć geometrii:',
+      cs_alt:'<b>Alternatywy</b>. Gdy nie chcesz ciąć geometrii:',
       cs_t1k:'Rysowanie na tle',cs_t1p:'Wczytaj teksturę jako tło mapy, włącz <b>Edit + Snap</b> i buduj strefy ręcznie: New Trim, Duplicate, przeciąganie po mapie. Zero geometrii.',
       cs_t2k:'Generate Grid Trims',cs_t2p:'Dla regularnych atlasów: siatka N×M jednym dialogiem, potem korekty pojedynczych stref w trybie Edit.',
       cs_t3k:'Gotowy plik',cs_t3p:'<b>Open Trimsheet</b> (.json) wczytuje istniejący arkusz; <b>Import Trimsheet</b> dokłada strefy z innego pliku do bieżącego.',
       cs_texk:'Skrót (v2.2): New Trimsheet from Texture',cs_texp:'Jeśli arkusz to płaskie bloki kolorów (color-ID), pomiń przepis: <b>File → New Trimsheet from Texture…</b> zamienia każdy blok koloru w trim i ustawia teksturę jako tło mapy. Kroki poniżej pozostają drogą dla fotograficznych trim sheetów.',
-      wf_eb:'Przepływ pracy · 5 kroków',wf_h2:'Od zaznaczenia do gotowego atlasu',wf_lead:'To realna sekwencja — kolejność ma znaczenie.',
-      w1_h:'Wczytaj trim-sheet',w1_p:'<code>File → Open Trimsheet</code> (.json) — arkusz zbudowany wg przepisu wyżej. Ostatnio używany wraca sam przy starcie okna.',
+      wf_eb:'Przepływ pracy · 5 kroków',wf_h2:'Od zaznaczenia do gotowego atlasu',wf_lead:'To realna sekwencja, kolejność ma znaczenie.',
+      w1_h:'Wczytaj trim-sheet',w1_p:'<code>File → Open Trimsheet</code> (.json), arkusz zbudowany wg przepisu wyżej. Ostatnio używany wraca sam przy starcie okna.',
       w2_h:'Przygotuj model',w2_p:'Dodaj / wybierz <b>Unwrap_UVW</b>, wejdź w tryb <b>Polygon</b> i zaznacz facey wyspy lub wielu wysp. Możesz też zaznaczyć kilka obiektów naraz.',
       w3_h:'Wskaż strefy docelowe',w3_p:'Na mapie przełącz na <b>Select</b> i kliknij/przeciągnij trimy. Bez zaznaczenia = wszystkie włączone strefy.',
       w4_h:'Ustaw opcje',w4_p:'W prawym panelu dobierz Mapping, Matching i Scale; przełącz na <b>Advanced</b> dla Padding i Variation. Wszystko zapisuje się na bieżąco.',
       w5_h:'Hotspot selected UVs',w5_p:'Kliknij duży przycisk. Wyspy wskakują w trimy; jeden <b>Ctrl+Z</b> cofa całość. Podsumowanie ląduje w listenerze.',
       an_eb:'Interfejs · pełna referencja funkcji',an_h2:'Anatomia okna',
-      an_lead:'Dwanaście obszarów = kompletna referencja narzędzia. Kliknij numer na zrzucie albo pozycję w legendzie — każdy obszar ma pełny opis wszystkich swoich kontrolek. Strzałkami ‹ › przejdziesz sekwencyjnie przez całe okno.',
+      an_lead:'Dwanaście obszarów = kompletna referencja narzędzia. Kliknij numer na zrzucie albo pozycję w legendzie, każdy obszar ma pełny opis wszystkich swoich kontrolek. Strzałkami ‹ › przejdziesz sekwencyjnie przez całe okno.',
       an_hint:'Zrzut z 3ds Max 2024, HotspotUV v2.4 · arkusz propsów MK_EDDM (4096², 36 trimów)',
       pg_eb:'Interaktywnie · silnik dopasowania',pg_h2:'Dlaczego wyspa trafiła właśnie tam?',
-      pg_lead:'Symulator silnika w wiernym UI narzędzia. Zmieniaj kształt wyspy i ustawienia <b>Matching</b> — dobór trima dzieje się na żywo, tą samą logiką co w Maxie: najpierw najbliższy <b>aspekt</b>, potem najbliższe <b>pole</b>. Wynik czytasz jak z MAXScript Listenera.',
+      pg_lead:'Symulator silnika w wiernym UI narzędzia. Zmieniaj kształt wyspy i ustawienia <b>Matching</b>. Dobór trima dzieje się na żywo, tą samą logiką co w Maxie: najpierw najbliższy <b>aspekt</b>, potem najbliższe <b>pole</b>. Wynik czytasz jak z MAXScript Listenera.',
       md_eb:'Mapping · tryby',md_h2:'Ta sama wyspa, trzy strategie',md_lead:'Opcja <code>Mode</code> decyduje, jak wyspa siada w trimie.',
       md_d1:'Wpasuj w całości do środka trima, z zachowaniem proporcji.',
-      md_d2:'Dopasuj tylko wysokość — wyspa może wyjść poza trim poziomo (kafelkowanie).',
+      md_d2:'Dopasuj tylko wysokość, wyspa może wyjść poza trim poziomo (kafelkowanie).',
       md_d3:'Rozciągnij na styk, pokrywając cały trim edge-to-edge (per-trim, From trim settings).',
-      md_note:'<b>Seamless V</b> działa jak Seamless U z zamienionymi osiami (dopasowana szerokość, przelew pionowy). Tryb <b>From trim settings</b> czyta Fit axis każdego trima z osobna — jeden przebieg miesza wszystkie trzy strategie na jednym arkuszu.',
+      md_note:'<b>Seamless V</b> działa jak Seamless U z zamienionymi osiami (dopasowana szerokość, przelew pionowy). Tryb <b>From trim settings</b> czyta Fit axis każdego trima z osobna, jeden przebieg miesza wszystkie trzy strategie na jednym arkuszu.',
       co_eb:'Dobrze wiedzieć',co_h2:'Pojęcia i mechanizmy',
       f1k:'Cele hotspota',f1p:'Strefy zaznaczone na mapie. Brak zaznaczenia → wszystkie włączone strefy.',
-      f2k:'Tie-break po pozycji',f2p:'Przy remisie wygrywa strefa najbliższa położeniu wyspy — stabilny round-trip. Z Randomize → losowo.',
+      f2k:'Tie-break po pozycji',f2p:'Przy remisie wygrywa strefa najbliższa położeniu wyspy, stabilny round-trip. Z Randomize → losowo.',
       f3k:'Texel density',f3p:'<code>2048 · √(areaUVW / areaGeom)</code> z wzorcowej wyspy, albo jednym kliknięciem <b>Sample</b>.',
-      f4k:'Jeden Undo',f4p:'Cały hotspot to jeden krok — jeden Ctrl+Z cofa wszystkie wyspy, także przy wielu obiektach.',
+      f4k:'Jeden Undo',f4p:'Cały hotspot to jeden krok, jeden Ctrl+Z cofa wszystkie wyspy, także przy wielu obiektach.',
       f5k:'Wydajność',f5p:'Ścieżka bulk: ~1,7 ms/wyspę. 1888 wysp → ok. 3,3 s.',
-      f6k:'Format pliku',f6p:'<code>.json</code> — piksele, tło, inset, World W/H, fit axis.',
-      f7k:'Wymóg setupu',f7p:'1+ obiekt, aktywny <b>Unwrap_UVW</b>, tryb <b>Polygon</b>, zaznaczone facey — narzędzie pilnuje tego przed każdym runem.',
-      f8k:'Seamless-aware matching',f8p:'Wyspa dłuższa od pasa po wolnej osi to legalne dopasowanie (i tak się kafelkuje) — wygrywa najciaśniejszy pas, który ją przyjmie.',
+      f6k:'Format pliku',f6p:'<code>.json</code>, piksele, tło, inset, World W/H, fit axis.',
+      f7k:'Wymóg setupu',f7p:'1+ obiekt, aktywny <b>Unwrap_UVW</b>, tryb <b>Polygon</b>, zaznaczone facey, narzędzie pilnuje tego przed każdym runem.',
+      f8k:'Seamless-aware matching',f8p:'Wyspa dłuższa od pasa po wolnej osi to legalne dopasowanie (i tak się kafelkuje), wygrywa najciaśniejszy pas, który ją przyjmie.',
       nav_back:'← Strona produktu',
       get_eb:'Gotowy do pracy',
       get_h2:'Zainstaluj HotspotUV w swoim 3ds Max',
-      get_lead:'Znasz już workflow i silnik dopasowania. Wtyczka działa na standardowym Unwrap_UVW — bez zmian w pipelinie, jeden Undo na przebieg.',
+      get_lead:'Znasz już workflow i silnik dopasowania. Wtyczka działa na standardowym Unwrap_UVW, bez zmian w pipelinie, jeden Undo na przebieg.',
       get_btn:'Pobierz HotspotUV →'
     }
   };
@@ -600,8 +599,8 @@
     en:[
       {k:'[1] File menu',s:'File',t:'Sheet management',p:'Operations on the whole trim sheet. Saving is always .json.',rows:[
         ['New Trimsheet','A new empty zone layout (asks for dimensions).'],
-        ['New Trimsheet from Texture…','Trims from a flat-color layout texture (color-ID map) — every color block becomes one trim; tolerance, minimum size and a live preview in the dialog.'],
-        ['Open Trimsheet…','Loads a .json — replaces the current layout.'],
+        ['New Trimsheet from Texture…','Trims from a flat-color layout texture (color-ID map), every color block becomes one trim; tolerance, minimum size and a live preview in the dialog.'],
+        ['Open Trimsheet…','Loads a .json, replaces the current layout.'],
         ['Save / Save As…','Saves the sheet to .json.'],
         ['Import Trimsheet…','Merges zones from another file into the current layout.'],
         ['Edit Trimsheet…','Changes the layout dimensions (scales zones proportionally).'],
@@ -610,10 +609,10 @@
         ['Zoom Extents','Fits the view to the whole sheet (and anything outside it).',['zoom_extents']],
         ['Background ▾','Add/Update Background Image… · From Selected Object… (textures from the selected object’s material, incl. engine materials storing paths as text) · Remove · Toggle.',['image']],
         ['Place | Select | Edit','The exclusive mode switch. Place = click drops the selected UVs into a trim · Select = pick hotspot targets · Edit = move/scale the trims themselves.',['edit_mode','select_cursor','edit_pencil']],
-        ['Fit','Fill · Cover · Fit width · Fit height — how Place-on-click fills the trim. Grayed out in Select/Edit (a click doesn’t place there).'],
-        ['Rotate UVs 90°','Rotates the selected UV island(s) 90° in place — a quick orientation fix. Lives in the » overflow at narrow widths.',['rotate_clockwise']],
+        ['Fit','Fill · Cover · Fit width · Fit height, how Place-on-click fills the trim. Grayed out in Select/Edit (a click doesn’t place there).'],
+        ['Rotate UVs 90°','Rotates the selected UV island(s) 90° in place, a quick orientation fix. Lives in the » overflow at narrow widths.',['rotate_clockwise']],
         ['Snap (S)','Edit mode: trim edges and corners snap to neighbouring trims and the sheet border while moving or scaling. The tolerance is zoom-independent.',['snap']],
-        ['Display ▾','Trim opacity, border strength / thickness / color and label size and color — fade the trims to inspect the texture underneath.']]},
+        ['Display ▾','Trim opacity, border strength / thickness / color and label size and color, fade the trims to inspect the texture underneath.']]},
       {k:'[3] UV map',s:'UV map',t:'Visual trim-sheet preview',p:'The heart of the left column. Click behaviour follows the mode switch.',rows:[
         ['Pan / Zoom','Middle mouse button = pan, wheel = zoom. The 0..1 checker is always visible.'],
         ['Place mode','Click a trim = the selected UVs drop straight into it (Fit mode from the toolbar).'],
@@ -622,39 +621,39 @@
         ['Double-click a trim','Opens the Edit Trim dialog (Select and Edit modes).'],
         ['Right-click','Zoom Extents · Place / Select / Edit · Select All / Invert / Clear Trim Selection · Background Image.'],
         ['Empty state','No sheet loaded? The map itself tells you the next step (File ▸ New or From UVs).']]},
-      {k:'[4] Trims toolbar',s:'Trims toolbar',t:'Zone creation and bulk actions',p:'Frequent actions carry labels; the rare ones always live in the ⋯ menu — the same layout at every width.',rows:[
+      {k:'[4] Trims toolbar',s:'Trims toolbar',t:'Zone creation and bulk actions',p:'Frequent actions carry labels; the rare ones always live in the ⋯ menu, the same layout at every width.',rows:[
         ['New / Duplicate / Delete','New zone (dialog) · duplicate selected · delete (with confirmation).',['add_zone','duplicate_zone','trashcan']],
         ['From UVs','The main way to create zones: trims from selected UV islands, in reading order, zero-padded names (Trim 02).',['generate_selected_uv_zones']],
         ['Grid','Zones from a regular grid (dialog).',['add_zone_grid']],
         ['⋯ → Set Tags… / Remove Tags…','Bulk add / remove tags on the selected trims (removal is case-insensitive).',['more','tag','tag_remove']],
         ['⋯ → Set Fit Axis…','Bulk set the Fit axis (Default / Fill / Seamless U/V) on the selected trims.',['pivot_center']],
-        ['⋯ → Split Selected Trims…','Splits each selected trim into equal columns or rows — the parts tile the original exactly.',['space_objects_horizontal']],
+        ['⋯ → Split Selected Trims…','Splits each selected trim into equal columns or rows, the parts tile the original exactly.',['space_objects_horizontal']],
         ['⋯ → Map UVs to Trims','Random mapping of selected UVs to selected zones (basic, no aspect matching).',['map_uvs_to_zones']],
         ['Right-click → Renumber Trims','Renumbers all “Trim NN” entries in reading order: top→bottom, left→right.']]},
       {k:'[5] Trim list',s:'Trim list',t:'Filter and zone rows',p:'List and map selection stay in sync both ways.',rows:[
         ['Filter trims…','Filters the list by name as you type (e.g. “12” → matches only).'],
-        ['Checkbox','Enables/disables a zone — disabled ones are skipped by hotspot.'],
+        ['Checkbox','Enables/disables a zone, disabled ones are skipped by hotspot.'],
         ['Colour','Click the swatch to change the zone colour.'],
         ['Name · W · H · Tags','Sizes in compact monospace; X/Y hidden (position is visible on the map); tags on the right.'],
         ['Double-click a row','Edit Trim: name, X/Y, size, colour, Inset (px), World W/H (m), Fit axis, Tags.'],
         ['Empty state','No trims yet? The list points you to New / From UVs / Grid.']]},
-      {k:'[6] Action + view switch',s:'Action',t:'Hotspot selected UVs · Basic/Advanced',p:'The biggest button of the window — and the switch that decides how much panel you see.',rows:[
+      {k:'[6] Action + view switch',s:'Action',t:'Hotspot selected UVs · Basic/Advanced',p:'The biggest button of the window, and the switch that decides how much panel you see.',rows:[
         ['Button','Matches all selected islands to the target zones in one pass.'],
         ['Quick UV + Hotspot','For raw, unmapped objects: a uniform box projection at a consistent texel scale (auto-calibrated to the sheet; Flatten for organics), then an immediate hotspot pass. Any number of objects, one shared Unwrap, two undo steps.'],
         ['Targets','Zones selected on the map; no selection = all enabled zones. The counter always tells you which: “All enabled trims (N)” or “N target trims selected”.'],
         ['Basic | Advanced','Progressive disclosure: Basic shows Quick UV, Mode, Orient, Measure, Priority, Trim size and the Scale toggles; Advanced adds the long-tail rows plus Padding and Variation. The choice is remembered between sessions.'],
-        ['Hidden-options hint','In Basic a muted line counts what’s hidden — nothing is ever lost, just tucked away.'],
-        ['Undo','The whole run is one Ctrl+Z — multi-object runs included. Ctrl+Z works inside the tool window.'],
+        ['Hidden-options hint','In Basic a muted line counts what’s hidden, nothing is ever lost, just tucked away.'],
+        ['Undo','The whole run is one Ctrl+Z, multi-object runs included. Ctrl+Z works inside the tool window.'],
         ['Listener','After every run a summary line: islands matched/skipped and time.']]},
-      {k:'[7] Mapping',s:'Mapping',t:'How an island sits in a trim',p:'The first panel section — fitting strategy and pre-rotation.',rows:[
+      {k:'[7] Mapping',s:'Mapping',t:'How an island sits in a trim',p:'The first panel section, fitting strategy and pre-rotation.',rows:[
         ['Mode: Hotspot (fit inside trim)','Classic fit of the whole island inside the trim.'],
-        ['Mode: Seamless U / V','Fit one axis only — the island keeps proportions and may overflow (tiling) along the other.'],
-        ['Mode: From trim settings','Use each trim’s own Fit axis — one pass mixes normal trims, seamless strips and Fill.'],
+        ['Mode: Seamless U / V','Fit one axis only, the island keeps proportions and may overflow (tiling) along the other.'],
+        ['Mode: From trim settings','Use each trim’s own Fit axis. one pass mixes normal trims, seamless strips and Fill.'],
         ['Orient','As Is · Auto (longest side horizontal) · Orient (straighten skew to the UV axis, min-area rect, sub-degree too) · Orient to World (world-up Z → up in UV; fixes upside-down islands).'],
         ['Flat tolerance','Orient to World only: how much tilt a surface needs before it counts as sloped. Below it the face is treated as level and the next world axis decides, so chamfers and near-flat faces stop picking arbitrary angles. Default 10°. Advanced.'],
         ['Random offset in trim','Random placement instead of centering (seeded). Advanced view.']]},
       {k:'[8] Matching',s:'Matching',t:'Which zone to pick',p:'The heart of the engine. Basic shows Measure, Priority and Trim size; the fine-tuning rows live in Advanced.',rows:[
-        ['Priority','Balanced (closest to the island’s actual size — uniform density, default) · Aspect (shape first) · Area (size first) · World size (real-world area).'],
+        ['Priority','Balanced (closest to the island’s actual size, uniform density, default) · Aspect (shape first) · Area (size first) · World size (real-world area).'],
         ['Measure','Current UVs (the island’s UV bounding box as it is now) · Model geometry (3D) (its real size on the model, so a second pass with different settings decides from scratch instead of snapping back to the trim it sits in). Needs a trim with a real-world size, or texel density.'],
         ['Trim size','Island size (closest) · Prefer large trims · Prefer small trims · Manual (multiplier). A bias on the size search, not a ranking: on a sheet whose trims dwarf the island, “prefer large” can land in between.'],
         ['Manual scale','Area multiplier for Trim size = Manual: >1 aims at larger zones, <1 at smaller. Advanced.'],
@@ -668,25 +667,25 @@
         ['Texel density mode','Scales the island to the target density from its real 3D area. In seamless, density drives strip selection.'],
         ['Density (px/unit) + Sample','Target density; Sample reads it from a selected reference island in one click.'],
         ['Density margin %','Islands close to a full fit snap to full instead of leaving a gap (Hotspot mode).']]},
-      {k:'[10] Padding',s:'Padding',t:'Space between islands and trim edges',p:'Its own section now (Advanced view) — with one master multiplier for mip-safety.',rows:[
+      {k:'[10] Padding',s:'Padding',t:'Space between islands and trim edges',p:'Its own section now (Advanced view), with one master multiplier for mip-safety.',rows:[
         ['Inset mode','Manual (global padding) · From zone (zone inset) · Combined (zone inset, else global).'],
         ['Padding','Global margin in pixels around the island.'],
-        ['Padding scale','One multiplier over ALL effective padding (global and per-zone insets) — raise it for mip-safe UVs without editing zones; 0 disables padding.']]},
+        ['Padding scale','One multiplier over ALL effective padding (global and per-zone insets), raise it for mip-safe UVs without editing zones; 0 disables padding.']]},
       {k:'[11] Variation',s:'Variation',t:'Against repetition (seeded)',p:'Breaks visible tiling on large surfaces. Advanced view. Same Seed = identical layout.',rows:[
         ['Randomize among equal matches','Random pick among equally good zones instead of deterministic.'],
         ['Random 180° rotation','Random 180° rotation (keeps aspect).'],
         ['Random flip (mirror U/V)','Random U/V mirror.'],
-        ['Seed','Randomness seed — repeatable results; change the Seed for a different layout.']]},
+        ['Seed','Randomness seed, repeatable results; change the Seed for a different layout.']]},
       {k:'[12] Footer + status bar',s:'Footer',t:'Reset and file info',p:'The fixed strip under the panel and the window status bar.',rows:[
         ['Reset to Defaults','Restores every hotspot option on the panel to its default (asks first). The Basic/Advanced choice and map mode stay.'],
-        ['Status bar','file_name | width × height — click opens Edit Trimsheet.'],
+        ['Status bar','file_name | width × height, click opens Edit Trimsheet.'],
         ['Scroll safety','The mouse wheel scrolls the panel; dropdowns and spinners only react to the wheel once you click into them.']]}
     ],
     pl:[
       {k:'[1] Menu File',s:'File',t:'Zarządzanie arkuszem',p:'Operacje na całym trim-sheecie. Zapis zawsze do .json.',rows:[
         ['New Trimsheet','Nowy pusty układ stref (pyta o wymiary).'],
-        ['New Trimsheet from Texture…','Trimy z tekstury o płaskich blokach kolorów (color-ID) — każdy blok koloru = jeden trim; tolerancja, minimalny rozmiar i podgląd na żywo w dialogu.'],
-        ['Open Trimsheet…','Wczytuje .json — zastępuje bieżący układ.'],
+        ['New Trimsheet from Texture…','Trimy z tekstury o płaskich blokach kolorów (color-ID), każdy blok koloru = jeden trim; tolerancja, minimalny rozmiar i podgląd na żywo w dialogu.'],
+        ['Open Trimsheet…','Wczytuje .json, zastępuje bieżący układ.'],
         ['Save / Save As…','Zapis arkusza do .json.'],
         ['Import Trimsheet…','Dołącza strefy z innego pliku do bieżącego układu.'],
         ['Edit Trimsheet…','Zmiana wymiarów układu (strefy skalują się proporcjonalnie).'],
@@ -695,10 +694,10 @@
         ['Zoom Extents','Kadruje widok na cały arkusz (i wszystko poza nim).',['zoom_extents']],
         ['Background ▾','Add/Update Background Image… · From Selected Object… (tekstury z materiału zaznaczonego obiektu, w tym materiały silnikowe trzymające ścieżki jako tekst) · Remove · Toggle.',['image']],
         ['Place | Select | Edit','Wykluczający przełącznik trybu. Place = klik wrzuca zaznaczone UV w trim · Select = wybór celów hotspota · Edit = przesuwanie/skalowanie samych trimów.',['edit_mode','select_cursor','edit_pencil']],
-        ['Fit','Fill · Cover · Fit width · Fit height — jak Place-on-click wypełnia trim. Wyszarzony w Select/Edit (tam klik nie umieszcza).'],
-        ['Rotate UVs 90°','Obraca zaznaczone wyspy UV o 90° w miejscu — szybka poprawka orientacji. Przy wąskim oknie w menu ».',['rotate_clockwise']],
+        ['Fit','Fill · Cover · Fit width · Fit height, jak Place-on-click wypełnia trim. Wyszarzony w Select/Edit (tam klik nie umieszcza).'],
+        ['Rotate UVs 90°','Obraca zaznaczone wyspy UV o 90° w miejscu, szybka poprawka orientacji. Przy wąskim oknie w menu ».',['rotate_clockwise']],
         ['Snap (S)','Tryb Edit: krawędzie i rogi trimów przyciągają się do sąsiednich trimów i brzegu arkusza przy przesuwaniu i skalowaniu. Tolerancja niezależna od zoomu.',['snap']],
-        ['Display ▾','Krycie trimów, siła / grubość / kolor obrysu oraz rozmiar i kolor etykiet — wygaś trimy, by obejrzeć teksturę pod spodem.']]},
+        ['Display ▾','Krycie trimów, siła / grubość / kolor obrysu oraz rozmiar i kolor etykiet, wygaś trimy, by obejrzeć teksturę pod spodem.']]},
       {k:'[3] Mapa UV',s:'UV map',t:'Wizualny podgląd trim-sheeta',p:'Serce lewej kolumny. Zachowanie klika wynika z przełącznika trybów.',rows:[
         ['Pan / Zoom','Środkowy przycisk myszy = pan, kółko = zoom. Szachownica 0..1 jest zawsze widoczna.'],
         ['Tryb Place','Klik w trim = zaznaczone UV wpadają prosto w niego (Fit z paska).'],
@@ -707,39 +706,39 @@
         ['Dwuklik trima','Otwiera dialog Edit Trim (tryby Select i Edit).'],
         ['Prawy klik','Zoom Extents · Place / Select / Edit · Select All / Invert / Clear Trim Selection · Background Image.'],
         ['Pusty stan','Brak arkusza? Mapa sama podpowiada następny krok (File ▸ New albo From UVs).']]},
-      {k:'[4] Pasek trimów',s:'Trims toolbar',t:'Tworzenie stref i akcje hurtowe',p:'Częste akcje mają etykiety; rzadkie zawsze mieszkają w menu ⋯ — ten sam układ przy każdej szerokości.',rows:[
+      {k:'[4] Pasek trimów',s:'Trims toolbar',t:'Tworzenie stref i akcje hurtowe',p:'Częste akcje mają etykiety; rzadkie zawsze mieszkają w menu ⋯, ten sam układ przy każdej szerokości.',rows:[
         ['New / Duplicate / Delete','Nowa strefa (dialog) · duplikuj zaznaczone · usuń (z potwierdzeniem).',['add_zone','duplicate_zone','trashcan']],
         ['From UVs','Główna droga tworzenia stref: trimy z zaznaczonych wysp UV, w kolejności czytania, nazwy z zerami (Trim 02).',['generate_selected_uv_zones']],
         ['Grid','Strefy z regularnej siatki (dialog).',['add_zone_grid']],
         ['⋯ → Set Tags… / Remove Tags…','Hurtowe dodawanie / zdejmowanie tagów z zaznaczonych trimów (zdejmowanie bez rozróżniania wielkości liter).',['more','tag','tag_remove']],
         ['⋯ → Set Fit Axis…','Hurtowe ustawienie osi Fit (Default / Fill / Seamless U/V) na zaznaczonych trimach.',['pivot_center']],
-        ['⋯ → Split Selected Trims…','Dzieli każdy zaznaczony trim na równe kolumny lub wiersze — części składają się dokładnie na oryginał.',['space_objects_horizontal']],
+        ['⋯ → Split Selected Trims…','Dzieli każdy zaznaczony trim na równe kolumny lub wiersze, części składają się dokładnie na oryginał.',['space_objects_horizontal']],
         ['⋯ → Map UVs to Trims','Losowe mapowanie zaznaczonych UV do zaznaczonych stref (proste, bez dopasowania aspektu).',['map_uvs_to_zones']],
         ['Prawy klik → Renumber Trims','Przenumerowuje wszystkie „Trim NN” w kolejności czytania: góra→dół, lewo→prawo.']]},
       {k:'[5] Lista trimów',s:'Trim list',t:'Filtr i wiersze stref',p:'Zaznaczenie listy i mapy synchronizuje się w obie strony.',rows:[
         ['Filter trims…','Filtruje listę po nazwie w trakcie pisania (np. „12” → tylko pasujące).'],
-        ['Checkbox','Włącza/wyłącza strefę — wyłączone hotspot pomija.'],
+        ['Checkbox','Włącza/wyłącza strefę, wyłączone hotspot pomija.'],
         ['Kolor','Klik w próbkę zmienia kolor strefy.'],
         ['Name · W · H · Tags','Wymiary w zwartym monospace; X/Y ukryte (pozycję widać na mapie); tagi po prawej.'],
         ['Dwuklik wiersza','Edit Trim: nazwa, X/Y, wymiary, kolor, Inset (px), World W/H (m), Fit axis, Tags.'],
         ['Pusty stan','Brak trimów? Lista wskazuje New / From UVs / Grid.']]},
-      {k:'[6] Akcja + przełącznik widoku',s:'Action',t:'Hotspot selected UVs · Basic/Advanced',p:'Największy przycisk okna — i przełącznik decydujący, ile panelu widzisz.',rows:[
+      {k:'[6] Akcja + przełącznik widoku',s:'Action',t:'Hotspot selected UVs · Basic/Advanced',p:'Największy przycisk okna, i przełącznik decydujący, ile panelu widzisz.',rows:[
         ['Przycisk','Dopasowuje wszystkie zaznaczone wyspy do stref docelowych w jednym przebiegu.'],
         ['Quick UV + Hotspot','Dla surowych obiektów bez UV: jednolita projekcja box o spójnej skali texela (kalibrowana do arkusza; Flatten dla organiki) i od razu hotspot. Dowolna liczba obiektów, wspólny Unwrap, dwa kroki undo.'],
         ['Cele','Strefy zaznaczone na mapie; brak zaznaczenia = wszystkie włączone. Licznik zawsze mówi które: „All enabled trims (N)” albo „N target trims selected”.'],
         ['Basic | Advanced','Progressive disclosure: Basic pokazuje Quick UV, Mode, Orient, Priority, Area i przełączniki Scale; Advanced dokłada rzadkie wiersze oraz sekcje Padding i Variation. Wybór jest zapamiętywany między sesjami.'],
-        ['Podpowiedź o ukrytych','W Basic wyciszona linia zlicza ukryte opcje — nic nie znika, tylko czeka.'],
-        ['Undo','Cały przebieg to jeden Ctrl+Z — także multi-obiekt. Ctrl+Z działa wewnątrz okna narzędzia.'],
+        ['Podpowiedź o ukrytych','W Basic wyciszona linia zlicza ukryte opcje, nic nie znika, tylko czeka.'],
+        ['Undo','Cały przebieg to jeden Ctrl+Z, także multi-obiekt. Ctrl+Z działa wewnątrz okna narzędzia.'],
         ['Listener','Po każdym przebiegu linia podsumowania: wyspy dopasowane/pominięte i czas.']]},
-      {k:'[7] Mapping',s:'Mapping',t:'Jak wyspa siedzi w trimie',p:'Pierwsza sekcja panelu — strategia dopasowania i obrót wstępny.',rows:[
+      {k:'[7] Mapping',s:'Mapping',t:'Jak wyspa siedzi w trimie',p:'Pierwsza sekcja panelu, strategia dopasowania i obrót wstępny.',rows:[
         ['Mode: Hotspot (fit inside trim)','Klasyczne zmieszczenie całej wyspy w trimie.'],
-        ['Mode: Seamless U / V','Dopasowanie tylko jednej osi — wyspa trzyma proporcje i może wystawać (kafelkować) wzdłuż drugiej.'],
-        ['Mode: From trim settings','Używa własnej osi Fit każdego trima — jeden przebieg miesza zwykłe trimy, pasy seamless i Fill.'],
+        ['Mode: Seamless U / V','Dopasowanie tylko jednej osi, wyspa trzyma proporcje i może wystawać (kafelkować) wzdłuż drugiej.'],
+        ['Mode: From trim settings','Używa własnej osi Fit każdego trima, jeden przebieg miesza zwykłe trimy, pasy seamless i Fill.'],
         ['Orient','As Is · Auto (dłuższy bok poziomo) · Orient (prostowanie skośnych do osi UV, min-area rect, działa poniżej 1°) · Orient to World (światowe Z → góra UV; naprawia wyspy do góry nogami).'],
         ['Flat tolerance','Tylko przy Orient to World: ile nachylenia musi mieć powierzchnia, żeby liczyła się jako spadek. Poniżej progu jest traktowana jak płaska i decyduje kolejna oś świata, więc fazki i prawie poziome ścianki przestają dostawać przypadkowe kąty. Domyślnie 10°. Advanced.'],
         ['Random offset in trim','Losowe położenie zamiast centrowania (seedowane). Widok Advanced.']]},
       {k:'[8] Matching',s:'Matching',t:'Którą strefę wybrać',p:'Serce silnika. Basic pokazuje Priority i Area; wiersze fine-tuningu mieszkają w Advanced.',rows:[
-        ['Priority','Balanced (najbliższy realnemu rozmiarowi wyspy — jednolita gęstość, domyślny) · Aspect (najpierw kształt) · Area (najpierw rozmiar) · World size (realne wymiary).'],
+        ['Priority','Balanced (najbliższy realnemu rozmiarowi wyspy, jednolita gęstość, domyślny) · Aspect (najpierw kształt) · Area (najpierw rozmiar) · World size (realne wymiary).'],
         ['Measure','Current UVs (bieżąca ramka UV wyspy) · Model geometry (3D) (realny rozmiar na modelu, więc drugi przebieg z innymi ustawieniami decyduje od nowa, zamiast wracać do trimu, w którym wyspa już siedzi). Wymaga trimu z rozmiarem rzeczywistym albo texel density.'],
         ['Trim size','Island size (najbliższy rozmiar) · Prefer large trims · Prefer small trims · Manual (mnożnik). To bias wyszukiwania, nie ranking: przy arkuszu, którego trimy są dużo większe od wyspy, „prefer large” może wypaść pośrodku.'],
         ['Manual scale','Mnożnik pola dla Trim size = Manual: >1 celuje w większe strefy, <1 w mniejsze. Advanced.'],
@@ -753,18 +752,18 @@
         ['Texel density mode','Skaluje wyspę do zadanej gęstości z jej realnej powierzchni 3D. W seamless gęstość wybiera pas.'],
         ['Density (px/unit) + Sample','Docelowa gęstość; Sample odczytuje ją jednym klikiem z zaznaczonej wyspy wzorcowej.'],
         ['Density margin %','Wyspy bliskie pełnego wypełnienia dobijają do pełna zamiast zostawiać szczelinę (tryb Hotspot).']]},
-      {k:'[10] Padding',s:'Padding',t:'Odstęp wysp od krawędzi trimów',p:'Teraz osobna sekcja (widok Advanced) — z jednym nadrzędnym mnożnikiem pod mipmapy.',rows:[
+      {k:'[10] Padding',s:'Padding',t:'Odstęp wysp od krawędzi trimów',p:'Teraz osobna sekcja (widok Advanced), z jednym nadrzędnym mnożnikiem pod mipmapy.',rows:[
         ['Inset mode','Manual (globalny padding) · From zone (inset strefy) · Combined (inset strefy, inaczej globalny).'],
         ['Padding','Globalny margines w pikselach wokół wyspy.'],
-        ['Padding scale','Jeden mnożnik na CAŁY efektywny padding (globalny i per-zone) — podbij dla mip-safe UV bez edycji stref; 0 wyłącza padding.']]},
+        ['Padding scale','Jeden mnożnik na CAŁY efektywny padding (globalny i per-zone), podbij dla mip-safe UV bez edycji stref; 0 wyłącza padding.']]},
       {k:'[11] Variation',s:'Variation',t:'Przeciw powtórzeniom (seedowane)',p:'Rozbija widoczne kafelkowanie na dużych powierzchniach. Widok Advanced. Ten sam Seed = identyczny układ.',rows:[
         ['Randomize among equal matches','Losowy wybór spośród równie dobrych stref zamiast deterministycznego.'],
         ['Random 180° rotation','Losowy obrót o 180° (trzyma aspekt).'],
         ['Random flip (mirror U/V)','Losowe lustro U/V.'],
-        ['Seed','Ziarno losowości — powtarzalne wyniki; zmień Seed dla innego układu.']]},
+        ['Seed','Ziarno losowości, powtarzalne wyniki; zmień Seed dla innego układu.']]},
       {k:'[12] Stopka + pasek statusu',s:'Footer',t:'Reset i informacje o pliku',p:'Stały pasek pod panelem i pasek statusu okna.',rows:[
         ['Reset to Defaults','Przywraca wszystkie opcje hotspota do domyślnych (najpierw pyta). Wybór Basic/Advanced i tryb mapy zostają.'],
-        ['Pasek statusu','nazwa_pliku | szerokość × wysokość — klik otwiera Edit Trimsheet.'],
+        ['Pasek statusu','nazwa_pliku | szerokość × wysokość, klik otwiera Edit Trimsheet.'],
         ['Bezpieczny scroll','Kółko myszy przewija panel; dropdowny i spinnery reagują na kółko dopiero po kliknięciu w nie.']]}
     ]
   };
@@ -902,11 +901,10 @@
       tr.appendChild(td1);tr.appendChild(td2);tbl.appendChild(tr);
     });
     if(scroll){
-      /* markers sit on the screenshot, the description lives below the fold —
-         without this a click looks like it did nothing */
+      /* markers sit on the screenshot, the description lives below the fold, without this a click looks like it did nothing */
       var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
       /* 'nearest': scroll just far enough that the whole box (incl. its
-         bottom) is in view — no over-scrolling past the screenshot */
+         bottom) is in view, no over-scrolling past the screenshot */
       document.getElementById('anno').scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'});
     }
   }

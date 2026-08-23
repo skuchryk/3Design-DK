@@ -1,4 +1,4 @@
-// HotspotUV site — nav, mobile menu, scroll reveal
+// HotspotUV site: nav, mobile menu, scroll reveal
 
 (function () {
   "use strict";
@@ -144,9 +144,9 @@
     if (promoDays) {
       var daysLeft = Math.ceil((PROMO_END - promoNow) / 86400000);
       promoDays.textContent =
-        daysLeft <= 1 ? "— last day!" : "— ends in " + daysLeft + " days";
+        daysLeft <= 1 ? "last day!" : "ends in " + daysLeft + " days";
     }
-    // The bar can wrap to two lines on narrow screens — measure it and let
+    // The bar can wrap to two lines on narrow screens, so measure it and let
     // the CSS offset the fixed nav / hero padding by the real height.
     var promoBar = document.getElementById("promoBar");
     function setPromoHeight() {

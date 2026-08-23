@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TileCheck — Free Texture Tiling Checker | HotspotUV by 3Design DK</title>
-<meta name="description" content="Free in-browser texture tiling checker. Drop your albedo, normal and comp (ORM) maps and TileCheck measures every tile edge, scores the seams per map and per axis, and lights them in real time with WebGL. Reloads when you save. Nothing is uploaded — everything runs locally.">
-<meta property="og:title" content="TileCheck — Free Texture Tiling Checker">
-<meta property="og:description" content="Drop your PBR maps and get every tile edge measured, scored and lit in real time — seams and brightness drift caught before they ship. Free, in-browser, nothing uploaded.">
+<title>TileCheck: Free Texture Tiling Checker | HotspotUV by 3Design DK</title>
+<meta name="description" content="Free in-browser texture tiling checker. Drop your albedo, normal and comp (ORM) maps and TileCheck measures every tile edge, scores the seams per map and per axis, and lights them in real time with WebGL. Reloads when you save. Nothing is uploaded: everything runs locally.">
+<meta property="og:title" content="TileCheck: Free Texture Tiling Checker">
+<meta property="og:description" content="Drop your PBR maps and get every tile edge measured, scored and lit in real time, with seams and brightness drift caught before they ship. Free, in-browser, nothing uploaded.">
 <link rel="canonical" href="https://3designdk.com/tilecheck.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://3designdk.com/tilecheck.html">
@@ -20,7 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* mirrors the ladder in css/style.css — including --dim-2, which the site lifted to
+    /* mirrors the ladder in css/style.css, including --dim-2, which the site lifted to
        #7d89a5 to clear the 4.5:1 AA floor. Re-measure there first when changing. */
     --bg:#0b1030; --panel:#10163c; --card:#151c4a; --line:rgba(255,255,255,.10);
     --line-strong:rgba(255,255,255,.20); --txt:#e4e9f2; --dim:#9aa6bd; --dim-2:#7d89a5;
@@ -173,13 +173,13 @@
     Hotspot<span class="accent">UV</span>
   </a>
   <span class="chip">Free tool</span>
-  <span class="tb-title">TileCheck — texture tiling checker</span>
+  <span class="tb-title">TileCheck: texture tiling checker</span>
   <a class="tb-back" href="/">&larr; Back to HotspotUV</a>
 </header>
 
 <section id="nodesk">
   <h2>TileCheck needs a mouse</h2>
-  <p>This one is desktop only — not a smaller screen away, a different input away. Driving the
+  <p>This one is desktop only. Not a smaller screen away, a different input away. Driving the
     preview takes buttons a touchscreen doesn&rsquo;t have:</p>
   <ul>
     <li>middle mouse button to orbit the camera</li>
@@ -193,20 +193,20 @@
 <div id="app">
   <div id="side">
     <h1>TileCheck <small>· tiling preview</small></h1>
-    <p class="intro">Drop your PBR maps and see how they tile — lit in real time. Drop a whole folder
+    <p class="intro">Drop your PBR maps and see how they tile, lit in real time. Drop a whole folder
       and they get matched by name (<b>ALBD&thinsp;/&thinsp;NORM&thinsp;/&thinsp;COMP</b>, also
       <b>albedo</b>, <b>normal</b>, <b>ORM</b>&hellip;). No suffixes in your filenames? Drop each file
       <b>onto its slot</b> below, or click a slot to browse.</p>
 
     <div class="slot" id="slot-albd"><canvas width="64" height="64"></canvas>
-      <div class="info"><div class="name">Albedo</div><div class="file">— empty —</div>
+      <div class="info"><div class="name">Albedo</div><div class="file">(empty)</div>
       <div class="watch">watching</div></div></div>
     <div class="slot" id="slot-norm"><canvas width="64" height="64"></canvas>
-      <div class="info"><div class="name">Normal</div><div class="file">— empty —</div>
+      <div class="info"><div class="name">Normal</div><div class="file">(empty)</div>
       <div class="watch">watching</div></div></div>
     <div class="slot" id="slot-comp"><canvas width="64" height="64"></canvas>
       <div class="info"><div class="name">Comp <small>(AO·R / Rough·G / Metal·B)</small></div>
-      <div class="file">— empty —</div><div class="watch">watching</div></div></div>
+      <div class="file">(empty)</div><div class="watch">watching</div></div></div>
     <div id="warn"></div>
 
     <fieldset id="seamBox" style="display:none"><legend>Seam check</legend>
@@ -255,10 +255,10 @@
     <fieldset><legend>Normal map</legend>
       <!-- the green channel IS the DirectX/OpenGL difference; flipY stays the state everything
            else reads, the buttons are just the name people actually use for it -->
-      <div class="row"><span class="cap" title="DirectX maps point green down, OpenGL up. Not sure? Rake the light from the top — bumps should read raised, not sunken.">Convention</span>
+      <div class="row"><span class="cap" title="DirectX maps point green down, OpenGL up. Not sure? Rake the light from the top: bumps should read raised, not sunken.">Convention</span>
         <span class="seg">
-          <button id="convDX" title="Green down (−Y) — 3ds Max, Unreal, Unity, Substance's DirectX export">DirectX</button>
-          <button id="convGL" title="Green up (+Y) — Blender, Unity, glTF, Substance's OpenGL export">OpenGL</button>
+          <button id="convDX" title="Green down (−Y), 3ds Max, Unreal, Unity, Substance's DirectX export">DirectX</button>
+          <button id="convGL" title="Green up (+Y), Blender, Unity, glTF, Substance's OpenGL export">OpenGL</button>
         </span></div>
       <input type="checkbox" id="flipY" class="hidden-input" tabindex="-1" aria-hidden="true">
       <label class="row"><span class="cap">Flip R (X)</span><input type="checkbox" id="flipX"></label>
@@ -280,7 +280,7 @@
       <button id="clear">Clear textures</button>
     </div>
 
-    <p class="local-note">Your textures never leave this page — everything runs locally in your
+    <p class="local-note">Your textures never leave this page: everything runs locally in your
       browser via WebGL. A free tool by <a href="/">3Design&nbsp;DK</a>, makers of
       <a href="/">HotspotUV</a> for 3ds&nbsp;Max.</p>
   </div>
@@ -288,12 +288,12 @@
     <canvas id="gl"></canvas>
     <div id="viewbar">
       <button id="vTop" title="Straight-down orthographic view">Top</button>
-      <button id="vPersp" title="Tilted perspective view — see the tiling like an engine does">Persp</button>
+      <button id="vPersp" title="Tilted perspective view, see the tiling like an engine does">Persp</button>
       <button id="vReset" title="Reset camera, zoom and pan">Reset</button>
       <button id="vFull" title="Fullscreen (F)">Full</button>
     </div>
-    <div id="prevhint">hold <b>B</b> — previous version</div>
-    <svg id="gizmo" viewBox="0 0 66 66" aria-label="Camera orientation — click for top view"></svg>
+    <div id="prevhint">hold <b>B</b>: previous version</div>
+    <svg id="gizmo" viewBox="0 0 66 66" aria-label="Camera orientation, click for top view"></svg>
     <div id="hint">scroll = zoom · <b>LMB</b> = pan · <b>MMB</b> / alt+drag = orbit · <b>RMB</b> = sun direction</div>
     <div id="drop">Drop PNG files&hellip;</div>
   </div>
@@ -331,7 +331,7 @@ vec3 heatRamp(float h){
                  : mix(vec3(1.0,0.80,0.20), vec3(1.0,0.22,0.16), (h - 0.5) * 2.0);
 }
 
-// the backdrop behind the horizon — matches the page palette
+// the backdrop behind the horizon, matches the page palette
 vec3 sky(vec3 rd){
   return mix(vec3(0.075, 0.095, 0.20), vec3(0.027, 0.039, 0.115),
              clamp(rd.z * 3.5 + 0.15, 0.0, 1.0));
@@ -391,7 +391,7 @@ void main(){
 
   if (u_grid || (u_seam && u_hasSeam)) {
     vec2 f = abs(fract(uv) - 0.5);
-    // in perspective the footprint explodes toward the horizon — clamp it, then fade the
+    // in perspective the footprint explodes toward the horizon, clamp it, then fade the
     // lines out entirely once a tile is thinner than the line itself, or they flood the screen
     float wx = min(fwidth(uv.x) * 1.5, 0.49);
     float wy = min(max(fwidth(uv.y) * 1.5, wx), 0.49);
@@ -403,7 +403,7 @@ void main(){
 
     if (u_seam && u_hasSeam) {
       // row 0 of tSeam profiles the vertical edge along the image y, row 1 the horizontal
-      // edge along the image x — so the colour tracks where on the seam the mismatch is
+      // edge along the image x, so the colour tracks where on the seam the mismatch is
       float hx = texture(tSeam, vec2(fract(tuv.y), 0.25)).r;
       float hy = texture(tSeam, vec2(fract(tuv.x), 0.75)).r;
       float heat = max(mx * hx, my * hy);
@@ -479,7 +479,7 @@ const PROFILE_N = 256;   // seam profiles are resampled to this before going to 
 const HEAT_MAX = 6;      // ratio at which the heat ramp saturates
 const CLEAN = 1.6, SOFT = 3.0;   // ratio verdict thresholds
 
-// pulls a sub-rectangle at 1:1 — decoding a whole 4K map into a canvas would cost 64 MB
+// pulls a sub-rectangle at 1:1, decoding a whole 4K map into a canvas would cost 64 MB
 // for the six thin strips this actually needs
 function stripData(img, sx, sy, sw, sh) {
   const c = document.createElement('canvas');
@@ -500,7 +500,7 @@ function rgbSigned(a, ia, b, ib) {
 // ---- brightness drift across the wrap ----
 // The ratio above averages |difference|, which a hard seam dominates but a gentle one hides
 // in: bury a flat +12 level step in grain that already jumps +-46 between neighbours and the
-// ratio barely moves off 1.0. The eye does not average absolute values though — it integrates
+// ratio barely moves off 1.0. The eye does not average absolute values though, it integrates
 // over an area and sees two patches of different mean. Signed differences do the same thing:
 // on a map that tiles they cancel, on a drifting one they all share a sign.
 function newAccum() { return { sum: 0, sq: 0, n: 0 }; }
@@ -509,7 +509,7 @@ function accumWrap(acc, a, ia, b, ib) {
   acc.sum += d; acc.sq += d * d; acc.n++;
 }
 // `excess` is how far the average step across the wrap sits beyond the largest average step
-// the map already takes internally — the same outlier test the ratio uses, asked of the
+// the map already takes internally, the same outlier test the ratio uses, asked of the
 // signed step so that a flat offset cannot cancel itself out. `sigma` then guards against
 // grain: with enough noise, any edge shows some drift by chance.
 function driftOf(acc, internalPeak) {
@@ -525,7 +525,7 @@ function driftOf(acc, internalPeak) {
 // the excess floor stops a huge map from making a 0.3-level rounding drift "significant"
 const drifts = d => d.excess >= 1.5 && d.sigma >= 2.5;
 
-// smooth, then resample keeping the worst value in each bucket — a one-pixel-wide seam is
+// smooth, then resample keeping the worst value in each bucket, because a one-pixel-wide seam is
 // still a seam and averaging it into 256 buckets would hide exactly what we are looking for
 function toProfile(raw, base) {
   const n = raw.length, R = 2, sm = new Float32Array(n);
@@ -564,15 +564,15 @@ function percentile(arr, p) {
 // How big a step does this map take between neighbouring pixels ANYWHERE, as a distribution?
 // The wrap is then judged on whether it is an outlier in it. A mean will not do: brickwork
 // steps hard at every mortar course, and a course landing exactly on the tile edge is correct
-// authoring, not a seam — against the mean that reads as 22x. Neither will the step at the
+// authoring, not a seam, against the mean that reads as 22x. Neither will the step at the
 // adjacent pixel: a map can slope steeply right where it wraps and still tile perfectly. A
-// high percentile answers the question actually being asked — "has this map done this before?"
+// high percentile answers the question actually being asked, "has this map done this before?"
 const BAND = 512;        // rows per read; a whole 4K map at once would be 64 MB
 const MIN_SAMPLES = 512; // how many lines an average along a boundary is worth taking over
 const STEP_PCT = 0.98;
 // The signed test compares against the very top of the internal distribution rather than the
-// 98th percentile: a legitimate hard feature at the tile edge — brickwork with a mortar course
-// exactly on the seam — is entitled to be the single biggest step in the whole map.
+// 98th percentile: a legitimate hard feature at the tile edge, brickwork with a mortar course
+// exactly on the seam, is entitled to be the single biggest step in the whole map.
 const SIGN_PCT = 0.995;
 
 // EVERY boundary is enumerated; only the averaging ALONG a boundary is ever subsampled.
@@ -669,7 +669,7 @@ function analyzeEdges(img) {
       profY: toProfile(wrapY, baseY),
     };
   } catch (err) {
-    return null;   // tainted canvas or an image the 2D context refuses — just skip the check
+    return null;   // tainted canvas or an image the 2D context refuses, just skip the check
   }
 }
 
@@ -708,7 +708,7 @@ function renderSeamTable() {
   const rows = Object.entries(slots).filter(([, s]) => s.size);
   param('seamBox').style.display = rows.length ? '' : 'none';
   param('seamTable').tBodies[0].innerHTML = rows.map(([, s]) => {
-    if (!s.edges) return `<tr class="off"><td>${s.label}</td><td>—</td><td>—</td><td></td></tr>`;
+    if (!s.edges) return `<tr class="off"><td>${s.label}</td><td>&ndash;</td><td>&ndash;</td><td></td></tr>`;
     const e = s.edges;
     const [cx] = verdict(e.ratioX), [cy] = verdict(e.ratioY);
     // a map can be clean on the ratio and still drift, so the mark takes the worse of the two
@@ -726,7 +726,7 @@ function renderSeamTable() {
     for (const [axis, d] of [['Left↔right', s.edges.driftX], ['Top↔bottom', s.edges.driftY]])
       if (drifts(d)) notes.push(
         `${axis} edges of <b>${s.label.toLowerCase()}</b> differ by ` +
-        `${Math.abs(d.level).toFixed(0)} levels on average — reads as banding across tiles, ` +
+        `${Math.abs(d.level).toFixed(0)} levels on average, reads as banding across tiles, ` +
         `even where no hard line shows.`);
   }
   param('driftWarn').innerHTML = notes.length ? '⚠ ' + notes.join('<br>⚠ ') : '';
@@ -789,7 +789,7 @@ function checkSizes() {
 }
 
 // forceKey = the user aimed at a specific slot (clicked it, or dropped straight onto it).
-// That is an explicit choice, so it beats guessing from the filename — which is what makes
+// That is an explicit choice, so it beats guessing from the filename, which is what makes
 // maps with no ALBD/NORM/COMP suffix (simulator exports, engine dumps) usable at all.
 // items are Files, or {file, handle} when the browser gave us a handle we can watch for saves
 function takeFiles(items, forceKey) {
@@ -813,7 +813,7 @@ function takeFiles(items, forceKey) {
   }
   if (unassigned.length) warn.textContent =
     '⚠ No ALBD / NORM / COMP in: ' + unassigned.map(f => f.name).join(', ') +
-    ' — drop a file straight onto a slot to place it by hand.';
+    ', drop a file straight onto a slot to place it by hand.';
 }
 
 // ---- live reload ------------------------------------------------------------------
@@ -833,7 +833,7 @@ async function collectHandles(h, out, depth) {
         if (out.length > 200) break;
         await collectHandles(child, out, depth + 1);
       }
-  } catch (err) { /* unreadable entry — skip it, the rest of the drop still works */ }
+  } catch (err) { /* unreadable entry, skip it, the rest of the drop still works */ }
 }
 
 let watchTimer = null;
@@ -852,7 +852,7 @@ async function pollHandles() {
     try {
       f = await s.handle.getFile();
     } catch (err) {
-      // moved, deleted, or permission revoked — stop claiming we are watching it
+      // moved, deleted, or permission revoked, stop claiming we are watching it
       s.handle = null; s.el.classList.remove('watched');
       continue;
     }
@@ -861,7 +861,7 @@ async function pollHandles() {
 }
 param('autoReloadRow').style.display = FS_OK ? '' : 'none';
 if (!FS_OK) param('autoReloadNote').innerHTML =
-  'Reloading on save needs the File System Access API — Chrome, Edge or Opera. ' +
+  'Reloading on save needs the File System Access API, Chrome, Edge or Opera. ' +
   'This browser can still open and drop files normally.';
 
 let pickTarget = null;
@@ -909,7 +909,7 @@ filepick.addEventListener('change', () => { takeFiles(filepick.files, pickTarget
 const dropOverlay = document.getElementById('drop');
 window.addEventListener('dragover', e => { e.preventDefault(); dropOverlay.style.display = 'flex'; });
 window.addEventListener('dragleave', e => { if (!e.relatedTarget) dropOverlay.style.display = 'none'; });
-// walk a dropped directory — dataTransfer.files is empty for folders, so the entry API
+// walk a dropped directory, dataTransfer.files is empty for folders, so the entry API
 // is the only way to reach what is inside one
 async function readEntry(entry, out, depth) {
   if (!entry || depth > 4 || out.length > 200) return;
@@ -925,7 +925,7 @@ async function readEntry(entry, out, depth) {
   }
 }
 
-// must be called synchronously on the drop event — dataTransfer is neutered after the first await
+// must be called synchronously on the drop event, dataTransfer is neutered after the first await
 function grabHandles(dt) {
   return [...(dt.items || [])]
     .map(i => i.getAsFileSystemHandle ? i.getAsFileSystemHandle().catch(() => null) : null)
@@ -936,7 +936,7 @@ window.addEventListener('drop', async e => {
   e.preventDefault(); dropOverlay.style.display = 'none';
   pickTarget = null;
   const files = [...e.dataTransfer.files];
-  // grab the entries synchronously — dataTransfer is neutered after the first await
+  // grab the entries synchronously, dataTransfer is neutered after the first await
   const pending = grabHandles(e.dataTransfer);
   const entries = [...(e.dataTransfer.items || [])]
     .map(i => i.webkitGetAsEntry && i.webkitGetAsEntry()).filter(Boolean);
@@ -1008,7 +1008,7 @@ function planeHit(nx, ny) {
   return t > 0 ? [ro[0] + rd[0] * t, ro[1] + rd[1] * t] : null;
 }
 
-const PITCH_TILT = 0.95;   // ~54deg — the working angle you land on leaving Top view
+const PITCH_TILT = 0.95;   // ~54deg, the working angle you land on leaving Top view
 function setView(persp) {
   cam.persp = persp;
   if (!persp) { cam.yaw = YAW_0; cam.pitch = PITCH_0; }
@@ -1046,7 +1046,7 @@ function saveSettings() {
       o[id] = el.type === 'checkbox' ? el.checked : el.value;
     }
     localStorage.setItem(STORE, JSON.stringify(o));
-  } catch (err) { /* private mode or a full quota — the tool works fine without it */ }
+  } catch (err) { /* private mode or a full quota, the tool works fine without it */ }
 }
 function loadSettings() {
   try {
@@ -1057,7 +1057,7 @@ function loadSettings() {
       const el = param(id);
       if (el.type === 'checkbox') el.checked = !!o[id]; else el.value = o[id];
     }
-  } catch (err) { /* corrupt entry — fall back to the defaults in the markup */ }
+  } catch (err) { /* corrupt entry, fall back to the defaults in the markup */ }
 }
 
 // DirectX vs OpenGL is exactly the sign of the green channel, so both buttons drive flipY
@@ -1113,7 +1113,7 @@ param('clear').addEventListener('click', () => {
     s.tex = s.prevTex = null; s.size = null; s.edges = null; s.handle = null;
     s.stamp = 0; s.bytes = 0;
     s.el.classList.remove('loaded', 'watched');
-    s.el.querySelector('.file').textContent = '— empty —';
+    s.el.querySelector('.file').textContent = '(empty)';
     const c = s.el.querySelector('canvas'); c.getContext('2d').clearRect(0,0,c.width,c.height);
   }
   hasSeam = false;
@@ -1159,7 +1159,7 @@ const DRAG_CURSOR = { pan: 'grabbing', orbit: 'move', light: 'crosshair' };
 canvas.addEventListener('mousedown', e => {
   // LMB = pan, MMB (or alt) = orbit, RMB = swing the sun
   drag = e.button === 2 ? 'light' : (e.button === 1 || e.altKey) ? 'orbit' : 'pan';
-  // orbiting out of Top view drops straight to a usable tilt — at 90deg the pitch is already
+  // orbiting out of Top view drops straight to a usable tilt, at 90deg the pitch is already
   // clamped, so without this the first drag would appear to do nothing
   if (drag === 'orbit' && !cam.persp) setView(true);
   lastX = e.clientX; lastY = e.clientY;

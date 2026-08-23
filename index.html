@@ -42,13 +42,13 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "HotspotUV",
-    "alternateName": "HotspotUV — Trim Sheet UV Mapping Plugin for 3ds Max",
+    "alternateName": "HotspotUV: Trim Sheet UV Mapping Plugin for 3ds Max",
     "description": "Trim sheet and hotspot UV mapping plugin for Autodesk 3ds Max. Snaps UV islands to the best-fitting trim by aspect ratio and area, straightens them with a minimum-area bounding rectangle and keeps texel density consistent across objects.",
     "url": "https://3designdk.com/",
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "3D modeling plugin",
     "operatingSystem": "Windows 10, Windows 11",
-    "softwareVersion": "2.4.0",
+    "softwareVersion": "2.4.1",
     "softwareRequirements": "Autodesk 3ds Max 2022 to 2027",
     "image": "https://3designdk.com/assets/logo_hotspotuv_1024.png",
     "author": { "@type": "Person", "name": "Dawid Kucharyk" },
@@ -76,7 +76,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260820a">
+  <link rel="stylesheet" href="css/style.css?v=20260822a">
 </head>
 <body>
 
@@ -89,7 +89,7 @@
   <a href="https://3designdk.gumroad.com/l/ueunpw" class="promo-bar" id="promoBar">
     <span class="promo-flash" aria-hidden="true">&#9889;</span>
     Black Friday: <strong>40% off all licenses</strong>
-    <span class="promo-days" id="promoDays">— until Nov 30</span>
+    <span class="promo-days" id="promoDays">until Nov 30</span>
     <span class="promo-cta">Get it from $18 &rarr;</span>
   </a>
   ======= -->
@@ -143,11 +143,11 @@
         <h1>Snap UV islands to the <span class="gradient-text">perfect trim</span>, automatically.</h1>
         <p class="lead">
           HotspotUV matches every UV island to the best-fitting trim zone by shape, size and
-          orientation — in one click, fully undoable. Lock a consistent texel density across the
+          orientation, in one click and fully undoable. Lock a consistent texel density across the
           whole asset and stop fighting your trim sheets.
         </p>
         <div class="hero-actions">
-          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV — $30</a>
+          <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV for $30</a>
           <a href="#video" class="btn btn-ghost btn-lg">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             Watch demo
@@ -166,7 +166,7 @@
         <div class="window">
           <div class="window-bar">
             <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-            <span class="window-title">HotspotUV — trimsheet.json</span>
+            <span class="window-title">HotspotUV - trimsheet.json</span>
           </div>
           <div class="window-body">
             <svg class="trim-map" viewBox="0 0 420 300" fill="none">
@@ -217,7 +217,7 @@
     <div class="container strip-inner reveal">
       <div class="stat"><strong>1 click</strong><span>maps a full selection of islands</span></div>
       <div class="stat"><strong>1 undo</strong><span>reverts the whole operation</span></div>
-      <div class="stat"><strong>100%</strong><span>deterministic — same input, same result</span></div>
+      <div class="stat"><strong>100%</strong><span>deterministic: same input, same result</span></div>
       <div class="stat"><strong>0 installs</strong><span>runs on Max's bundled Python</span></div>
     </div>
   </section>
@@ -228,7 +228,7 @@
       <p class="eyebrow">Why HotspotUV</p>
       <h2>UV mapping is the most repetitive job in 3D production. It doesn't have to be.</h2>
       <p class="section-lead">
-        Trim-sheet and hotspot texturing is fast — when the islands actually line up with the trims.
+        Trim-sheet and hotspot texturing is fast, as long as the islands actually line up with the trims.
         Manually selecting, moving, rotating and scaling UV islands one by one, hundreds of times per
         asset, turns a simple adjustment into hours of work. HotspotUV does the lining up for you:
         select your islands, pick target zones on the visual map, and hit one button. The tool picks
@@ -242,12 +242,12 @@
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow">New in v2.2</p>
-        <h2>Quick UV + Hotspot — unmapped model to trimmed UVs in one click</h2>
-        <p class="section-sub">No unwrapping first: a uniform box projection at a consistent texel scale, auto-calibrated to your trim sheet, then an immediate hotspot pass — one button, any number of objects.</p>
+        <h2>Quick UV + Hotspot: unmapped model to trimmed UVs in one click</h2>
+        <p class="section-sub">No unwrapping first: a uniform box projection at a consistent texel scale, auto-calibrated to your trim sheet, then an immediate hotspot pass. One button, any number of objects.</p>
       </div>
       <figure class="reveal" style="margin:0;max-width:1100px;margin:0 auto">
-        <img src="assets/quick_uv_after.jpg" alt="HotspotUV after a Quick UV + Hotspot run — the trim sheet with matched islands in Edit UVWs and fully textured HVAC props in the 3ds Max viewport" width="1600" height="885" loading="lazy" style="width:100%;height:auto;border:1px solid var(--border-strong);border-radius:14px">
-        <figcaption style="margin-top:10px;text-align:center;opacity:.75;font-size:.9em">Raw boxes in, textured props out — every face lands on its trim at one consistent texel density.</figcaption>
+        <img src="assets/quick_uv_after.jpg" alt="HotspotUV after a Quick UV + Hotspot run, the trim sheet with matched islands in Edit UVWs and fully textured HVAC props in the 3ds Max viewport" width="1600" height="885" loading="lazy" style="width:100%;height:auto;border:1px solid var(--border-strong);border-radius:14px">
+        <figcaption style="margin-top:10px;text-align:center;opacity:.75;font-size:.9em">Raw boxes in, textured props out. Every face lands on its trim at one consistent texel density.</figcaption>
       </figure>
     </div>
   </section>
@@ -265,7 +265,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="12" rx="1.5"/><rect x="14" y="8" width="7" height="7" rx="1.5"/><path d="M11 18h7M18 18l-2.5-2.5M18 18l-2.5 2.5"/></svg>
           </div>
           <h3>Aspect-aware matching</h3>
-          <p>Every island snaps to the best-fitting trim zone by shape, size and orientation. Deterministic by default — same input, same result, every time.</p>
+          <p>Every island snaps to the best-fitting trim zone by shape, size and orientation. Deterministic by default: same input, same result, every time.</p>
         </article>
         <article class="card reveal">
           <div class="card-icon">
@@ -286,7 +286,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L19 5"/><path d="M5 5v14h14"/><path d="M15 5h4v4"/></svg>
           </div>
           <h3>Straighten on the fly</h3>
-          <p>Auto-orient skewed islands to the UV axis before matching, using minimum-area rectangle fitting — even sub-degree corrections.</p>
+          <p>Auto-orient skewed islands to the UV axis before matching, using minimum-area rectangle fitting, down to sub-degree corrections.</p>
         </article>
         <article class="card reveal">
           <div class="card-icon">
@@ -300,7 +300,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/></svg>
           </div>
           <h3>Variation, seeded</h3>
-          <p>Optional random 180° rotation, mirror and pick among equal matches — seeded for repeatable results — to break up visible tiling.</p>
+          <p>Optional random 180° rotation, mirror and pick among equal matches, seeded for repeatable results, to break up visible tiling.</p>
         </article>
         <article class="card reveal">
           <div class="card-icon">
@@ -314,7 +314,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14l-4-4 4-4"/><path d="M5 10h11a4 4 0 010 8h-2"/></svg>
           </div>
           <h3>One click, one undo</h3>
-          <p>The whole hotspot operation — every island — reverts with a single Ctrl+Z. Experiment freely.</p>
+          <p>The whole hotspot operation, every island in it, reverts with a single Ctrl+Z. Experiment freely.</p>
         </article>
         <article class="card reveal">
           <div class="card-icon">
@@ -333,23 +333,23 @@
       <div class="section-head reveal">
         <p class="eyebrow">The control panel</p>
         <h2>Full control over every match</h2>
-        <p class="section-sub">Great defaults out of the box — but every part is yours to tune. The panel opens in a clean <strong>Basic</strong> view; one click on <strong>Advanced</strong> reveals the full toolbox. Here's the whole workflow — panel, toolbars and menus — in plain English.</p>
+        <p class="section-sub">Great defaults out of the box, but every part is yours to tune. The panel opens in a clean <strong>Basic</strong> view; one click on <strong>Advanced</strong> reveals the full toolbox. Here's the whole workflow in plain English: panel, toolbars and menus.</p>
       </div>
 
       <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-bottom:36px">
         <figure style="margin:0">
           <button class="control-shot" type="button" aria-label="Zoom the Basic view">
-            <img src="assets/ui_basic.webp" alt="HotspotUV window in Basic view — a 36-trim sheet on the map, the trims list and a short options panel" width="1114" height="1434" loading="lazy">
+            <img src="assets/ui_basic.webp" alt="HotspotUV window in Basic view, a 36-trim sheet on the map, the trims list and a short options panel" width="1114" height="1434" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
-          <figcaption style="margin-top:8px;text-align:center;opacity:.75;font-size:.9em"><strong>Basic</strong> — the handful of decisions that matter, nothing else.</figcaption>
+          <figcaption style="margin-top:8px;text-align:center;opacity:.75;font-size:.9em"><strong>Basic</strong>: the handful of decisions that matter, nothing else.</figcaption>
         </figure>
         <figure style="margin:0">
           <button class="control-shot" type="button" aria-label="Zoom the Advanced view">
-            <img src="assets/ui_advanced.webp" alt="HotspotUV window in Advanced view — a 36-trim sheet on the map and the full options panel with Padding and Variation sections" width="1114" height="1434" loading="lazy">
+            <img src="assets/ui_advanced.webp" alt="HotspotUV window in Advanced view, a 36-trim sheet on the map and the full options panel with Padding and Variation sections" width="1114" height="1434" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
-          <figcaption style="margin-top:8px;text-align:center;opacity:.75;font-size:.9em"><strong>Advanced</strong> — every option, one switch away. Your choice is remembered.</figcaption>
+          <figcaption style="margin-top:8px;text-align:center;opacity:.75;font-size:.9em"><strong>Advanced</strong>: every option, one switch away. Your choice is remembered.</figcaption>
         </figure>
       </div>
 
@@ -357,18 +357,18 @@
 
         <article class="card control-group">
           <h3>Basic &amp; Advanced</h3>
-          <p class="control-lead">Progressive disclosure — complexity only when you ask for it.</p>
+          <p class="control-lead">Progressive disclosure: complexity only when you ask for it.</p>
           <button class="control-shot" type="button" aria-label="Zoom the Basic/Advanced switch">
-            <img src="assets/panel_view_switch.png" alt="HotspotUV panel — primary Hotspot button, target counter and the Basic/Advanced switch" width="361" height="102" loading="lazy">
+            <img src="assets/panel_view_switch.png" alt="HotspotUV panel, primary Hotspot button, target counter and the Basic/Advanced switch" width="361" height="102" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Basic</dt>
-            <dd>Mode, Orient, Measure, Priority, Trim size and the Scale toggles — enough for 90% of runs.</dd>
+            <dd>Mode, Orient, Measure, Priority, Trim size and the Scale toggles, enough for 90% of runs.</dd>
             <dt>Advanced</dt>
             <dd>Reveals the long-tail options plus the Padding and Variation sections. Your choice is remembered between sessions.</dd>
             <dt>Target counter</dt>
-            <dd>Always shows what the button will hit — <em>All enabled trims (N)</em> or <em>N target trims selected</em>.</dd>
+            <dd>Always shows what the button will hit: <em>All enabled trims (N)</em> or <em>N target trims selected</em>.</dd>
           </dl>
         </article>
 
@@ -376,14 +376,14 @@
           <h3>Mapping</h3>
           <p class="control-lead">How each island lands in its trim.</p>
           <button class="control-shot" type="button" aria-label="Zoom the Mapping panel">
-            <img src="assets/panel_mapping.png?v=20260818" alt="HotspotUV panel — Mapping section: Mode, Orient set to Orient to World, and the Flat tolerance field" width="361" height="166" loading="lazy">
+            <img src="assets/panel_mapping.png?v=20260818" alt="HotspotUV panel, Mapping section: Mode, Orient set to Orient to World, and the Flat tolerance field" width="361" height="166" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Mode</dt>
             <dd>Fit the island inside the trim (<em>Hotspot</em>), let it tile past the trim (<em>Seamless&nbsp;U/V</em>), or use each trim's own setting (<em>From trim settings</em>) to mix normal trims and seamless strips in one pass.</dd>
             <dt>Orient</dt>
-            <dd><em>As&nbsp;Is</em>, <em>Auto</em> (longest side horizontal), <em>Straighten</em> skew to the UV axis, or <em>Orient to World</em> — the surface's world-up (Z) points up in UV, so walls stay vertical and upside-down islands are fixed.</dd>
+            <dd><em>As&nbsp;Is</em>, <em>Auto</em> (longest side horizontal), <em>Straighten</em> skew to the UV axis, or <em>Orient to World</em>: the surface's world-up (Z) points up in UV, so walls stay vertical and upside-down islands are fixed.</dd>
             <dt>Flat tolerance</dt>
             <dd>Only with <em>Orient to World</em>: how much tilt a surface needs before it counts as sloped. Below it, a face is treated as flat and the next world axis decides, so chamfers and near-level faces stop picking arbitrary angles. Default 10&deg;. <em>(Advanced)</em></dd>
             <dt>Random offset in trim</dt>
@@ -395,20 +395,20 @@
           <h3>Matching</h3>
           <p class="control-lead">Which trim an island wins.</p>
           <button class="control-shot" type="button" aria-label="Zoom the Priority menu">
-            <img src="assets/panel_priority.png?v=20260818" alt="HotspotUV panel — Matching section with the Priority dropdown open: Balanced, Aspect, Area and World size" width="361" height="197" loading="lazy">
+            <img src="assets/panel_priority.png?v=20260818" alt="HotspotUV panel, Matching section with the Priority dropdown open: Balanced, Aspect, Area and World size" width="361" height="197" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <button class="control-shot" type="button" aria-label="Zoom the Matching panel">
-            <img src="assets/panel_matching.png?v=20260818" alt="HotspotUV panel — Matching section: Measure (Current UVs or Model geometry) and the Trim size dropdown open" width="361" height="222" loading="lazy">
+            <img src="assets/panel_matching.png?v=20260818" alt="HotspotUV panel, Matching section: Measure (Current UVs or Model geometry) and the Trim size dropdown open" width="361" height="222" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Measure</dt>
             <dd><em>Current UVs</em> matches on the island&rsquo;s UV bounding box as it is now; <em>Model geometry (3D)</em> matches on its real size on the model, so re-running with different settings decides from scratch instead of snapping back to the trim it already sits in.</dd>
             <dt>Priority</dt>
-            <dd><em>Balanced</em> (closest to the island's actual size — uniform density), by shape first, by size first, or by real-world area (texel density).</dd>
+            <dd><em>Balanced</em> (closest to the island's actual size, so density stays uniform), by shape first, by size first, or by real-world area (texel density).</dd>
             <dt>Trim size</dt>
-            <dd>Aim at trims the island&rsquo;s own size (<em>Island size</em>), or bias the search toward larger or smaller trims &mdash; or set the multiplier yourself.</dd>
+            <dd>Aim at trims the island&rsquo;s own size (<em>Island size</em>), or bias the search toward larger or smaller trims, or set the multiplier yourself.</dd>
           </dl>
         </article>
 
@@ -416,12 +416,12 @@
           <h3>Advanced matching</h3>
           <p class="control-lead">Nudge and filter the match. <em>(Advanced view)</em></p>
           <button class="control-shot" type="button" aria-label="Zoom the advanced matching controls">
-            <img src="assets/panel_tag.png" alt="HotspotUV panel — Manual scale, Aspect bias, Allow 90°, Detect radial and the Tag dropdown listing zone categories" width="361" height="385" loading="lazy">
+            <img src="assets/panel_tag.png" alt="HotspotUV panel, Manual scale, Aspect bias, Allow 90°, Detect radial and the Tag dropdown listing zone categories" width="361" height="385" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Manual scale</dt>
-            <dd>Zone-area multiplier when Trim size = <em>Manual</em> — above 1 picks bigger zones, below 1 smaller.</dd>
+            <dd>Zone-area multiplier when Trim size = <em>Manual</em>: above 1 picks bigger zones, below 1 smaller.</dd>
             <dt>Aspect bias</dt>
             <dd>Nudge matches toward wider (<em>+</em>) or narrower (<em>−</em>) zones.</dd>
             <dt>Allow 90° rotation</dt>
@@ -429,7 +429,7 @@
             <dt>Detect radial</dt>
             <dd>Round islands (caps, flanges) go only to trims tagged <em>Radial</em>; everything else avoids them.</dd>
             <dt>Tag filter</dt>
-            <dd>Map only to trims carrying a chosen tag — e.g. send rivets to rivet strips.</dd>
+            <dd>Map only to trims carrying a chosen tag, e.g. send rivets to rivet strips.</dd>
           </dl>
         </article>
 
@@ -437,7 +437,7 @@
           <h3>Scale</h3>
           <p class="control-lead">How big the island gets in the trim.</p>
           <button class="control-shot" type="button" aria-label="Zoom the Scale panel">
-            <img src="assets/panel_scale.png" alt="HotspotUV panel — Scale section: Keep proportion, Max stretch, Texel density mode, Density and Density margin" width="361" height="191" loading="lazy">
+            <img src="assets/panel_scale.png" alt="HotspotUV panel, Scale section: Keep proportion, Max stretch, Texel density mode, Density and Density margin" width="361" height="191" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
@@ -448,7 +448,7 @@
             <dt>Texel density mode + Sample</dt>
             <dd>Scale every island to one consistent texel density from its real 3D area. <em>Sample</em> reads the density off a selected island.</dd>
             <dt>Density margin %</dt>
-            <dd>Snap to an exact trim fill when it costs only a little extra density — no sliver gaps.</dd>
+            <dd>Snap to an exact trim fill when it costs only a little extra density, so no sliver gaps.</dd>
           </dl>
         </article>
 
@@ -456,7 +456,7 @@
           <h3>Padding</h3>
           <p class="control-lead">Keep trims from bleeding into each other. <em>(Advanced view)</em></p>
           <button class="control-shot" type="button" aria-label="Zoom the Padding panel">
-            <img src="assets/panel_padding.png" alt="HotspotUV panel — Padding section with the Inset mode dropdown open: Manual, From zone, Combined" width="361" height="141" loading="lazy">
+            <img src="assets/panel_padding.png" alt="HotspotUV panel, Padding section with the Inset mode dropdown open: Manual, From zone, Combined" width="361" height="141" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
@@ -465,15 +465,15 @@
             <dt>Padding</dt>
             <dd>Global margin in pixels around every island.</dd>
             <dt>Padding scale</dt>
-            <dd>One multiplier on all effective padding — raise it for mip-safe UVs without editing a single zone; 0 disables padding entirely.</dd>
+            <dd>One multiplier on all effective padding: raise it for mip-safe UVs without editing a single zone; 0 disables padding entirely.</dd>
           </dl>
         </article>
 
         <article class="card control-group">
           <h3>Variation</h3>
-          <p class="control-lead">Break up visible tiling — repeatably. <em>(Advanced view)</em></p>
+          <p class="control-lead">Break up visible tiling, repeatably. <em>(Advanced view)</em></p>
           <button class="control-shot" type="button" aria-label="Zoom the Variation panel">
-            <img src="assets/panel_variation.png" alt="HotspotUV panel — Variation section with seeded randomization options" width="361" height="184" loading="lazy">
+            <img src="assets/panel_variation.png" alt="HotspotUV panel, Variation section with seeded randomization options" width="361" height="184" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
@@ -490,29 +490,29 @@
           <h3>Map modes &amp; Fit</h3>
           <p class="control-lead">One switch decides what a click on the map does.</p>
           <button class="control-shot control-shot-wide" type="button" aria-label="Zoom the map toolbar">
-            <img src="assets/toolbar_map.png" alt="HotspotUV map toolbar — Zoom Extents, Background, the Place/Select/Edit mode switch, Fit dropdown, Snap and the Display popup" width="600" height="36" loading="lazy">
+            <img src="assets/toolbar_map.png" alt="HotspotUV map toolbar, Zoom Extents, Background, the Place/Select/Edit mode switch, Fit dropdown, Snap and the Display popup" width="600" height="36" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <button class="control-shot" type="button" aria-label="Zoom the map in Select mode">
-            <img src="assets/map_select.png" alt="HotspotUV map in Select mode — two target trims outlined with the selection counter chip in the corner" width="623" height="647" loading="lazy">
+            <img src="assets/map_select.png" alt="HotspotUV map in Select mode, two target trims outlined with the selection counter chip in the corner" width="623" height="647" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Place</dt>
-            <dd>Click a trim and the selected UVs drop straight into it — using the <em>Fit</em> mode next to the switch (<em>Fill</em>, <em>Cover</em>, <em>Fit width</em>, <em>Fit height</em>).</dd>
+            <dd>Click a trim and the selected UVs drop straight into it, using the <em>Fit</em> mode next to the switch (<em>Fill</em>, <em>Cover</em>, <em>Fit width</em>, <em>Fit height</em>).</dd>
             <dt>Select</dt>
             <dd>Click or drag-select the hotspot target trims; the live counter sits right on the map.</dd>
             <dt>Edit</dt>
-            <dd>Move and scale the trims themselves — see the next card.</dd>
+            <dd>Move and scale the trims themselves. See the next card.</dd>
             <dt>Rotate 90&deg;</dt>
             <dd>Rotate the selected UV islands in place, straight from the map toolbar.</dd>
             <dt>Background &amp; view</dt>
-            <dd>Zoom Extents plus a texture underlay — from a file or straight off the selected object's material.</dd>
+            <dd>Zoom Extents plus a texture underlay, from a file or straight off the selected object's material.</dd>
             <dt>Display</dt>
-            <dd>Trim opacity, border strength / thickness / color and label size &amp; color — fade the trims to inspect the texture underneath.</dd>
+            <dd>Trim opacity, border strength / thickness / color and label size &amp; color. Fade the trims to inspect the texture underneath.</dd>
           </dl>
           <button class="control-shot" type="button" aria-label="Zoom the Display popup">
-            <img src="assets/panel_display.png" alt="HotspotUV Display popup — opacity and border sliders, border width, label size, border and text color" width="230" height="212" loading="lazy">
+            <img src="assets/panel_display.png" alt="HotspotUV Display popup, opacity and border sliders, border width, label size, border and text color" width="230" height="212" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
         </article>
@@ -521,16 +521,16 @@
           <h3>Edit &amp; snap</h3>
           <p class="control-lead">Reshape the sheet right on the map.</p>
           <button class="control-shot" type="button" aria-label="Zoom the map in Edit mode">
-            <img src="assets/map_edit_gizmo.png" alt="HotspotUV map in Edit mode — two trims selected with the scale gizmo and a size tooltip" width="623" height="647" loading="lazy">
+            <img src="assets/map_edit_gizmo.png" alt="HotspotUV map in Edit mode, two trims selected with the scale gizmo and a size tooltip" width="623" height="647" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Move &amp; scale</dt>
             <dd>Drag trims to move them (multi-selection moves together); the group gizmo scales everything about a common pivot.</dd>
             <dt>Snap <kbd>S</kbd></dt>
-            <dd>Edges and corners snap to neighbouring trims and the sheet border — zoom-independent, toggled with one key.</dd>
+            <dd>Edges and corners snap to neighbouring trims and the sheet border, zoom-independent, toggled with one key.</dd>
             <dt>Undo</dt>
-            <dd>Every gesture is one undo step — <kbd>Ctrl+Z</kbd> works right in the tool.</dd>
+            <dd>Every gesture is one undo step: <kbd>Ctrl+Z</kbd> works right in the tool.</dd>
           </dl>
         </article>
 
@@ -538,14 +538,14 @@
           <h3>Per-trim settings</h3>
           <p class="control-lead">Every zone can behave differently.</p>
           <button class="control-shot control-shot-tall" type="button" aria-label="Zoom the Edit Trim dialog">
-            <img src="assets/dialog_edit_trim.png" alt="HotspotUV Edit Trim dialog — name, position, size, color, inset, world size, fit axis and tags" width="289" height="406" loading="lazy">
+            <img src="assets/dialog_edit_trim.png" alt="HotspotUV Edit Trim dialog, name, position, size, color, inset, world size, fit axis and tags" width="289" height="406" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>Edit Trim</dt>
             <dd>Double-click a trim in the list or on the map to open it.</dd>
             <dt>Fit axis</dt>
-            <dd>Give any trim its own behaviour — fit, fill-to-cover or seamless U/V — used by the <em>From trim settings</em> mode.</dd>
+            <dd>Give any trim its own behaviour: fit, fill-to-cover or seamless U/V. Used by the <em>From trim settings</em> mode.</dd>
             <dt>Tags</dt>
             <dd>Comma-separated categories for the matching filters.</dd>
             <dt>World W/H &amp; Inset</dt>
@@ -557,21 +557,21 @@
           <h3>Trimsheet &amp; files</h3>
           <p class="control-lead">Load, save and reshape trim layouts.</p>
           <button class="control-shot" type="button" aria-label="Zoom the File menu">
-            <img src="assets/menu_file.png" alt="HotspotUV File menu — New, New from Texture, Open, Save, Import and Edit Trimsheet" width="185" height="207" loading="lazy">
+            <img src="assets/menu_file.png" alt="HotspotUV File menu, New, New from Texture, Open, Save, Import and Edit Trimsheet" width="185" height="207" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>New / Open / Save</dt>
             <dd>Start fresh, load a <code>.json</code> layout, or save your sheet.</dd>
             <dt>New from Texture</dt>
-            <dd>Point it at a color-ID layout texture and every flat color block becomes a trim — tolerance and minimum size included.</dd>
+            <dd>Point it at a color-ID layout texture and every flat color block becomes a trim, tolerance and minimum size included.</dd>
             <dt>Import Trimsheet</dt>
             <dd>Merge zones from another file into the current sheet.</dd>
             <dt>Edit Trimsheet</dt>
-            <dd>Resize the sheet — the zones scale with it.</dd>
+            <dd>Resize the sheet and the zones scale with it.</dd>
           </dl>
           <button class="control-shot control-shot-tall" type="button" aria-label="Zoom the Trims From Texture dialog">
-            <img src="assets/dialog_from_texture.png" alt="HotspotUV Trims From Texture dialog — color tolerance, minimum block size, background handling and a live detection preview" width="372" height="586" loading="lazy">
+            <img src="assets/dialog_from_texture.png" alt="HotspotUV Trims From Texture dialog, color tolerance, minimum block size, background handling and a live detection preview" width="372" height="586" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
         </article>
@@ -580,29 +580,29 @@
           <h3>Trims toolbar</h3>
           <p class="control-lead">Frequent actions labeled, the rest one click away.</p>
           <button class="control-shot control-shot-wide" type="button" aria-label="Zoom the Trims toolbar">
-            <img src="assets/toolbar_trims.png" alt="HotspotUV Trims toolbar — labeled New, Duplicate, Delete, From UVs and Grid buttons plus the overflow menu" width="440" height="40" loading="lazy">
+            <img src="assets/toolbar_trims.png" alt="HotspotUV Trims toolbar, labeled New, Duplicate, Delete, From UVs and Grid buttons plus the overflow menu" width="440" height="40" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <button class="control-shot" type="button" aria-label="Zoom the overflow menu">
-            <img src="assets/menu_overflow.png" alt="HotspotUV Trims overflow menu — Split Selected Trims, Set Tags, Remove Tags, Set Fit Axis, Map UVs to Trims" width="160" height="149" loading="lazy">
+            <img src="assets/menu_overflow.png" alt="HotspotUV Trims overflow menu, Split Selected Trims, Set Tags, Remove Tags, Set Fit Axis, Map UVs to Trims" width="160" height="149" loading="lazy">
             <span class="control-shot-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
           </button>
           <dl class="control-list">
             <dt>New / Duplicate / Delete</dt>
-            <dd>Manage zones in the list — with labels, no icon guessing.</dd>
+            <dd>Manage zones in the list, with labels and no icon guessing.</dd>
             <dt>From UVs</dt>
-            <dd>Build zones straight from your selected UV islands — the main way to create a sheet.</dd>
+            <dd>Build zones straight from your selected UV islands, the main way to create a sheet.</dd>
             <dt>Grid</dt>
             <dd>Build a regular grid of zones.</dd>
             <dt>⋯ menu</dt>
-            <dd>Split Selected Trims (equal columns or rows), Set / Remove Tags, Set Fit Axis and Map UVs to Trims — bulk actions on the selection, also in the right-click menu.</dd>
+            <dd>Split Selected Trims (equal columns or rows), Set / Remove Tags, Set Fit Axis and Map UVs to Trims: bulk actions on the selection, also in the right-click menu.</dd>
           </dl>
         </article>
 
       </div>
 
       <div class="reveal" style="text-align:center;margin-top:40px">
-        <p style="margin:0 0 14px;color:var(--muted,inherit)">Want the full picture — window anatomy, a trim-sheet building recipe and a live matching simulator?</p>
+        <p style="margin:0 0 14px;color:var(--muted,inherit)">Want the full picture: window anatomy, a trim-sheet building recipe and a live matching simulator?</p>
         <a href="tutorial.html" class="btn btn-ghost btn-lg">Open the interactive tutorial →</a>
       </div>
     </div>
@@ -619,7 +619,7 @@
         <li class="step reveal">
           <span class="step-num">01</span>
           <h3>Load a trim layout</h3>
-          <p>Open a <code>.json</code> trim sheet, generate zones from your UV islands, or build them from a grid — with your texture as a background preview.</p>
+          <p>Open a <code>.json</code> trim sheet, generate zones from your UV islands, or build them from a grid, with your texture as a background preview.</p>
         </li>
         <li class="step reveal">
           <span class="step-num">02</span>
@@ -629,7 +629,7 @@
         <li class="step reveal">
           <span class="step-num">03</span>
           <h3>Pick target zones</h3>
-          <p>Click or drag-select zones on the visual map — or leave the selection empty to target all enabled zones.</p>
+          <p>Click or drag-select zones on the visual map, or leave the selection empty to target all enabled zones.</p>
         </li>
         <li class="step reveal">
           <span class="step-num">04</span>
@@ -684,22 +684,22 @@
       <div class="freetool-grid">
         <div class="freetool-copy reveal">
           <p class="eyebrow">Free tool · no sign-up, no install</p>
-          <h2>TileCheck — see your textures tile <em>before</em> they ship</h2>
+          <h2>TileCheck: see your textures tile <em>before</em> they ship</h2>
           <p class="section-lead">
             A small in-browser companion to your trim-sheet workflow. Drop an albedo, normal and
             comp (ORM) map and TileCheck repeats them across an infinite plane under real-time PBR
-            lighting — then measures the edges for you, so seams, value jumps and banding show up
+            lighting, then measures the edges for you, so seams, value jumps and banding show up
             here, not in the engine.
           </p>
           <ul class="freetool-list">
-            <li><strong>Seams measured, not eyeballed</strong> — every tile edge is scored against the map&rsquo;s own detail, per map and per axis, and the edges in the view glow where the mismatch actually is. Tile borders and a half-offset mode bring the seam to the middle of your screen when you want a closer look.</li>
-            <li><strong>Catches the drift you can&rsquo;t see</strong> — a flat brightness offset between two edges disappears into grain up close, then bands across a whole wall. TileCheck flags it before the engine does.</li>
-            <li><strong>Reloads when you save</strong> — keep it open beside Substance or Photoshop and re-export; the preview updates itself. Hold <b>B</b> to flip back to the version it replaced.</li>
-            <li><strong>Light that follows your cursor</strong> — rake the light across the surface to expose normal-map seams and direction flips, isolate albedo, normal, AO, roughness or metalness, and switch DirectX&nbsp;&harr;&nbsp;OpenGL in one click.</li>
-            <li><strong>100% private</strong> — everything runs locally in your browser via WebGL. Your textures are never uploaded.</li>
+            <li><strong>Seams measured, not eyeballed</strong>: every tile edge is scored against the map&rsquo;s own detail, per map and per axis, and the edges in the view glow where the mismatch actually is. Tile borders and a half-offset mode bring the seam to the middle of your screen when you want a closer look.</li>
+            <li><strong>Catches the drift you can&rsquo;t see</strong>: a flat brightness offset between two edges disappears into grain up close, then bands across a whole wall. TileCheck flags it before the engine does.</li>
+            <li><strong>Reloads when you save</strong>: keep it open beside Substance or Photoshop and re-export; the preview updates itself. Hold <b>B</b> to flip back to the version it replaced.</li>
+            <li><strong>Light that follows your cursor</strong>: rake the light across the surface to expose normal-map seams and direction flips, isolate albedo, normal, AO, roughness or metalness, and switch DirectX&nbsp;&harr;&nbsp;OpenGL in one click.</li>
+            <li><strong>100% private</strong>: everything runs locally in your browser via WebGL. Your textures are never uploaded.</li>
           </ul>
           <div class="hero-actions">
-            <a href="tilecheck.html" class="btn btn-primary btn-lg">Open TileCheck — it&rsquo;s free</a>
+            <a href="tilecheck.html" class="btn btn-primary btn-lg">Open TileCheck, it&rsquo;s free</a>
           </div>
         </div>
 
@@ -707,7 +707,7 @@
           <div class="window">
             <div class="window-bar">
               <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-              <span class="window-title">TileCheck — brick_wall_ALBD.png · 3×3</span>
+              <span class="window-title">TileCheck - brick_wall_ALBD.png · 3×3</span>
             </div>
             <svg class="freetool-tiles" viewBox="0 0 420 300" fill="none" aria-hidden="true">
               <defs>
@@ -740,7 +740,7 @@
               </g>
             </svg>
           </div>
-          <p class="freetool-caption">Drag &amp; drop your maps — get an answer in seconds.</p>
+          <p class="freetool-caption">Drag &amp; drop your maps and get an answer in seconds.</p>
         </a>
       </div>
     </div>
@@ -821,7 +821,7 @@
           <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-ghost btn-block">Get Studio</a>
         </div>
       </div>
-      <p class="price-limit tier-offer reveal">Regional pricing available — the discount for your country is applied automatically at checkout</p>
+      <p class="price-limit tier-offer reveal">Regional pricing available: the discount for your country is applied automatically at checkout</p>
       <p class="tier-includes reveal">Every license includes: the plugin with a one-click .mzp installer &middot; sample trim layouts &middot; quick-start guide &middot; 1 year of free updates &middot; direct support from the developer</p>
       <p class="tier-includes reveal">Buying for a company? VAT invoices are provided automatically at checkout. Questions about team licensing: <a href="mailto:dawidkucharyk@3designdk.com?subject=HotspotUV%20team%20licensing">dawidkucharyk@3designdk.com</a></p>
     </div>
@@ -839,15 +839,15 @@
               <li>Autodesk 3ds Max 2022&ndash;2027 (developed and tested on 2024 and 2026)</li>
               <li>Windows 64-bit</li>
               <li>Uses the built-in Unwrap_UVW modifier</li>
-              <li>Runs on Max's bundled Python 3 — no extra installs</li>
+              <li>Runs on Max's bundled Python 3, no extra installs</li>
             </ul>
           </div>
           <div>
             <h4>Install</h4>
-            <p class="req-lead">Recommended — the <code>.mzp</code> installer (in your download):</p>
+            <p class="req-lead">Recommended, the <code>.mzp</code> installer (in your download):</p>
             <ol>
               <li>In 3ds Max: <strong>Scripting &rarr; Run Script&hellip;</strong> and pick the <code>HotspotUV_*.mzp</code> from your download</li>
-              <li>Confirm the dialog — HotspotUV installs and runs <strong>right away, no restart</strong></li>
+              <li>Confirm the dialog and HotspotUV installs and runs <strong>right away, no restart</strong></li>
             </ol>
             <p class="req-note">Prefer not to click inside Max? Run the included <code>install.bat</code>, or copy the <code>HotspotUV</code> folder into <code>%PROGRAMDATA%\Autodesk\ApplicationPlugins\</code> (all users) or <code>%LOCALAPPDATA%\Autodesk\ApplicationPlugins\</code> (one user, no admin), then restart Max.</p>
           </div>
@@ -870,11 +870,11 @@
         </details>
         <details>
           <summary>Does it modify my geometry?</summary>
-          <p>No. HotspotUV works exclusively through the built-in Unwrap_UVW modifier — only your UV coordinates change, never the mesh itself.</p>
+          <p>No. HotspotUV works exclusively through the built-in Unwrap_UVW modifier, so only your UV coordinates change, never the mesh itself.</p>
         </details>
         <details>
           <summary>Can I undo a hotspot operation?</summary>
-          <p>Yes — the entire operation, across all mapped islands, is a single undo step. One Ctrl+Z brings everything back.</p>
+          <p>Yes. The entire operation, across all mapped islands, is a single undo step. One Ctrl+Z brings everything back.</p>
         </details>
         <details>
           <summary>What trim layout formats does it use?</summary>
@@ -882,11 +882,11 @@
         </details>
         <details>
           <summary>Is the matching random?</summary>
-          <p>By default it's fully deterministic — the same input always gives the same result, and islands round-trip back to their own trims. Randomized variation (rotation, mirroring, pick among equal matches) is opt-in and seeded, so even randomness is repeatable.</p>
+          <p>By default it's fully deterministic: the same input always gives the same result, and islands round-trip back to their own trims. Randomized variation (rotation, mirroring, pick among equal matches) is opt-in and seeded, so even randomness is repeatable.</p>
         </details>
         <details>
           <summary>How does licensing work?</summary>
-          <p>It's a lifetime license — the plugin is yours to keep forever — and the price includes one year of updates. After that year the plugin keeps working; you'd only renew if you want newer versions. Three sizes: <strong>Individual</strong> (1 artist, up to 2 machines), <strong>Team</strong> (up to 5 machines) and <strong>Studio</strong> (unlimited activations). Need to move a seat to a new machine? Reach out and I'll free it up.</p>
+          <p>It's a lifetime license (the plugin is yours to keep forever) and the price includes one year of updates. After that year the plugin keeps working; you'd only renew if you want newer versions. Three sizes: <strong>Individual</strong> (1 artist, up to 2 machines), <strong>Team</strong> (up to 5 machines) and <strong>Studio</strong> (unlimited activations). Need to move a seat to a new machine? Reach out and I'll free it up.</p>
         </details>
       </div>
     </div>
@@ -898,37 +898,54 @@
       <div class="section-head reveal">
         <p class="eyebrow">Release notes</p>
         <h2>What&rsquo;s new in HotspotUV</h2>
-        <p class="section-sub">Actively developed — every purchase includes a year of updates like these.</p>
+        <p class="section-sub">Actively developed. Every purchase includes a year of updates like these.</p>
       </div>
 
       <div class="changelog reveal">
 
         <details class="release is-latest" open>
           <summary class="release-head">
+            <span class="release-version">v2.4.1</span>
+            <span class="release-date">22 Aug 2026</span>
+            <span class="release-badge">Latest</span>
+          </summary>
+          <div class="release-content">
+            <div class="rel-group">
+              <span class="rel-cat">Fixed</span>
+              <ul class="rel-list">
+                <li><strong>A blocked connection no longer looks like a rejected license key.</strong> Activation checks your key online once. If a firewall, VPN, antivirus or company network stops 3ds Max from reaching the internet, the key is never checked at all, but the dialog reported that in the same red line as a genuine rejection, under a raw Windows error such as <em>[WinError 10013]</em>. The message now says in its first sentence that the key has <em>not</em> been rejected, names the likely cause for that specific error, lists what to try, and keeps the technical detail at the end. Reported by a customer.</li>
+                <li><strong>The plugin reported its own version as 2.3.1</strong> in the 3ds Max plugin manager. The two version fields in the package manifest are now stamped from a single source at build time, so they cannot drift apart again.</li>
+                <li>The number fields in the trim map&rsquo;s <em>Display</em> popup kept their pre-2.4.0 behaviour: the wheel changed values without the field being focused, and the arrows could not be dragged to sweep a value. They now match every other number field in the tool.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="release">
+          <summary class="release-head">
             <span class="release-version">v2.4.0</span>
             <span class="release-date">18 Aug 2026</span>
-            <span class="release-badge">Latest</span>
           </summary>
           <div class="release-content">
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>Flat tolerance</strong> &mdash; <em>Orient to World</em> reads which world axis runs uphill across a face, and a face lying level to that axis has no uphill at all, so the next axis decides. That call used to hang on a raw threshold, which let a chamfer half a degree off level &mdash; or plain rounding noise on a flat face &mdash; set the rotation for a whole island. It is now the surface&rsquo;s tilt in degrees: below the tolerance a face counts as flat. Default 10&deg;. Reported by Edward B.</li>
-                <li><strong>Measure: Current UVs or Model geometry (3D)</strong> &mdash; matching reads an island&rsquo;s current UV bounding box, which makes a second pass sticky: once an island sits in a trim it carries that trim&rsquo;s proportions and matches straight back to it, so new settings look ignored until you clear the UVs. Measuring on the model instead makes every pass decide from scratch. Needs a scale to compare against: one trim with a real-world size, or texel density. Reported by Edward B.</li>
+                <li><strong>Flat tolerance</strong>: <em>Orient to World</em> reads which world axis runs uphill across a face, and a face lying level to that axis has no uphill at all, so the next axis decides. That call used to hang on a raw threshold, which let a chamfer half a degree off level, or plain rounding noise on a flat face, set the rotation for a whole island. It is now the surface&rsquo;s tilt in degrees: below the tolerance a face counts as flat. Default 10&deg;. Reported by Edward B.</li>
+                <li><strong>Measure: Current UVs or Model geometry (3D)</strong>. Matching reads an island&rsquo;s current UV bounding box, which makes a second pass sticky: once an island sits in a trim it carries that trim&rsquo;s proportions and matches straight back to it, so new settings look ignored until you clear the UVs. Measuring on the model instead makes every pass decide from scratch. Needs a scale to compare against: one trim with a real-world size, or texel density. Reported by Edward B.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">Changed</span>
               <ul class="rel-list">
-                <li><strong>&ldquo;Area&rdquo; is now &ldquo;Trim size&rdquo;</strong>, and its entries say what they do: <em>Island size (closest)</em>, <em>Prefer large trims</em>, <em>Prefer small trims</em>, <em>Manual</em>. They bias the size search rather than rank trims &mdash; on a sheet whose trims dwarf the island, &ldquo;prefer large&rdquo; can land in between, which the old &ldquo;largest zone&rdquo; label promised it would not. Existing presets keep working. Reported by Edward B.</li>
-                <li><strong>Drag the arrows on any number field</strong> to sweep the value, the way Max spinners work &mdash; Ctrl for fine steps, Shift for coarse. A plain click still steps once.</li>
+                <li><strong>&ldquo;Area&rdquo; is now &ldquo;Trim size&rdquo;</strong>, and its entries say what they do: <em>Island size (closest)</em>, <em>Prefer large trims</em>, <em>Prefer small trims</em>, <em>Manual</em>. They bias the size search rather than rank trims. On a sheet whose trims dwarf the island, &ldquo;prefer large&rdquo; can land in between, which the old &ldquo;largest zone&rdquo; label promised it would not. Existing presets keep working. Reported by Edward B.</li>
+                <li><strong>Drag the arrows on any number field</strong> to sweep the value, the way Max spinners work. Ctrl for fine steps, Shift for coarse. A plain click still steps once.</li>
                 <li>Options that do not apply now grey out together with their captions.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">Fixed</span>
               <ul class="rel-list">
-                <li>Texel density was used as a sheet scale even with its mode switched off, reading a value from a greyed-out field &mdash; so <em>Model geometry</em> always believed it had a scale and the warning about a sheet without one could never appear.</li>
+                <li>Texel density was used as a sheet scale even with its mode switched off, reading a value from a greyed-out field, so <em>Model geometry</em> always believed it had a scale and the warning about a sheet without one could never appear.</li>
               </ul>
             </div>
           </div>
@@ -943,7 +960,7 @@
             <div class="rel-group">
               <span class="rel-cat">Fixed</span>
               <ul class="rel-list">
-                <li><strong>Padding now holds on both axes.</strong> It was measured against the whole sheet instead of the trim an island lands in, so the gap shrank with the trim&rsquo;s proportions &mdash; on a 2048&times;2048 sheet, a 640&times;128 trim asked for 8 px got 2.5 px at the sides and half a pixel top and bottom, which reads as padding working horizontally only. Padding is now literally that many pixels on every side of the trim, whatever its shape, and the same goes for per-trim insets and the Padding scale multiplier.</li>
+                <li><strong>Padding now holds on both axes.</strong> It was measured against the whole sheet instead of the trim an island lands in, so the gap shrank with the trim&rsquo;s proportions. On a 2048&times;2048 sheet, a 640&times;128 trim asked for 8 px got 2.5 px at the sides and half a pixel top and bottom, which reads as padding working horizontally only. Padding is now literally that many pixels on every side of the trim, whatever its shape, and the same goes for per-trim insets and the Padding scale multiplier.</li>
               </ul>
             </div>
           </div>
@@ -958,12 +975,12 @@
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>Quick UV: Break every edge</strong> &mdash; one option detaches every polygon into its own island, exactly like a manual break-all, so each face gets its own trim pick. The right mode for hard-surface blockouts: one box face, one panel. Runs natively, stays fast on thousands of faces.</li>
-                <li><strong>Quick UV: Break islands at folds / corners</strong> &mdash; fresh box islands are cut along fold edges and 90&deg; strip turns, each run straightened to the UV axes, so ribbons and frame borders match trims per run instead of as one connected shape.</li>
-                <li><strong>Auto-detect trim sheet</strong> &mdash; opening the window (or changing the selection) finds the .json next to the selected object&rsquo;s textures, loads it and picks the albedo as the map background.</li>
-                <li><strong>Drag &amp; drop</strong> &mdash; drop a .json on the window to load a sheet, drop an image to set the map background.</li>
-                <li><strong>Smarter seamless bands</strong> &mdash; Seamless U/V picks the band by island thickness, and Keep proportion scales all islands on a shared band with one common factor.</li>
-                <li><strong>Trim label controls</strong> &mdash; label size and color in the Display popup.</li>
+                <li><strong>Quick UV: Break every edge</strong>: one option detaches every polygon into its own island, exactly like a manual break-all, so each face gets its own trim pick. The right mode for hard-surface blockouts: one box face, one panel. Runs natively, stays fast on thousands of faces.</li>
+                <li><strong>Quick UV: Break islands at folds / corners</strong>: fresh box islands are cut along fold edges and 90&deg; strip turns, each run straightened to the UV axes, so ribbons and frame borders match trims per run instead of as one connected shape.</li>
+                <li><strong>Auto-detect trim sheet</strong>: opening the window (or changing the selection) finds the .json next to the selected object&rsquo;s textures, loads it and picks the albedo as the map background.</li>
+                <li><strong>Drag &amp; drop</strong>: drop a .json on the window to load a sheet, drop an image to set the map background.</li>
+                <li><strong>Smarter seamless bands</strong>: Seamless U/V picks the band by island thickness, and Keep proportion scales all islands on a shared band with one common factor.</li>
+                <li><strong>Trim label controls</strong>: label size and color in the Display popup.</li>
               </ul>
             </div>
             <div class="rel-group">
@@ -984,12 +1001,12 @@
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>Quick UV + Hotspot</strong> — one click takes an unmapped model to trimmed UVs: uniform box-projection at a consistent texel scale (auto-calibrated to your trim sheet), then an immediate hotspot pass. Works on any number of objects at once, with a shared Unwrap for easy inspection.</li>
-                <li><strong>New Trimsheet from Texture</strong> — build a trim sheet automatically from a flat-color layout texture (color-ID map): every uniform color block becomes a trim, with adjustable tolerance and minimum size.</li>
-                <li><strong>Split Selected Trims</strong> — divide trims into equal columns or rows; the parts tile the original exactly.</li>
-                <li><strong>Rotate 90&deg;</strong> — rotate the selected UV islands in place from the map toolbar.</li>
-                <li><strong>Display options</strong> — trim opacity, border strength, thickness and color in one popup: fade the trims to inspect the texture underneath.</li>
-                <li><strong>License tiers</strong> — Individual (2 activations), Team (5) and Studio (unlimited). Licenses purchased before this release keep working without any limit.</li>
+                <li><strong>Quick UV + Hotspot</strong>. One click takes an unmapped model to trimmed UVs: uniform box-projection at a consistent texel scale (auto-calibrated to your trim sheet), then an immediate hotspot pass. Works on any number of objects at once, with a shared Unwrap for easy inspection.</li>
+                <li><strong>New Trimsheet from Texture</strong>. Build a trim sheet automatically from a flat-color layout texture (color-ID map): every uniform color block becomes a trim, with adjustable tolerance and minimum size.</li>
+                <li><strong>Split Selected Trims</strong>: divide trims into equal columns or rows; the parts tile the original exactly.</li>
+                <li><strong>Rotate 90&deg;</strong>: rotate the selected UV islands in place from the map toolbar.</li>
+                <li><strong>Display options</strong>. Trim opacity, border strength, thickness and color in one popup: fade the trims to inspect the texture underneath.</li>
+                <li><strong>License tiers</strong>: Individual (2 activations), Team (5) and Studio (unlimited). Licenses purchased before this release keep working without any limit.</li>
               </ul>
             </div>
             <div class="rel-group">
@@ -1011,18 +1028,18 @@
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>Redesigned interface</strong> — a cleaner, calmer skin and a <strong>Basic / Advanced</strong> switch: the panel opens with just the essentials, one click reveals the full toolbox, and your choice is remembered.</li>
-                <li><strong>Place / Select / Edit mode switch</strong> — one segmented control on the map toolbar replaces the old separate toggles; the place-on-click <strong>Fit</strong> mode now sits right next to it.</li>
-                <li><strong>Edge &amp; corner snapping</strong> — in Edit mode, trims snap to neighbouring trims and the sheet border while you move or scale them. Toggle with the button or the <strong>S</strong> key.</li>
-                <li><strong>Padding scale</strong> — one multiplier over all padding (global and per-zone insets) for mip-safe UVs without editing zones.</li>
+                <li><strong>Redesigned interface</strong>. A cleaner, calmer skin and a <strong>Basic / Advanced</strong> switch: the panel opens with just the essentials, one click reveals the full toolbox, and your choice is remembered.</li>
+                <li><strong>Place / Select / Edit mode switch</strong>: one segmented control on the map toolbar replaces the old separate toggles; the place-on-click <strong>Fit</strong> mode now sits right next to it.</li>
+                <li><strong>Edge &amp; corner snapping</strong>: in Edit mode, trims snap to neighbouring trims and the sheet border while you move or scale them. Toggle with the button or the <strong>S</strong> key.</li>
+                <li><strong>Padding scale</strong>: one multiplier over all padding (global and per-zone insets) for mip-safe UVs without editing zones.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">Improved</span>
               <ul class="rel-list">
-                <li><strong>Ctrl+Z works inside the tool</strong> — trim-sheet undo no longer gets swallowed by Max's own undo stack while the window is focused.</li>
-                <li><strong>Scroll without side effects</strong> — the mouse wheel scrolls the options panel instead of nudging whatever dropdown or spinner the cursor passes over.</li>
-                <li><strong>Always-visible UV checker</strong> — the 0..1 backdrop can no longer vanish mid-edit; selection count lives on the map itself; empty states explain the next step.</li>
+                <li><strong>Ctrl+Z works inside the tool</strong>: trim-sheet undo no longer gets swallowed by Max's own undo stack while the window is focused.</li>
+                <li><strong>Scroll without side effects</strong>: the mouse wheel scrolls the options panel instead of nudging whatever dropdown or spinner the cursor passes over.</li>
+                <li><strong>Always-visible UV checker</strong>: the 0..1 backdrop can no longer vanish mid-edit; selection count lives on the map itself; empty states explain the next step.</li>
               </ul>
             </div>
           </div>
@@ -1037,16 +1054,16 @@
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>3ds Max 2025 &amp; 2026 support</strong> — HotspotUV now runs on the PySide6 / Qt6 releases of 3ds Max (2025, 2026) alongside 2024, from a single codebase.</li>
-                <li><strong>&ldquo;Balanced (uniform density)&rdquo; matching &mdash; now the default</strong> — picks the trim closest to each island&rsquo;s actual size, so islands barely rescale and texel density stays consistent across the whole model.</li>
-                <li><strong>Reset to Defaults</strong> — one click restores every hotspot option to its default value.</li>
+                <li><strong>3ds Max 2025 &amp; 2026 support</strong>: HotspotUV now runs on the PySide6 / Qt6 releases of 3ds Max (2025, 2026) alongside 2024, from a single codebase.</li>
+                <li><strong>&ldquo;Balanced (uniform density)&rdquo; matching, now the default</strong>: picks the trim closest to each island&rsquo;s actual size, so islands barely rescale and texel density stays consistent across the whole model.</li>
+                <li><strong>Reset to Defaults</strong>: one click restores every hotspot option to its default value.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">Improved</span>
               <ul class="rel-list">
-                <li><strong>Settings persist between sessions</strong> — your panel options are remembered across restarts.</li>
-                <li><strong>More robust install &amp; loading</strong> — packaging and startup improvements across 3ds Max versions.</li>
+                <li><strong>Settings persist between sessions</strong>: your panel options are remembered across restarts.</li>
+                <li><strong>More robust install &amp; loading</strong>: packaging and startup improvements across 3ds Max versions.</li>
               </ul>
             </div>
           </div>
@@ -1061,19 +1078,19 @@
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>Per-trim &ldquo;Fill (stretch to cover)&rdquo; axis</strong> — in &ldquo;From trim settings&rdquo; mode, islands are stretched edge-to-edge to cover the trim exactly (padding respected), overriding Max stretch and texel density. Great for trims that must be covered precisely.</li>
-                <li><strong>Set Fit Axis&hellip;</strong> — set the Fit axis of all selected trims at once (toolbar + right-click menu). Combine with per-trim Fill / Seamless strips and map a whole sheet in a single &ldquo;From trim settings&rdquo; pass.</li>
-                <li><strong>Remove Tags&hellip;</strong> — bulk-remove tags from all selected trims (toolbar + right-click menu, case-insensitive).</li>
-                <li><strong>Double-click to edit on the map</strong> — double-click a trim on the map to open Edit Trim&hellip; (Select and Edit modes), same as double-clicking it in the list.</li>
-                <li><strong>Background &ldquo;From Selected Object&hellip;&rdquo;</strong> — pick the trim-sheet background straight from the textures the selected object&rsquo;s materials reference, including engine and simulator materials that store texture paths as plain text, which Max itself doesn&rsquo;t list.</li>
-                <li><strong>Auto-filled texture list</strong> — the Edit UVWs texture list is filled from the selected object&rsquo;s materials when HotspotUV opens, and the albedo is shown as the editor background — no more manual Pick Texture for Multi/Sub-Object or third-party material trees Max leaves empty.</li>
+                <li><strong>Per-trim &ldquo;Fill (stretch to cover)&rdquo; axis</strong>: in &ldquo;From trim settings&rdquo; mode, islands are stretched edge-to-edge to cover the trim exactly (padding respected), overriding Max stretch and texel density. Great for trims that must be covered precisely.</li>
+                <li><strong>Set Fit Axis&hellip;</strong>: set the Fit axis of all selected trims at once (toolbar + right-click menu). Combine with per-trim Fill / Seamless strips and map a whole sheet in a single &ldquo;From trim settings&rdquo; pass.</li>
+                <li><strong>Remove Tags&hellip;</strong>: bulk-remove tags from all selected trims (toolbar + right-click menu, case-insensitive).</li>
+                <li><strong>Double-click to edit on the map</strong>: double-click a trim on the map to open Edit Trim&hellip; (Select and Edit modes), same as double-clicking it in the list.</li>
+                <li><strong>Background &ldquo;From Selected Object&hellip;&rdquo;</strong>: pick the trim-sheet background straight from the textures the selected object&rsquo;s materials reference, including engine and simulator materials that store texture paths as plain text, which Max itself doesn&rsquo;t list.</li>
+                <li><strong>Auto-filled texture list</strong>: the Edit UVWs texture list is filled from the selected object&rsquo;s materials when HotspotUV opens, and the albedo is shown as the editor background. No more manual Pick Texture for Multi/Sub-Object or third-party material trees Max leaves empty.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">Improved</span>
               <ul class="rel-list">
-                <li><strong>Texel density + Max stretch %</strong> — with &ldquo;Keep proportion&rdquo; off, islands whose full-trim fit is within the Max stretch budget on both axes now snap to a full fit; others keep the exact density (centered, no distortion). Previously Max stretch was ignored in texel-density mode.</li>
-                <li><strong>Smarter long-island matching</strong> — in &ldquo;From trim settings&rdquo; mode an island longer than a strip along its free axis is now a legal match (it tiles past the trim anyway), and the tightest strip that accepts it wins. Fixes long islands being rejected by every strip and landing in small trims at the wrong density.</li>
+                <li><strong>Texel density + Max stretch %</strong>: with &ldquo;Keep proportion&rdquo; off, islands whose full-trim fit is within the Max stretch budget on both axes now snap to a full fit; others keep the exact density (centered, no distortion). Previously Max stretch was ignored in texel-density mode.</li>
+                <li><strong>Smarter long-island matching</strong>: in &ldquo;From trim settings&rdquo; mode an island longer than a strip along its free axis is now a legal match (it tiles past the trim anyway), and the tightest strip that accepts it wins. Fixes long islands being rejected by every strip and landing in small trims at the wrong density.</li>
               </ul>
             </div>
           </div>
@@ -1088,22 +1105,22 @@
             <div class="rel-group">
               <span class="rel-cat">New</span>
               <ul class="rel-list">
-                <li><strong>Seamless mapping (U/V)</strong> — islands fit the trim&rsquo;s constrained axis only, keep proportions and can tile past the zone; optional randomized offset along the free axis.</li>
-                <li><strong>Per-trim Fit Axis + &ldquo;From trim settings&rdquo; mode</strong> — mix regular trims and seamless strips in a single pass.</li>
-                <li><strong>Detect Radial</strong> — round islands are mapped only to trims tagged &ldquo;Radial&rdquo;.</li>
-                <li><strong>Orient to World</strong> — orient islands by their 3D world direction (also fixes upside-down islands).</li>
-                <li><strong>Random offset in classic Hotspot mode</strong> — seeded and repeatable.</li>
-                <li><strong>Density margin %</strong> — snap to a full trim fit when the texel-density target is within the margin.</li>
-                <li><strong>Multi-object hotspot</strong> — run on any number of selected objects at once, still a single Undo.</li>
-                <li><strong>Trim numbering in reading order</strong> — top-to-bottom, left-to-right, plus a &ldquo;Renumber Trims&rdquo; action; zero-padded names sort correctly.</li>
-                <li><strong>Remembers your last trim sheet</strong> — the last opened sheet is reloaded on startup.</li>
-                <li><strong>Per-run summary</strong> — islands, matched/skipped and time in the MAXScript Listener.</li>
+                <li><strong>Seamless mapping (U/V)</strong>: islands fit the trim&rsquo;s constrained axis only, keep proportions and can tile past the zone; optional randomized offset along the free axis.</li>
+                <li><strong>Per-trim Fit Axis + &ldquo;From trim settings&rdquo; mode</strong>: mix regular trims and seamless strips in a single pass.</li>
+                <li><strong>Detect Radial</strong>: round islands are mapped only to trims tagged &ldquo;Radial&rdquo;.</li>
+                <li><strong>Orient to World</strong>: orient islands by their 3D world direction (also fixes upside-down islands).</li>
+                <li><strong>Random offset in classic Hotspot mode</strong>: seeded and repeatable.</li>
+                <li><strong>Density margin %</strong>: snap to a full trim fit when the texel-density target is within the margin.</li>
+                <li><strong>Multi-object hotspot</strong>: run on any number of selected objects at once, still a single Undo.</li>
+                <li><strong>Trim numbering in reading order</strong>: top-to-bottom, left-to-right, plus a &ldquo;Renumber Trims&rdquo; action; zero-padded names sort correctly.</li>
+                <li><strong>Remembers your last trim sheet</strong>: the last opened sheet is reloaded on startup.</li>
+                <li><strong>Per-run summary</strong>: islands, matched/skipped and time in the MAXScript Listener.</li>
               </ul>
             </div>
             <div class="rel-group">
               <span class="rel-cat">Performance</span>
               <ul class="rel-list">
-                <li><strong>Rewritten core pipeline</strong> — bulk UV read, in-memory affine transforms and batched writes: up to ~8&times; faster (e.g. ~1900 islands: 27.5&nbsp;s &rarr; 3.3&nbsp;s). Undo and your face selection are untouched.</li>
+                <li><strong>Rewritten core pipeline</strong>. Bulk UV read, in-memory affine transforms and batched writes: up to ~8&times; faster (e.g. ~1900 islands: 27.5&nbsp;s &rarr; 3.3&nbsp;s). Undo and your face selection are untouched.</li>
               </ul>
             </div>
             <div class="rel-group">
@@ -1141,7 +1158,7 @@
     <div class="container narrow reveal">
       <h2>Spend less time fixing UVs.<br>Spend more time creating.</h2>
       <div class="hero-actions center">
-        <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV — $30</a>
+        <a href="https://3designdk.gumroad.com/l/ueunpw" class="btn btn-primary btn-lg">Get HotspotUV for $30</a>
       </div>
       <p class="promo-echo">Regional pricing applied automatically at checkout</p>
     </div>

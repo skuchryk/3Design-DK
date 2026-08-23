@@ -1,5 +1,5 @@
 /* ============================================================
-   HotspotUV — 3Design DK
+   HotspotUV, 3Design DK
    Monochrome white-on-navy theme
    ============================================================ */
 
@@ -626,7 +626,7 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
 /* Episode index under the playlist embed. Every entry is a link, and the global
    reset strips link styling (a { color: inherit; text-decoration: none }), so
    without this the list reads as plain prose and nobody clicks it. The accent
-   here is near-white, so colour cannot carry the affordance on its own — the
+   here is near-white, so colour cannot carry the affordance on its own, so the
    underline does the work and brightens on hover. */
 .course-index {
   max-width: 760px;
@@ -841,7 +841,7 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
   color: var(--accent);
   margin-bottom: 14px;
 }
-.req-cols ul, .req-cols ol { padding-left: 20px; color: var(--muted); font-size: 0.94rem; }
+.req-cols ul.req-cols ol { padding-left: 20px; color: var(--muted); font-size: 0.94rem; }
 .req-cols li { margin-bottom: 8px; }
 .req-cols li::marker { color: var(--accent); }
 .req-lead { font-size: 0.94rem; margin-bottom: 10px; }
@@ -978,7 +978,7 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .island, .cursor { animation: none !important; opacity: 0.9; }
+  .island.cursor { animation: none !important; opacity: 0.9; }
   .island-1 { transform: translate(22px, 22px); }
   .island-2 { transform: translate(23px, 91px); }
   .island-3 { transform: translate(275px, 193px); }
@@ -1021,7 +1021,7 @@ body.promo-active .hero { padding-top: calc(160px + var(--promo-h, 38px)); }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   .section { padding: 68px 0; }
-  .feature-grid, .steps { grid-template-columns: 1fr; }
+  .feature-grid.steps { grid-template-columns: 1fr; }
   .req-cols { grid-template-columns: 1fr; }
   .window-body { grid-template-columns: 1fr; }
   .side-panel { display: none; }
