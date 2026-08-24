@@ -76,7 +76,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260823e">
+  <link rel="stylesheet" href="css/style.css?v=20260823f">
 </head>
 <body>
 
@@ -849,7 +849,8 @@
               <li>In 3ds Max: <strong>Scripting &rarr; Run Script&hellip;</strong> and pick the <code>HotspotUV_*.mzp</code> from your download</li>
               <li>Confirm the dialog and HotspotUV installs and runs <strong>right away, no restart</strong></li>
             </ol>
-            <p class="req-note">Prefer not to click inside Max? Run the included <code>install.bat</code>, or copy the <code>HotspotUV</code> folder into <code>%PROGRAMDATA%\Autodesk\ApplicationPlugins\</code> (all users) or <code>%LOCALAPPDATA%\Autodesk\ApplicationPlugins\</code> (one user, no admin), then restart Max.</p>
+            <p class="req-note"><strong>Run Script is the only way to install from a .mzp.</strong> Dragging one onto a viewport does nothing: 3ds Max runs dropped <code>.ms</code> scripts but not <code>.mzp</code> archives, and it reports no error when it declines.</p>
+            <p class="req-note">Prefer not to script inside Max? Run the included <code>install.bat</code> and restart Max. To place the files by hand instead, the <code>.mzp</code> is an ordinary ZIP: rename it to <code>.zip</code>, open it, and copy the <code>HotspotUV</code> folder into <code>%PROGRAMDATA%\Autodesk\ApplicationPlugins\</code> (all users) or <code>%LOCALAPPDATA%\Autodesk\ApplicationPlugins\</code> (one user, no admin).</p>
           </div>
         </div>
       </div>
